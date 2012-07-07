@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Autoindigestion' target in the 'Autoindigestion' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

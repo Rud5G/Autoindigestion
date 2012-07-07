@@ -1,0 +1,219 @@
+.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
+.\"See Also:
+.\"man mdoc.samples for a complete listing of options
+.\"man mdoc for the short list of editing options
+.\"/usr/share/misc/mdoc.template
+.Dd 28 May 2012
+.Dt Autoindigestion 5
+.Os Darwin
+.Sh NAME
+.Nm Autoindigestion
+.Nd configuration files for Autoindigestion
+.Sh DESCRIPTION
+.Nm
+uses three different types of configuration files.
+A vendor file is required for 
+.Nm
+to function.
+A configuration file is optional.
+A launchd item is also optional but recommended.
+.Pp
+All three file types are standard plist files.
+See
+.Xr plist 5
+for details on the plist format.
+.Pp
+.Ss Vendor Files
+A vendor file specifies the name and iTunes Connect ID of a vendor 
+along with the iTunes Connect login credentials.
+One or more vendor files are required, and by default are located in
+.Qq /Library/Autoindigestion/Vendors .
+The vendor files directory can be changed by the 
+.Fl -v
+or
+.Fl --vendors-dir
+command line options or by the 
+.Sy VendorsDir
+key in the configuration file.
+Vendor file names must end in
+.Qq .plist .
+.Ss Vendor File Keys
+Vendor file values are string values except where noted.
+Each vendor file must contain the following required keys:
+.Bl -tag -width -indent
+.It Sy VendorName
+The name of the iTunes Connect vendor.
+By default, this is also used as the directory name for storing downloaded reports.
+.It Sy VendorID
+The iTunes Connect numeric vendor ID.
+You can find this near the top of the 
+.Sy Sales and Trends
+page in iTunes Connect or in a downloaded report file.
+This is usually an eight digit number like 81234567.
+.It Sy Username
+The Apple ID (an e-mail address) used to log into iTunes Connect
+for this vendor.
+.It Sy Password
+The password corresponding to the Apple ID used to log into iTunes Connect.
+.El
+.Pp
+These keys are optional in a vendor file:
+.Bl -tag -width -indent
+.It Sy Disabled
+A Boolean value.
+If true, all downloads are skipped for this vendor.
+The default is false.
+.It Sy Owner
+The OS X username to set as the owner of downloaded report files.
+If not provided, defaults to the effective user of the process that runs
+.Nm .
+Overrides the
+.Sy Owner
+value in the configuration file, if present.
+.It Sy Group
+The OS X group name to set as the group for downloaded report files.
+If not provided, defaults to the effective group of the process that runs
+.Nm .
+Overrides the 
+.Sy Group
+value set in configuration file, if present.
+.It Sy ReportDir
+The absolute path for saving downloaded report files for this vendor.
+If not provided, defaults to
+.Bk -words
+.Qq /Users/Shared/iTunes Connect/<VendorName> .
+.Ek
+.El
+.Ss Configuration File
+The configuration file is optional.
+By default, 
+.Nm
+looks for the configuration file at
+.Qq /Library/Autoindigestion/Configuration.plist .
+The location of the configuration file can be changed by the 
+.Fl -c
+or
+.Fl --configuration-file
+command line options.
+.Ss Configuration File Keys
+.Pp
+Configuration file values are string values.
+All keys are optional, as is the file itself.
+.Bl -tag -width -indent
+.It Sy AutoingestionClass
+The absolute path to 
+.Pa Autoingestion.class .
+If not provided, defaults to
+.Qq /Library/Autoindigestion/Autoingestion.class .
+.It Sy VendorsDir
+The absolute path to the directory containing the vendor files.
+If not provided, defaults to
+.Qq /Library/Autoindigestion/Vendors .
+.It Sy Owner
+The OS X username to set as the owner of downloaded report files.
+If not provided, defaults to the effective user of the process that runs
+.Nm .
+.It Sy Group
+The OS X group to set as the group for downloaded report files.
+If not provided, defaults to the effective group of the process that runs
+.Nm .
+.El
+.Ss Launchd Item
+.Pp
+The launchd item tells OS X to run
+.Nm
+automatically at a specified time or interval.
+Launchd items are normally placed in 
+.Qq /Library/LaunchDaemons .
+See
+.Xr launchd.plist 5
+for complete information on what goes in a launchd item.
+.Sh EXAMPLES
+.Pp
+.Ss \fBExample Inc.plist\fR -- vendor file
+.Pp
+A mimimal vendor file looks like this:
+.Bd -literal -offset indent
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>VendorName</key>
+	<string>Example Inc</string>
+	
+	<key>VendorID</key>
+	<string>81234567</string>
+	
+	<key>Username</key>
+	<string>someone@example.com</string>
+	
+	<key>Password</key>
+	<string>itsasecret</string>
+</dict>
+</plist>
+.Ed
+.Pp
+.Ss \fBConfiguration.plist\fR -- configuration file (optional)
+.Pp
+This configuration file overrides the default location for the Auto-Ingest tool
+and vendor files.
+.Bd -literal -offset indent
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AutoingestionClass</key>
+	<string>/Users/Shared/iTunes Connect/Autoingestion.class</string>
+	
+	<key>VendorsDir</key>
+	<string>/Users/Shared/iTunes Connect/Vendors</string>
+</dict>
+</plist>
+.Ed
+.Pp
+.Ss \fBAutoindigestion.plist\fR -- launchd item (recommended)
+.Pp
+This is a typical launchd configuration.
+The
+.Nm
+executable is located in
+.Qq /Library/Autoindigestion/Autoindigestion
+and is run each morning at 8 AM.
+Standard output and standard error are redirected to 
+.Qq /Library/Logs/Autoindigestion.log .
+.Pp
+.Bd -literal -offset indent
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>Autoindigestion</string>
+	
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Library/Autoindigestion/Autoindigestion</string>
+	</array>
+	
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>8</integer>
+	</dict>
+	
+	<key>StandardErrorPath</key>
+	<string>/Library/Logs/Autoindigestion.log</string>
+	
+	<key>StandardOutPath</key>
+	<string>/Library/Logs/Autoindigestion.log</string>
+</dict>
+</plist>
+.Ed
+
+.Sh SEE ALSO 
+.Xr Autoindigestion 1 ,
+.Xr launchd.plist 5 ,
+.Xr plist 5

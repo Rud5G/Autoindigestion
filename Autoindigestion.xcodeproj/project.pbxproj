@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */ = {isa = PBXBuildFile; fileRef = D407937415A800AA0018FBBA /* Autoindigestion.1 */; };
+		D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */ = {isa = PBXBuildFile; fileRef = D407937515A800AA0018FBBA /* Autoindigestion.5 */; };
+		D46A5014157436120092B175 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A5013157436120092B175 /* Foundation.framework */; };
+		D4A7718C15A380E400CEC757 /* Autoingestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716715A380E400CEC757 /* Autoingestion.m */; };
+		D4A7718D15A380E400CEC757 /* AutoingestionJob.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716915A380E400CEC757 /* AutoingestionJob.m */; };
+		D4A7718E15A380E400CEC757 /* ConfigurationFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716B15A380E400CEC757 /* ConfigurationFile.m */; };
+		D4A7718F15A380E400CEC757 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716D15A380E400CEC757 /* Defaults.m */; };
+		D4A7719015A380E400CEC757 /* NSCalendar+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717015A380E400CEC757 /* NSCalendar+Autoindigestion.m */; };
+		D4A7719115A380E400CEC757 /* NSDate+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717215A380E400CEC757 /* NSDate+Autoindigestion.m */; };
+		D4A7719215A380E400CEC757 /* NSError+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717415A380E400CEC757 /* NSError+Autoindigestion.m */; };
+		D4A7719315A380E400CEC757 /* NSObject+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717615A380E400CEC757 /* NSObject+Autoindigestion.m */; };
+		D4A7719415A380E400CEC757 /* NSString+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717815A380E400CEC757 /* NSString+Autoindigestion.m */; };
+		D4A7719515A380E400CEC757 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717A15A380E400CEC757 /* Group.m */; };
+		D4A7719615A380E400CEC757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717B15A380E400CEC757 /* main.m */; };
+		D4A7719715A380E400CEC757 /* Options.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717E15A380E400CEC757 /* Options.m */; };
+		D4A7719815A380E400CEC757 /* ReportCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718015A380E400CEC757 /* ReportCategory.m */; };
+		D4A7719915A380E400CEC757 /* StandardMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718315A380E400CEC757 /* StandardMonitor.m */; };
+		D4A7719A15A380E400CEC757 /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718515A380E400CEC757 /* Tool.m */; };
+		D4A7719B15A380E400CEC757 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
+		D4A7719C15A380E400CEC757 /* Vendor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718915A380E400CEC757 /* Vendor.m */; };
+		D4A7719D15A380E400CEC757 /* VendorFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718B15A380E400CEC757 /* VendorFile.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		D407937315A7FFC90018FBBA /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.[1-8]";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"${PROJECT_DIR}/${INPUT_FILE_NAME}.txt",
+			);
+			script = "man \"${INPUT_FILE_PATH}\" | col -b > \"${INPUT_FILE_PATH}.txt\"\n";
+		};
+/* End PBXBuildRule section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D46A500D157436120092B175 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D407936915A7F9350018FBBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D407936A15A7F9350018FBBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D407937415A800AA0018FBBA /* Autoindigestion.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = Autoindigestion.1; sourceTree = "<group>"; };
+		D407937515A800AA0018FBBA /* Autoindigestion.5 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.5; sourceTree = "<group>"; };
+		D407937A15A82B2B0018FBBA /* Autoindigestion.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.1.txt; sourceTree = "<group>"; };
+		D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.5.txt; sourceTree = "<group>"; };
+		D41D101A15A799A400E3C972 /* Sample Vendor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sample Vendor.plist"; sourceTree = "<group>"; };
+		D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Autoindigestion LaunchDaemon.plist"; sourceTree = "<group>"; };
+		D464C51515894E48000F0173 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D464C51715894E48000F0173 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		D464C51A15894E48000F0173 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D464C51B15894E48000F0173 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D464C51C15894E48000F0173 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D46A500F157436120092B175 /* Autoindigestion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Autoindigestion; sourceTree = BUILT_PRODUCTS_DIR; };
+		D46A5013157436120092B175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Autoindigestion-Prefix.pch"; sourceTree = "<group>"; };
+		D4A7716615A380E400CEC757 /* Autoingestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Autoingestion.h; sourceTree = "<group>"; };
+		D4A7716715A380E400CEC757 /* Autoingestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Autoingestion.m; sourceTree = "<group>"; };
+		D4A7716815A380E400CEC757 /* AutoingestionJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoingestionJob.h; sourceTree = "<group>"; };
+		D4A7716915A380E400CEC757 /* AutoingestionJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoingestionJob.m; sourceTree = "<group>"; };
+		D4A7716A15A380E400CEC757 /* ConfigurationFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationFile.h; sourceTree = "<group>"; };
+		D4A7716B15A380E400CEC757 /* ConfigurationFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationFile.m; sourceTree = "<group>"; };
+		D4A7716C15A380E400CEC757 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defaults.h; sourceTree = "<group>"; };
+		D4A7716D15A380E400CEC757 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Defaults.m; sourceTree = "<group>"; };
+		D4A7716F15A380E400CEC757 /* NSCalendar+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Autoindigestion.h"; sourceTree = "<group>"; };
+		D4A7717015A380E400CEC757 /* NSCalendar+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Autoindigestion.m"; sourceTree = "<group>"; };
+		D4A7717115A380E400CEC757 /* NSDate+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Autoindigestion.h"; sourceTree = "<group>"; };
+		D4A7717215A380E400CEC757 /* NSDate+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Autoindigestion.m"; sourceTree = "<group>"; };
+		D4A7717315A380E400CEC757 /* NSError+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Autoindigestion.h"; sourceTree = "<group>"; };
+		D4A7717415A380E400CEC757 /* NSError+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Autoindigestion.m"; sourceTree = "<group>"; };
+		D4A7717515A380E400CEC757 /* NSObject+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Autoindigestion.h"; sourceTree = "<group>"; };
+		D4A7717615A380E400CEC757 /* NSObject+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Autoindigestion.m"; sourceTree = "<group>"; };
+		D4A7717715A380E400CEC757 /* NSString+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Autoindigestion.h"; sourceTree = "<group>"; };
+		D4A7717815A380E400CEC757 /* NSString+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Autoindigestion.m"; sourceTree = "<group>"; };
+		D4A7717915A380E400CEC757 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		D4A7717A15A380E400CEC757 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		D4A7717B15A380E400CEC757 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D4A7717C15A380E400CEC757 /* Monitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Monitor.h; sourceTree = "<group>"; };
+		D4A7717D15A380E400CEC757 /* Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Options.h; sourceTree = "<group>"; };
+		D4A7717E15A380E400CEC757 /* Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Options.m; sourceTree = "<group>"; };
+		D4A7717F15A380E400CEC757 /* ReportCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportCategory.h; sourceTree = "<group>"; };
+		D4A7718015A380E400CEC757 /* ReportCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCategory.m; sourceTree = "<group>"; };
+		D4A7718115A380E400CEC757 /* Reporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reporter.h; sourceTree = "<group>"; };
+		D4A7718215A380E400CEC757 /* StandardMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardMonitor.h; sourceTree = "<group>"; };
+		D4A7718315A380E400CEC757 /* StandardMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardMonitor.m; sourceTree = "<group>"; };
+		D4A7718415A380E400CEC757 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
+		D4A7718515A380E400CEC757 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
+		D4A7718615A380E400CEC757 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		D4A7718715A380E400CEC757 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		D4A7718815A380E400CEC757 /* Vendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vendor.h; sourceTree = "<group>"; };
+		D4A7718915A380E400CEC757 /* Vendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vendor.m; sourceTree = "<group>"; };
+		D4A7718A15A380E400CEC757 /* VendorFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorFile.h; sourceTree = "<group>"; };
+		D4A7718B15A380E400CEC757 /* VendorFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorFile.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D46A500C157436120092B175 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D46A5014157436120092B175 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D464C51915894E48000F0173 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D464C51A15894E48000F0173 /* AppKit.framework */,
+				D464C51B15894E48000F0173 /* CoreData.framework */,
+				D464C51C15894E48000F0173 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D46A5004157436120092B175 = {
+			isa = PBXGroup;
+			children = (
+				D407936915A7F9350018FBBA /* LICENSE */,
+				D407936A15A7F9350018FBBA /* README.md */,
+				D4A7719E15A3816E00CEC757 /* Documentation */,
+				D4A7716215A380E400CEC757 /* Source */,
+				D46A5012157436120092B175 /* Frameworks */,
+				D46A5010157436120092B175 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D46A5010157436120092B175 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D46A500F157436120092B175 /* Autoindigestion */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D46A5012157436120092B175 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D46A5013157436120092B175 /* Foundation.framework */,
+				D464C51515894E48000F0173 /* SenTestingKit.framework */,
+				D464C51715894E48000F0173 /* Cocoa.framework */,
+				D464C51915894E48000F0173 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4A7716215A380E400CEC757 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D4A7716E15A380E400CEC757 /* Foundation */,
+				D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */,
+				D4A7716615A380E400CEC757 /* Autoingestion.h */,
+				D4A7716715A380E400CEC757 /* Autoingestion.m */,
+				D4A7716815A380E400CEC757 /* AutoingestionJob.h */,
+				D4A7716915A380E400CEC757 /* AutoingestionJob.m */,
+				D4A7716A15A380E400CEC757 /* ConfigurationFile.h */,
+				D4A7716B15A380E400CEC757 /* ConfigurationFile.m */,
+				D4A7716C15A380E400CEC757 /* Defaults.h */,
+				D4A7716D15A380E400CEC757 /* Defaults.m */,
+				D4A7717915A380E400CEC757 /* Group.h */,
+				D4A7717A15A380E400CEC757 /* Group.m */,
+				D4A7717B15A380E400CEC757 /* main.m */,
+				D4A7717C15A380E400CEC757 /* Monitor.h */,
+				D4A7717D15A380E400CEC757 /* Options.h */,
+				D4A7717E15A380E400CEC757 /* Options.m */,
+				D4A7717F15A380E400CEC757 /* ReportCategory.h */,
+				D4A7718015A380E400CEC757 /* ReportCategory.m */,
+				D4A7718115A380E400CEC757 /* Reporter.h */,
+				D4A7718215A380E400CEC757 /* StandardMonitor.h */,
+				D4A7718315A380E400CEC757 /* StandardMonitor.m */,
+				D4A7718415A380E400CEC757 /* Tool.h */,
+				D4A7718515A380E400CEC757 /* Tool.m */,
+				D4A7718615A380E400CEC757 /* User.h */,
+				D4A7718715A380E400CEC757 /* User.m */,
+				D4A7718815A380E400CEC757 /* Vendor.h */,
+				D4A7718915A380E400CEC757 /* Vendor.m */,
+				D4A7718A15A380E400CEC757 /* VendorFile.h */,
+				D4A7718B15A380E400CEC757 /* VendorFile.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D4A7716E15A380E400CEC757 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				D4A7716F15A380E400CEC757 /* NSCalendar+Autoindigestion.h */,
+				D4A7717015A380E400CEC757 /* NSCalendar+Autoindigestion.m */,
+				D4A7717115A380E400CEC757 /* NSDate+Autoindigestion.h */,
+				D4A7717215A380E400CEC757 /* NSDate+Autoindigestion.m */,
+				D4A7717315A380E400CEC757 /* NSError+Autoindigestion.h */,
+				D4A7717415A380E400CEC757 /* NSError+Autoindigestion.m */,
+				D4A7717515A380E400CEC757 /* NSObject+Autoindigestion.h */,
+				D4A7717615A380E400CEC757 /* NSObject+Autoindigestion.m */,
+				D4A7717715A380E400CEC757 /* NSString+Autoindigestion.h */,
+				D4A7717815A380E400CEC757 /* NSString+Autoindigestion.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		D4A7719E15A3816E00CEC757 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				D407937415A800AA0018FBBA /* Autoindigestion.1 */,
+				D407937A15A82B2B0018FBBA /* Autoindigestion.1.txt */,
+				D407937515A800AA0018FBBA /* Autoindigestion.5 */,
+				D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */,
+				D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */,
+				D41D101A15A799A400E3C972 /* Sample Vendor.plist */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D46A500E157436120092B175 /* Autoindigestion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D46A501E157436120092B175 /* Build configuration list for PBXNativeTarget "Autoindigestion" */;
+			buildPhases = (
+				D46A500B157436120092B175 /* Sources */,
+				D46A500C157436120092B175 /* Frameworks */,
+				D46A500D157436120092B175 /* CopyFiles */,
+			);
+			buildRules = (
+				D407937315A7FFC90018FBBA /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = Autoindigestion;
+			productName = Autoindigestion;
+			productReference = D46A500F157436120092B175 /* Autoindigestion */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D46A5006157436120092B175 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Able Pear Software";
+			};
+			buildConfigurationList = D46A5009157436120092B175 /* Build configuration list for PBXProject "Autoindigestion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D46A5004157436120092B175;
+			productRefGroup = D46A5010157436120092B175 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D46A500E157436120092B175 /* Autoindigestion */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D46A500B157436120092B175 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4A7718C15A380E400CEC757 /* Autoingestion.m in Sources */,
+				D4A7718D15A380E400CEC757 /* AutoingestionJob.m in Sources */,
+				D4A7718E15A380E400CEC757 /* ConfigurationFile.m in Sources */,
+				D4A7718F15A380E400CEC757 /* Defaults.m in Sources */,
+				D4A7719015A380E400CEC757 /* NSCalendar+Autoindigestion.m in Sources */,
+				D4A7719115A380E400CEC757 /* NSDate+Autoindigestion.m in Sources */,
+				D4A7719215A380E400CEC757 /* NSError+Autoindigestion.m in Sources */,
+				D4A7719315A380E400CEC757 /* NSObject+Autoindigestion.m in Sources */,
+				D4A7719415A380E400CEC757 /* NSString+Autoindigestion.m in Sources */,
+				D4A7719515A380E400CEC757 /* Group.m in Sources */,
+				D4A7719615A380E400CEC757 /* main.m in Sources */,
+				D4A7719715A380E400CEC757 /* Options.m in Sources */,
+				D4A7719815A380E400CEC757 /* ReportCategory.m in Sources */,
+				D4A7719915A380E400CEC757 /* StandardMonitor.m in Sources */,
+				D4A7719A15A380E400CEC757 /* Tool.m in Sources */,
+				D4A7719B15A380E400CEC757 /* User.m in Sources */,
+				D4A7719C15A380E400CEC757 /* Vendor.m in Sources */,
+				D4A7719D15A380E400CEC757 /* VendorFile.m in Sources */,
+				D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */,
+				D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D46A501C157436120092B175 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D46A501D157436120092B175 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D46A501F157436120092B175 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Source/Autoindigestion-Prefix.pch";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D46A5020157436120092B175 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Source/Autoindigestion-Prefix.pch";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D46A5009157436120092B175 /* Build configuration list for PBXProject "Autoindigestion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D46A501C157436120092B175 /* Debug */,
+				D46A501D157436120092B175 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D46A501E157436120092B175 /* Build configuration list for PBXNativeTarget "Autoindigestion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D46A501F157436120092B175 /* Debug */,
+				D46A5020157436120092B175 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D46A5006157436120092B175 /* Project object */;
+}

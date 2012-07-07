@@ -1,0 +1,174 @@
+.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
+.\"See Also:
+.\"man mdoc.samples for a complete listing of options
+.\"man mdoc for the short list of editing options
+.\"/usr/share/misc/mdoc.template
+.Dd 28 May 2012
+.Dt Autoindigestion 1
+.Os Darwin
+.Sh NAME
+.Nm Autoindigestion
+.Nd download iTunes Connect reports 
+.Sh SYNOPSIS
+.Nm
+.Op options ... 
+.Sh DESCRIPTION
+.Nm
+is a command line tool for Mac OS X that downloads all available sales reports from iTunes Connect.  
+It uses the Auto-Ingest tool supplied by Apple to download individual reports.
+.Nm
+requires one or more vendor files to store iTunes Connect login credentials.
+.Pp
+The Auto-Ingest tool is not included with 
+.Nm
+but can be downloaded from Apple at
+.Lk http://www.apple.com/itunesnews/docs/Autoingestion.class.zip .
+.Sh CONFIGURATION
+The following items are required to run the
+.Nm
+tool:
+.Bl -tag -width -indent
+.It Pa Autoingestion.class
+The Auto-Ingest tool, a Java command line tool provided by Apple.
+Newer Macs do not have Java installed by default; 
+you may be prompted to download and install Java the first time you run
+.Nm
+or the Auto-Ingest tool.
+Alternately, you can download the latest Java installer from
+.Lk http://support.apple.com/downloads/#Java
+By default,
+.Nm
+looks for 
+.Pa Autoingestion.class
+in
+.Qq /Library/Autoindigestion .
+.It Vendor files
+You need to have at least one vendor file located in the 
+.Nm
+vendors directory.
+By default, 
+.Nm
+looks in 
+.Qq /Library/Autoindigestion/Vendors
+for vendor files.
+.El
+.Pp
+A vendor file is an XML property list (.plist) file that must contain the following keys:
+.Bl -tag -width -indent
+.It Sy VendorName
+The name of the iTunes Connect vendor.
+By default, this is also used as the directory name for storing downloaded reports.
+.It Sy VendorID
+The iTunes Connect numeric vendor ID.
+You can find this near the top of the 
+.Sy Sales and Trends
+page in iTunes Connect or in a downloaded report file.
+This is usually an eight digit number like 81234567.
+.It Sy Username
+The Apple ID (an e-mail address) used to log into iTunes Connect
+for this vendor.
+.It Sy Password
+The password corresponding to the Apple ID used to log into iTunes Connect.
+.El
+.Pp
+A minimal vendor file looks like this:
+.Bd -literal -offset 6n
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>VendorName</key>
+	<string>Example Inc</string>
+	
+	<key>VendorID</key>
+	<string>81234567</string>
+	
+	<key>Username</key>
+	<string>someone@example.com</string>
+	
+	<key>Password</key>
+	<string>itsasecret</string>
+</dict>
+</plist>
+.Ed
+.Pp
+For more information on vendor files, see
+.Xr Autoindigestion 5 .
+.Pp
+Downloaded iTunes Connect report files will be stored at 
+.Qq /Users/Shared/iTunes Connect
+by default.
+A subdirectory for each vendor's reports will be created in 
+.Qq /Users/Shared/iTunes Connect
+using the value of the
+.Sy VendorName
+key from the vendor file.
+.Pp
+.Nm
+will look for an optional configuration file at /Library/Autoindigestion/Configuration.plist.
+This configuration file can be used to set the location of 
+.Pa Autoingestion.class 
+and the vendors directory.
+See
+.Xr Autoindigestion 5 
+for details.
+.Pp
+.Nm
+is intended to be run daily using launchd.
+A launchd configuration plist called Autoindigestion.plist is normally placed in
+.Qq /Library/LaunchDaemons .
+See
+.Xr Autoindigestion 5 for a sample launchd file.
+.Sh SECURITY CONSIDERATIONS
+Because vendor files contain sensitive iTunes Connect user credentials, 
+you should make sure to set the owner, group and mode of vendor files appropriately.
+At a minimum, you should 
+.Ic chmod 660 Ar VENDORFILE
+to each vendor file so that it is only readable by its owner and group.
+.Pp
+The iTunes Connect user credentials are also exposed through the command line of the
+Auto-Ingest tool process, which can be viewed by any logged in user with the process viewing utility like
+.Sy ps .
+Unfortunately, there is not currently another way to pass iTunes Connect login
+credentials to Auto-Ingest.
+To mitigate this, it is recommended that each vendor create a separate iTunes Connect users
+dedicated to reporting.
+This user should be assigned the 
+.Sy Sales
+role in iTunes Connect.
+.Sh OPTIONS
+The following command line options are available:
+.Bl -tag -width -indent
+.It Fl h, --help
+Display help message
+.It Fl a , Fl -autoingestion-class\fR=\fIPATH\fR
+Set path to 
+.Pa Autoingestion.class .
+The default is
+.Qq /Library/Autoindigestion/Autoingestion.class
+.It Fl c , Fl -configuration-file\fR=\fIPATH\fR
+Set path to configuration file.
+The default is 
+.Qq /Library/Autoindigestion/Configuration.plist
+.It Fl v , Fl -vendors-dir\fR=\fIPATH\fR
+Set path to vendors directory.
+The default is
+.Qq /Library/Autoindigestion/Vendors
+.El
+.Sh FILES
+.Bl -tag -width Autoindigestion.plist -compact
+.It Pa Autoingestion.class 
+The Auto-Ingest tool from Apple available at 
+.Lk http://www.apple.com/itunesnews/docs/Autoingestion.class.zip .
+.It Pa Configuration.plist
+Optional
+.Nm
+configuration file.
+.It Pa <VendorName>.plist
+Individual vendor files.
+.It Autoindigestion.plist
+The launchd configuration file.
+.El
+.Sh SEE ALSO 
+.Xr Autoindigestion 5

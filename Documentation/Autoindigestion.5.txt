@@ -1,0 +1,177 @@
+
+Autoindigestion(5)	    BSD File Formats Manual	    Autoindigestion(5)
+
+NAME
+     Autoindigestion -- configuration files for Autoindigestion
+
+DESCRIPTION
+     Autoindigestion uses three different types of configuration files.  A
+     vendor file is required for Autoindigestion to function.  A configuration
+     file is optional.	A launchd item is also optional but recommended.
+
+     All three file types are standard plist files.  See plist(5) for details
+     on the plist format.
+
+   Vendor Files
+     A vendor file specifies the name and iTunes Connect ID of a vendor along
+     with the iTunes Connect login credentials.  One or more vendor files are
+     required, and by default are located in
+     "/Library/Autoindigestion/Vendors".  The vendor files directory can be
+     changed by the --v or ---vendors-dir command line options or by the
+     VendorsDir key in the configuration file.	Vendor file names must end in
+     ".plist".
+
+   Vendor File Keys
+     Vendor file values are string values except where noted.  Each vendor
+     file must contain the following required keys:
+
+     VendorName
+	      The name of the iTunes Connect vendor.  By default, this is also
+	      used as the directory name for storing downloaded reports.
+
+     VendorID
+	      The iTunes Connect numeric vendor ID.  You can find this near
+	      the top of the Sales and Trends page in iTunes Connect or in a
+	      downloaded report file.  This is usually an eight digit number
+	      like 81234567.
+
+     Username
+	      The Apple ID (an e-mail address) used to log into iTunes Connect
+	      for this vendor.
+
+     Password
+	      The password corresponding to the Apple ID used to log into
+	      iTunes Connect.
+
+     These keys are optional in a vendor file:
+
+     Disabled
+	      A Boolean value.	If true, all downloads are skipped for this
+	      vendor.  The default is false.
+
+     Owner    The OS X username to set as the owner of downloaded report
+	      files.  If not provided, defaults to the effective user of the
+	      process that runs Autoindigestion.  Overrides the Owner value in
+	      the configuration file, if present.
+
+     Group    The OS X group name to set as the group for downloaded report
+	      files.  If not provided, defaults to the effective group of the
+	      process that runs Autoindigestion.  Overrides the Group value
+	      set in configuration file, if present.
+
+     ReportDir
+	      The absolute path for saving downloaded report files for this
+	      vendor.  If not provided, defaults to
+	      "/Users/Shared/iTunes Connect/<VendorName>".
+
+   Configuration File
+     The configuration file is optional.  By default, Autoindigestion looks
+     for the configuration file at
+     "/Library/Autoindigestion/Configuration.plist".  The location of the con-
+     figuration file can be changed by the --c or ---configuration-file com-
+     mand line options.
+
+   Configuration File Keys
+     Configuration file values are string values.  All keys are optional, as
+     is the file itself.
+
+     AutoingestionClass
+	      The absolute path to Autoingestion.class.  If not provided,
+	      defaults to "/Library/Autoindigestion/Autoingestion.class".
+
+     VendorsDir
+	      The absolute path to the directory containing the vendor files.
+	      If not provided, defaults to "/Library/Autoindigestion/Vendors".
+
+     Owner    The OS X username to set as the owner of downloaded report
+	      files.  If not provided, defaults to the effective user of the
+	      process that runs Autoindigestion.
+
+     Group    The OS X group to set as the group for downloaded report files.
+	      If not provided, defaults to the effective group of the process
+	      that runs Autoindigestion.
+
+   Launchd Item
+     The launchd item tells OS X to run Autoindigestion automatically at a
+     specified time or interval.  Launchd items are normally placed in
+     "/Library/LaunchDaemons".	See launchd.plist(5) for complete information
+     on what goes in a launchd item.
+
+EXAMPLES
+   Example Inc.plist -- vendor file
+     A mimimal vendor file looks like this:
+
+	   <?xml version="1.0" encoding="UTF-8"?>
+	   <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+		   "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+	   <plist version="1.0">
+	   <dict>
+		   <key>VendorName</key>
+		   <string>Example Inc</string>
+
+		   <key>VendorID</key>
+		   <string>81234567</string>
+
+		   <key>Username</key>
+		   <string>someone@example.com</string>
+
+		   <key>Password</key>
+		   <string>itsasecret</string>
+	   </dict>
+	   </plist>
+
+   Configuration.plist -- configuration file (optional)
+     This configuration file overrides the default location for the Auto-
+     Ingest tool and vendor files.
+
+	   <?xml version="1.0" encoding="UTF-8"?>
+	   <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+		   "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+	   <plist version="1.0">
+	   <dict>
+		   <key>AutoingestionClass</key>
+		   <string>/Users/Shared/iTunes Connect/Autoingestion.class</string>
+
+		   <key>VendorsDir</key>
+		   <string>/Users/Shared/iTunes Connect/Vendors</string>
+	   </dict>
+	   </plist>
+
+   Autoindigestion.plist -- launchd item (recommended)
+     This is a typical launchd configuration.  The Autoindigestion executable
+     is located in "/Library/Autoindigestion/Autoindigestion" and is run each
+     morning at 8 AM.  Standard output and standard error are redirected to
+     "/Library/Logs/Autoindigestion.log".
+
+	   <?xml version="1.0" encoding="UTF-8"?>
+	   <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+		   "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+	   <plist version="1.0">
+	   <dict>
+		   <key>Label</key>
+		   <string>Autoindigestion</string>
+
+		   <key>ProgramArguments</key>
+		   <array>
+			   <string>/Library/Autoindigestion/Autoindigestion</string>
+		   </array>
+
+		   <key>StartCalendarInterval</key>
+		   <dict>
+			   <key>Hour</key>
+			   <integer>8</integer>
+		   </dict>
+
+		   <key>StandardErrorPath</key>
+		   <string>/Library/Logs/Autoindigestion.log</string>
+
+		   <key>StandardOutPath</key>
+		   <string>/Library/Logs/Autoindigestion.log</string>
+	   </dict>
+	   </plist>
+
+
+SEE ALSO
+     Autoindigestion(1), launchd.plist(5), plist(5)
+
+Darwin				  28 May 2012				Darwin
