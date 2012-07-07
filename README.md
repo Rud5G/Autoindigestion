@@ -49,15 +49,16 @@ Optionally copy the man pages to your local man directories.  Copy
 `"/usr/local/share/man/man1/Autoindigestion.1"` and 
 `"Documentation/Autoindigestion.5"` to
 `"/usr/local/share/man/man5/Autoindigestion.5"`.  You will need to create the
-`"/usr/local/share/man/man[15]"` directories if they don't exist.  Once in 
-place, run the commands `man Autoindigestion` and `man 5 Autoindigestion` to
-read the respective man pages.
+`"/usr/local/share/man/man1"` and `"/usr/local/share/man/man5"` directories if 
+they don't exist.  Once in place, run the commands `man Autoindigestion` and 
+`man 5 Autoindigestion` to read the respective man pages.
 
 Configuration
 -------------
 Create the `"Vendors"` directory under `"/Library/Autoindigestion"`.  Create
 at least one vendor file.  A vendor filename must end in `".plist"`.  Here is a
 sample vendor file:
+    
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
         "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -86,6 +87,7 @@ and `sudo chown root:admin "<vendor file>"` on each vendor file you create.
 To run Autoindigestion automatically each day at a specific time, create a 
 launchd item at `"/Library/LaunchDaemons/Autoindigestion.plist"`.  Here is a 
 sample launchd item that runs at 0800 each morning:
+    
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
             "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -135,7 +137,7 @@ and click on the "Download User Guide" link near the bottom of the page to
 download the "iTunes Connect Sales and Trends Guide" PDF file.
 
 
-[1]: http://www.apple.com/itunesnews/docs/Autoingestion.class.zip "Auto-Ingest tool"
-[2]: http://support.apple.com/downloads/#Java "Java installer"
-[3]: ./Documentation/Autoindigestion.1.txt
-[4]: ./Documentation/Autoindigestion.5.txt
+[1]: http://www.apple.com/itunesnews/docs/Autoingestion.class.zip "Apple's Auto-Ingest tool"
+[2]: http://support.apple.com/downloads/#Java "Mac OS X Java installer"
+[3]: https://github.com/AblePear/Autoindigestion/blob/master/Documentation/Autoindigestion.1.txt "Autoindigestion command man page"
+[4]: https://github.com/AblePear/Autoindigestion/blob/master/Documentation/Autoindigestion.5.txt "Autoindigestion file formats man page"
