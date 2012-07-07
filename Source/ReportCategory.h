@@ -32,7 +32,7 @@ extern NSString *const kReportTypeSales;
 @property (readonly) NSString *reportType;
 @property (readonly, weak) Vendor *vendor;
 
-- (NSArray *)autoingestionTasks;
+- (NSArray *)autoingestionJobs;
 
 - (id)initWithMonitor:(id <Monitor>)theMonitor
              defaults:(Defaults *)theDefaults

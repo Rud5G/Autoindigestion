@@ -99,7 +99,6 @@
 		D4A7717E15A380E400CEC757 /* Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Options.m; sourceTree = "<group>"; };
 		D4A7717F15A380E400CEC757 /* ReportCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportCategory.h; sourceTree = "<group>"; };
 		D4A7718015A380E400CEC757 /* ReportCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCategory.m; sourceTree = "<group>"; };
-		D4A7718115A380E400CEC757 /* Reporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reporter.h; sourceTree = "<group>"; };
 		D4A7718215A380E400CEC757 /* StandardMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardMonitor.h; sourceTree = "<group>"; };
 		D4A7718315A380E400CEC757 /* StandardMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardMonitor.m; sourceTree = "<group>"; };
 		D4A7718415A380E400CEC757 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
@@ -186,7 +185,6 @@
 				D4A7717E15A380E400CEC757 /* Options.m */,
 				D4A7717F15A380E400CEC757 /* ReportCategory.h */,
 				D4A7718015A380E400CEC757 /* ReportCategory.m */,
-				D4A7718115A380E400CEC757 /* Reporter.h */,
 				D4A7718215A380E400CEC757 /* StandardMonitor.h */,
 				D4A7718315A380E400CEC757 /* StandardMonitor.m */,
 				D4A7718415A380E400CEC757 /* Tool.h */,

@@ -120,13 +120,13 @@
 
 - (void)downloadReports;
 {
-  NSMutableArray *autoingestionTasks = [NSMutableArray array];
+  NSMutableArray *autoingestionJobs = [NSMutableArray array];
   for (Vendor *vendor in vendors) {
-    [autoingestionTasks addObjectsFromArray:[vendor autoingestionTasks]];
+    [autoingestionJobs addObjectsFromArray:[vendor autoingestionJobs]];
   }
 
-  for (AutoingestionJob *autoingestionTask in autoingestionTasks) {
-    [autoingestionTask run];
+  for (AutoingestionJob *autoingestionJob in autoingestionJobs) {
+    [autoingestionJob run];
   }
 }
 

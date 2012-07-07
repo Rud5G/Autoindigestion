@@ -30,13 +30,13 @@
 @synthesize vendorName;
 
 
-- (NSArray *)autoingestionTasks;
+- (NSArray *)autoingestionJobs;
 {
-  NSMutableArray *autoingestionTasks = [NSMutableArray array];
+  NSMutableArray *autoingestionJobs = [NSMutableArray array];
   for (ReportCategory *reportCategory in reportCategories) {
-    [autoingestionTasks addObjectsFromArray:[reportCategory autoingestionTasks]];
+    [autoingestionJobs addObjectsFromArray:[reportCategory autoingestionJobs]];
   }
-  return autoingestionTasks;
+  return autoingestionJobs;
 }
 
 

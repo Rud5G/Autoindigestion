@@ -35,7 +35,7 @@ NSString *const kReportTypeSales = @"Sales";
 @synthesize vendor;
 
 
-- (NSArray *)autoingestionTasks;
+- (NSArray *)autoingestionJobs;
 {
   NSError *error;
   NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:reportDir
@@ -111,13 +111,13 @@ NSString *const kReportTypeSales = @"Sales";
   }
 
 
-  NSMutableArray *autoingestionTasks = [NSMutableArray array];
+  NSMutableArray *autoingestionJobs = [NSMutableArray array];
   NSDate *reportDate = startingReportDate;
   while ([reportDate isEarlierThanDate:today]) {
-    AutoingestionJob *autoingestionTask = [[AutoingestionJob alloc] initWithMonitor:monitor
-                                                                       reportCategory:self
-                                                                        andReportDate:reportDate];
-    [autoingestionTasks addObject:autoingestionTask];
+    AutoingestionJob *autoingestionJob = [[AutoingestionJob alloc] initWithMonitor:monitor
+                                                                    reportCategory:self
+                                                                     andReportDate:reportDate];
+    [autoingestionJobs addObject:autoingestionJob];
 
     if ([self isDaily]) {
       reportDate = [calendar nextDayForDate:reportDate];
@@ -126,7 +126,7 @@ NSString *const kReportTypeSales = @"Sales";
     }
   }
 
-  return autoingestionTasks;
+  return autoingestionJobs;
 }
 
 

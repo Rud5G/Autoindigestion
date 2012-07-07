@@ -28,7 +28,7 @@
 @property (readonly) NSString *vendorID;
 @property (readonly) NSString *vendorName;
 
-- (NSArray *)autoingestionTasks;
+- (NSArray *)autoingestionJobs;
 
 - (id)initWithMonitor:(id<Monitor>)theMonitor
              defaults:(Defaults *)defaults
