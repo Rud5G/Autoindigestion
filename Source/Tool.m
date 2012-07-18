@@ -125,9 +125,30 @@
     [autoingestionJobs addObjectsFromArray:[vendor autoingestionJobs]];
   }
 
-  for (AutoingestionJob *autoingestionJob in autoingestionJobs) {
-    [autoingestionJob run];
-  }
+  NSUInteger jobCount = 0;
+  NSUInteger retryCount = 0;
+  BOOL tryAgain;
+  do {
+    tryAgain = NO;
+    for (AutoingestionJob *autoingestionJob in autoingestionJobs) {
+      [autoingestionJob run];
+      ++jobCount;
+
+      if (   AutoingestionResponseCodeUnknownHostException == [autoingestionJob responseCode]
+          && 1 == jobCount
+          && 0 == retryCount)
+      {
+        ++retryCount;
+        tryAgain = YES;
+        double waitForNetworkTimeout = 60.0;
+        [monitor warningWithFormat:@"Can't reach iTunes Connect server: "
+                                   @"sleeping for %.0f seconds and trying again",
+                                   waitForNetworkTimeout];
+        [NSThread sleepForTimeInterval:waitForNetworkTimeout];
+        break;
+      }
+    }
+  } while (tryAgain);
 }
 
 

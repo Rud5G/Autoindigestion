@@ -32,10 +32,11 @@ NSString *const kAutoingestionResponseUnknownHostException =
 }
 
 
+@synthesize arguments;
 @synthesize monitor;
 @synthesize reportCategory;
 @synthesize reportDate;
-@synthesize task;
+@synthesize responseCode;
 
 
 - (NSString *)description;
@@ -72,52 +73,68 @@ NSString *const kAutoingestionResponseUnknownHostException =
   Autoingestion *autoingestion = [reportCategory autoingestion];
   [dateFormatter setDateFormat:@"yyyyMMdd"];
   NSString *argumentDateString = [dateFormatter stringFromDate:reportDate];
-  NSArray *arguments = [NSArray arrayWithObjects:
-                                @"--exec",
-                                @"java",
-                                @"-classpath",
-                                [autoingestion classPath],
-                                [autoingestion className],
-                                [vendor username],
-                                [vendor password],
-                                [vendor vendorID],
-                                [reportCategory reportType],
-                                [reportCategory dateType],
-                                [reportCategory reportSubtype],
-                                argumentDateString,
-                                nil];
-  task = [[NSTask alloc] init];
-  [task setArguments:arguments];
-  [task setCurrentDirectoryPath:[reportCategory reportDir]];
-  [task setLaunchPath:@"/usr/libexec/java_home"];
+  arguments = [NSArray arrayWithObjects:
+                       @"--exec",
+                       @"java",
+                       @"-classpath",
+                       [autoingestion classPath],
+                       [autoingestion className],
+                       [vendor username],
+                       [vendor password],
+                       [vendor vendorID],
+                       [reportCategory reportType],
+                       [reportCategory dateType],
+                       [reportCategory reportSubtype],
+                       argumentDateString,
+                       nil];
 
   return self;
+}
+
+
+- (enum AutoingestionResponseCode)responseCodeFromResponse:(NSString *)response;
+{
+  if ([response containsString:kAutoingestionResponseSuccess]) {
+    return AutoingestionResponseCodeSuccess;
+  } else if ([response containsString:kAutoingestionResponseUnknownHostException]) {
+    // must precede kAutoingestionResponseTryAgain
+    return AutoingestionResponseCodeUnknownHostException;
+  } else if ([response containsString:kAutoingestionResponseNotAvailable]) {
+    return AutoingestionResponseCodeNotAvailable;
+  } else if ([response containsString:kAutoingestionResponseNoReportsAvailable]) {
+    return AutoingestionResponseCodeNoReportsAvailable;
+  } else if ([response containsString:kAutoingestionResponseTryAgain]) {
+    return AutoingestionResponseCodeTryAgain;
+  } else if ([response containsString:kAutoingestionResponseDailyReportDateOutOfRange]) {
+    return AutoingestionResponseCodeDailyReportDateOutOfRange;
+  } else if ([response containsString:kAutoingestionResponseWeeklyReportDateOutOfRange]) {
+    return AutoingestionResponseCodeWeeklyReportDateOutOfRange;
+  } else {
+    return AutoingestionResponseCodeUnrecognized;
+  }
 }
 
 
 - (void)run;
 {
   NSString *response = [self runTask];
+  responseCode = [self responseCodeFromResponse:response];
 
-  if ([response containsString:kAutoingestionResponseSuccess]) {
+  if (AutoingestionResponseCodeSuccess == responseCode) {
     [monitor infoWithFormat:@"Downloaded %@", description];
   } else {
     [monitor warningWithFormat:@"%@: %@", description, response];
-  }
-
-  if (NSTaskTerminationReasonExit != [task terminationReason]) {
-    [monitor warningWithFormat:@"%@: Autoingestion task failed to exit normally",
-             description];
-  }
-  if ([task terminationStatus]) {
-    [monitor warningWithFormat:@"%@: Autoingestion task failed with status %i",
-             description, [task terminationStatus]];
   }
 }
 
 
 - (NSString *)runTask
 {
+  NSTask *task = [[NSTask alloc] init];
+  [task setArguments:arguments];
+  [task setCurrentDirectoryPath:[reportCategory reportDir]];
+  [task setLaunchPath:@"/usr/libexec/java_home"];
+
   NSPipe *pipe = [NSPipe pipe];
   NSFileHandle *out = [pipe fileHandleForReading];
   [task setStandardOutput:pipe];
@@ -130,6 +147,16 @@ NSString *const kAutoingestionResponseUnknownHostException =
     NSData *data = [out availableData];
     [buffer appendData:data];
   }
+
+  if (NSTaskTerminationReasonExit != [task terminationReason]) {
+    [monitor warningWithFormat:@"%@: Autoingestion task failed to exit normally",
+             description];
+  }
+  if ([task terminationStatus]) {
+    [monitor warningWithFormat:@"%@: Autoingestion task failed with status %i",
+             description, [task terminationStatus]];
+  }
+  
   NSString *response = [[NSString alloc] initWithData:buffer
                                              encoding:NSUTF8StringEncoding];
   return response;
