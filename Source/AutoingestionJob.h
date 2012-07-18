@@ -11,6 +11,7 @@ extern NSString *const kAutoingestionResponseTryAgain;
 extern NSString *const kAutoingestionResponseSuccess;
 extern NSString *const kAutoingestionResponseDailyReportDateOutOfRange;
 extern NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange;
+extern NSString *const kAutoingestionResponseUnknownHostException;
 
 
 @interface AutoingestionJob : NSObject

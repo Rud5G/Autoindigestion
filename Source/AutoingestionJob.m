@@ -22,6 +22,8 @@ NSString *const kAutoingestionResponseDailyReportDateOutOfRange =
 NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange =
     @"Weekly reports are available only for past 13 weeks, "
     @"please enter a weekend date within past 13 weeks.";
+NSString *const kAutoingestionResponseUnknownHostException =
+    @"java.net.UnknownHostException: reportingitc.apple.com";
 
 
 @implementation AutoingestionJob
