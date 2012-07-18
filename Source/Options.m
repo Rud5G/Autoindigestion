@@ -56,7 +56,7 @@
         .name = "vendors-dir",
         .has_arg = required_argument,
         .flag = NULL,
-        .val = 'd',
+        .val = 'v',
       },
       {
         .name = NULL,
