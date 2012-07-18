@@ -7,22 +7,22 @@
 #import "Vendor.h"
 
 
-NSString *const kAutoingestionResponseNotAvailable =
+static NSString *const kAutoingestionResponseNotAvailable =
     @"Auto ingestion is not available for this selection.";
-NSString *const kAutoingestionResponseNoReportsAvailable =
+static NSString *const kAutoingestionResponseNoReportsAvailable =
     @"There are no reports available to download for this selection.";
-NSString *const kAutoingestionResponseTryAgain =
+static NSString *const kAutoingestionResponseTryAgain =
     @"The report you requested is not available at this time.  "
     @"Please try again in a few minutes.";
-NSString *const kAutoingestionResponseSuccess =
+static NSString *const kAutoingestionResponseSuccess =
     @"File Downloaded Successfully";
-NSString *const kAutoingestionResponseDailyReportDateOutOfRange =
+static NSString *const kAutoingestionResponseDailyReportDateOutOfRange =
     @"Daily reports are available only for past 14 days, "
     @"please enter a date within past 14 days.";
-NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange =
+static NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange =
     @"Weekly reports are available only for past 13 weeks, "
     @"please enter a weekend date within past 13 weeks.";
-NSString *const kAutoingestionResponseUnknownHostException =
+static NSString *const kAutoingestionResponseUnknownHostException =
     @"java.net.UnknownHostException: reportingitc.apple.com";
 
 

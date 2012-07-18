@@ -18,15 +18,6 @@ enum AutoingestionResponseCode {
 };
 
 
-extern NSString *const kAutoingestionResponseNotAvailable;
-extern NSString *const kAutoingestionResponseNoReportsAvailable;
-extern NSString *const kAutoingestionResponseTryAgain;
-extern NSString *const kAutoingestionResponseSuccess;
-extern NSString *const kAutoingestionResponseDailyReportDateOutOfRange;
-extern NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange;
-extern NSString *const kAutoingestionResponseUnknownHostException;
-
-
 @interface AutoingestionJob : NSObject
 
 @property (readonly) NSArray *arguments;
