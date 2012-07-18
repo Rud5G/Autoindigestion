@@ -16,8 +16,6 @@ extern NSString *const kAutoingestionResponseUnknownHostException;
 
 @interface AutoingestionJob : NSObject
 
-@property (readonly) NSDateFormatter *arugmentDateFormatter;
-@property (readonly) NSDateFormatter *descriptionDateFormatter;
 @property (readonly, weak) id<Monitor> monitor;
 @property (readonly, weak) ReportCategory *reportCategory;
 @property (readonly) NSDate *reportDate;
@@ -28,5 +26,7 @@ extern NSString *const kAutoingestionResponseUnknownHostException;
         andReportDate:(NSDate *)theReportDate;
 
 - (void)run;
+
+- (NSString *)runTask;
 
 @end

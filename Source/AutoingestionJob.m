@@ -27,14 +27,21 @@ NSString *const kAutoingestionResponseUnknownHostException =
 
 
 @implementation AutoingestionJob
+{
+  NSString *description;
+}
 
 
-@synthesize arugmentDateFormatter;
-@synthesize descriptionDateFormatter;
 @synthesize monitor;
 @synthesize reportCategory;
 @synthesize reportDate;
 @synthesize task;
+
+
+- (NSString *)description;
+{
+  return description;
+}
 
 
 - (id)initWithMonitor:(id <Monitor>)theMonitor
@@ -43,24 +50,28 @@ NSString *const kAutoingestionResponseUnknownHostException =
 {
   self = [super init];
   if ( ! self) return nil;
-
-  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-
-  arugmentDateFormatter = [[NSDateFormatter alloc] init];
-  [arugmentDateFormatter setDateFormat:@"yyyyMMdd"];
-  [arugmentDateFormatter setLocale:locale];
-
-  descriptionDateFormatter = [[NSDateFormatter alloc] init];
-  [descriptionDateFormatter setDateFormat:@"dd-MMM-yyyy"];
-  [descriptionDateFormatter setLocale:locale];
-
+  
   monitor = theMonitor;
   reportCategory = theReportCategory;
   reportDate = theReportDate;
+  
+  Vendor *vendor = [reportCategory vendor];
+
+  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setLocale:locale];
+
+  [dateFormatter setDateFormat:@"dd-MMM-yyyy"];
+  NSString *reportDateString = [dateFormatter stringFromDate:reportDate];
+  description = [NSString stringWithFormat:@"%@ %@ %@ Report for %@",
+                                           reportDateString,
+                                           [reportCategory dateType],
+                                           [reportCategory reportType],
+                                           [vendor vendorName]];
 
   Autoingestion *autoingestion = [reportCategory autoingestion];
-  Vendor *vendor = [reportCategory vendor];
-  NSString *argumentDateString = [arugmentDateFormatter stringFromDate:reportDate];
+  [dateFormatter setDateFormat:@"yyyyMMdd"];
+  NSString *argumentDateString = [dateFormatter stringFromDate:reportDate];
   NSArray *arguments = [NSArray arrayWithObjects:
                                 @"--exec",
                                 @"java",
@@ -86,28 +97,7 @@ NSString *const kAutoingestionResponseUnknownHostException =
 
 - (void)run;
 {
-  NSPipe *pipe = [NSPipe pipe];
-  NSFileHandle *out = [pipe fileHandleForReading];
-  [task setStandardOutput:pipe];
-  [task setStandardError:pipe];
-
-  [task launch];
-
-  NSMutableData *buffer = [NSMutableData data];
-  while ([task isRunning]) {
-    NSData *data = [out availableData];
-    [buffer appendData:data];
-  }
-
-  NSString *response = [[NSString alloc] initWithData:buffer
-                                             encoding:NSUTF8StringEncoding];
-  Vendor *vendor = [reportCategory vendor];
-  NSString *reportDateString = [descriptionDateFormatter stringFromDate:reportDate];
-  NSString *description = [NSString stringWithFormat:@"%@ %@ %@ Report for %@",
-                                    reportDateString,
-                                    [reportCategory dateType],
-                                    [reportCategory reportType],
-                                    [vendor vendorName]];
+  NSString *response = [self runTask];
 
   if ([response containsString:kAutoingestionResponseSuccess]) {
     [monitor infoWithFormat:@"Downloaded %@", description];
@@ -123,6 +113,26 @@ NSString *const kAutoingestionResponseUnknownHostException =
     [monitor warningWithFormat:@"%@: Autoingestion task failed with status %i",
              description, [task terminationStatus]];
   }
+}
+
+
+- (NSString *)runTask
+{
+  NSPipe *pipe = [NSPipe pipe];
+  NSFileHandle *out = [pipe fileHandleForReading];
+  [task setStandardOutput:pipe];
+  [task setStandardError:pipe];
+
+  [task launch];
+
+  NSMutableData *buffer = [NSMutableData data];
+  while ([task isRunning]) {
+    NSData *data = [out availableData];
+    [buffer appendData:data];
+  }
+  NSString *response = [[NSString alloc] initWithData:buffer
+                                             encoding:NSUTF8StringEncoding];
+  return response;
 }
 
 
