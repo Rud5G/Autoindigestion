@@ -7,8 +7,8 @@ supplied by Apple to download individual reports.
 Autoindigestion can be configured to work with multiple iTunes Connect 
 vendors.  When Autoindigestion runs, it will look for vendor files, which are
 standard XML plists that contain vendor information, including iTunes Connect 
-sign in credentials.  For security, it is recommended that vendors create a 
-separate iTunes Connect user limited to the Sales role for running 
+sign in credentials.  For security, it is recommended that each vendor create a 
+separate iTunes Connect user limited to the Sales role for use with 
 Autoindigestion.
 
 Autoindigestion is available under a BSD-style open source license.  See the
@@ -115,8 +115,8 @@ sample launchd item that runs at 0800 each morning:
     </dict>
     </plist>
 You may want to adjust the run time based on your time zone.  iTunes Connect
-reports are usually available around 0700 Cupertino time (UTC -0800 or -0700)
-but are occasionally delayed a few hours.
+reports are usually available around 0700 Cupertino time (UTC -0800 or -0700
+in summer) but are occasionally delayed a few hours.
 
 After creating the launchd item, tell launchd to load it by running 
 `sudo launchctl load "/Library/LaunchDaemons/Autoindigestion.plist"`.
@@ -134,7 +134,8 @@ configuration files, see the [Autoindigestion file formats man page][4].
 For details on Apple's Auto-Ingest tool and complete information about the
 iTunes Connect report format, log into iTunes Connect, go to "Sales and Trends"
 and click on the "Download User Guide" link near the bottom of the page to
-download the "iTunes Connect Sales and Trends Guide" PDF file.
+download the "iTunes Connect Sales and Trends Guide" PDF file.  Note that there
+are different guides for vendors of apps, music, video and books.
 
 
 [1]: http://www.apple.com/itunesnews/docs/Autoingestion.class.zip "Apple's Auto-Ingest tool"
