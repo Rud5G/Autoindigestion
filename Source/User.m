@@ -46,7 +46,7 @@
 - (id)initWithID:(NSNumber *)ID
            error:(NSError **)error;
 {
-  uid_t UID = [ID unsignedLongValue];
+  uid_t UID = [ID unsignedIntValue];
   return [self initWithUID:UID error:error];
 }
 
