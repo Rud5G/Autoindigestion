@@ -133,11 +133,11 @@
     for (AutoingestionJob *autoingestionJob in autoingestionJobs) {
       [autoingestionJob run];
       ++jobCount;
-
-      if (   AutoingestionResponseCodeUnknownHostException == [autoingestionJob responseCode]
-          && 1 == jobCount
-          && 0 == retryCount)
-      {
+      
+      BOOL networkUnavailable = AutoingestionResponseCodeUnknownHostException == [autoingestionJob responseCode]
+                             || AutoingestionResponseCodeSocketException == [autoingestionJob responseCode]
+                             || AutoingestionResponseCodeNoRouteToHostException == [autoingestionJob responseCode];
+      if (networkUnavailable && 1 == jobCount && 0 == retryCount) {
         ++retryCount;
         tryAgain = YES;
         double waitForNetworkTimeout = 60.0;

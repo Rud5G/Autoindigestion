@@ -102,7 +102,7 @@
 		D4A7718215A380E400CEC757 /* StandardMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardMonitor.h; sourceTree = "<group>"; };
 		D4A7718315A380E400CEC757 /* StandardMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardMonitor.m; sourceTree = "<group>"; };
 		D4A7718415A380E400CEC757 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
-		D4A7718515A380E400CEC757 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
+		D4A7718515A380E400CEC757 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; wrapsLines = 0; };
 		D4A7718615A380E400CEC757 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		D4A7718715A380E400CEC757 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		D4A7718815A380E400CEC757 /* Vendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vendor.h; sourceTree = "<group>"; };
@@ -144,6 +144,7 @@
 				D46A5010157436120092B175 /* Products */,
 			);
 			sourceTree = "<group>";
+			wrapsLines = 0;
 		};
 		D46A5010157436120092B175 /* Products */ = {
 			isa = PBXGroup;

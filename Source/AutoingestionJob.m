@@ -24,6 +24,10 @@ static NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange =
     @"please enter a weekend date within past 13 weeks.";
 static NSString *const kAutoingestionResponseUnknownHostException =
     @"java.net.UnknownHostException: reportingitc.apple.com";
+static NSString *const kAutoingestionResponseSocketException =
+    @"java.net.SocketException: Network is down";
+static NSString *const kAutoingestionResponseNoRouteToHostException =
+    @"java.net.NoRouteToHostException: No route to host";
 
 
 @implementation AutoingestionJob
@@ -99,6 +103,12 @@ static NSString *const kAutoingestionResponseUnknownHostException =
   } else if ([response containsString:kAutoingestionResponseUnknownHostException]) {
     // must precede kAutoingestionResponseTryAgain
     return AutoingestionResponseCodeUnknownHostException;
+  } else if ([response containsString:kAutoingestionResponseSocketException]) {
+    // must precede kAutoingestionResponseTryAgain
+    return AutoingestionResponseCodeSocketException;
+  } else if ([response containsString:kAutoingestionResponseNoRouteToHostException]) {
+    // must precede kAutoingestionResponseTryAgain
+    return AutoingestionResponseCodeNoRouteToHostException;
   } else if ([response containsString:kAutoingestionResponseNotAvailable]) {
     return AutoingestionResponseCodeNotAvailable;
   } else if ([response containsString:kAutoingestionResponseNoReportsAvailable]) {
