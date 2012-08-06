@@ -1,0 +1,23 @@
+From an e-mail message sent by Apple on 31-Oct-2011:
+----------------------------------------------------
+
+Beginning on November 5, 2011, sales and trends reports downloaded from 
+iTunes Connect will use a new file-naming convention:
+
+ - The first letter of the file name will indicate whether the report is a 
+   summary ("S") or daily ("D") report.
+
+ - The second letter will indicate whether it is a weekly ("W") or 
+   daily ("D") report.
+
+ - The first two letters will be followed by the SAP vendor account number.
+
+ - The final set of numbers will be the date stamp in "YYYYMMDD" format.
+
+For example, if vendor account number 8123456 has a sales summary report 
+for the week ending November 6, 2011, it will be represented as 
+"S_W_8123456_20111106".
+
+Regards,
+
+The iTunes Store team

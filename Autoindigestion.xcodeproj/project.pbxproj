@@ -72,6 +72,7 @@
 		D464C51C15894E48000F0173 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D46A500F157436120092B175 /* Autoindigestion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Autoindigestion; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A5013157436120092B175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iTunes Connect- New File Names for Sales and Trends Reports.txt"; sourceTree = "<group>"; };
 		D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Autoindigestion-Prefix.pch"; sourceTree = "<group>"; };
 		D4A7716615A380E400CEC757 /* Autoingestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Autoingestion.h; sourceTree = "<group>"; };
 		D4A7716715A380E400CEC757 /* Autoingestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Autoingestion.m; sourceTree = "<group>"; };
@@ -225,6 +226,7 @@
 				D407937515A800AA0018FBBA /* Autoindigestion.5 */,
 				D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */,
 				D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */,
+				D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */,
 				D41D101A15A799A400E3C972 /* Sample Vendor.plist */,
 			);
 			path = Documentation;
