@@ -2,6 +2,7 @@
 
 #import "Autoingestion.h"
 #import "AutoingestionJob.h"
+#import "AutoingestionResponse.h"
 #import "ConfigurationFile.h"
 #import "Defaults.h"
 #import "Group.h"
@@ -134,10 +135,10 @@
       [autoingestionJob run];
       ++jobCount;
       
-      BOOL networkUnavailable = AutoingestionResponseCodeUnknownHostException == [autoingestionJob responseCode]
-                             || AutoingestionResponseCodeSocketException == [autoingestionJob responseCode]
-                             || AutoingestionResponseCodeNoRouteToHostException == [autoingestionJob responseCode];
-      if (networkUnavailable && 1 == jobCount && 0 == retryCount) {
+      if (   [[autoingestionJob response] isNetworkUnavailable]
+          && 1 == jobCount
+          && 0 == retryCount)
+      {
         ++retryCount;
         tryAgain = YES;
         double waitForNetworkTimeout = 60.0;

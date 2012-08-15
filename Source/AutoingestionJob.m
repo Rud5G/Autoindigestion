@@ -1,33 +1,10 @@
 #import "AutoingestionJob.h"
 
 #import "Autoingestion.h"
+#import "AutoingestionResponse.h"
 #import "Monitor.h"
-#import "NSString+Autoindigestion.h"
 #import "ReportCategory.h"
 #import "Vendor.h"
-
-
-static NSString *const kAutoingestionResponseNotAvailable =
-    @"Auto ingestion is not available for this selection.";
-static NSString *const kAutoingestionResponseNoReportsAvailable =
-    @"There are no reports available to download for this selection.";
-static NSString *const kAutoingestionResponseTryAgain =
-    @"The report you requested is not available at this time.  "
-    @"Please try again in a few minutes.";
-static NSString *const kAutoingestionResponseSuccess =
-    @"File Downloaded Successfully";
-static NSString *const kAutoingestionResponseDailyReportDateOutOfRange =
-    @"Daily reports are available only for past 14 days, "
-    @"please enter a date within past 14 days.";
-static NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange =
-    @"Weekly reports are available only for past 13 weeks, "
-    @"please enter a weekend date within past 13 weeks.";
-static NSString *const kAutoingestionResponseUnknownHostException =
-    @"java.net.UnknownHostException: reportingitc.apple.com";
-static NSString *const kAutoingestionResponseSocketException =
-    @"java.net.SocketException: Network is down";
-static NSString *const kAutoingestionResponseNoRouteToHostException =
-    @"java.net.NoRouteToHostException: No route to host";
 
 
 @implementation AutoingestionJob
@@ -40,7 +17,7 @@ static NSString *const kAutoingestionResponseNoRouteToHostException =
 @synthesize monitor;
 @synthesize reportCategory;
 @synthesize reportDate;
-@synthesize responseCode;
+@synthesize response;
 
 
 - (NSString *)description;
@@ -96,49 +73,18 @@ static NSString *const kAutoingestionResponseNoRouteToHostException =
 }
 
 
-- (enum AutoingestionResponseCode)responseCodeFromResponse:(NSString *)response;
-{
-  if ([response containsString:kAutoingestionResponseSuccess]) {
-    return AutoingestionResponseCodeSuccess;
-  } else if ([response containsString:kAutoingestionResponseUnknownHostException]) {
-    // must precede kAutoingestionResponseTryAgain
-    return AutoingestionResponseCodeUnknownHostException;
-  } else if ([response containsString:kAutoingestionResponseSocketException]) {
-    // must precede kAutoingestionResponseTryAgain
-    return AutoingestionResponseCodeSocketException;
-  } else if ([response containsString:kAutoingestionResponseNoRouteToHostException]) {
-    // must precede kAutoingestionResponseTryAgain
-    return AutoingestionResponseCodeNoRouteToHostException;
-  } else if ([response containsString:kAutoingestionResponseNotAvailable]) {
-    return AutoingestionResponseCodeNotAvailable;
-  } else if ([response containsString:kAutoingestionResponseNoReportsAvailable]) {
-    return AutoingestionResponseCodeNoReportsAvailable;
-  } else if ([response containsString:kAutoingestionResponseTryAgain]) {
-    return AutoingestionResponseCodeTryAgain;
-  } else if ([response containsString:kAutoingestionResponseDailyReportDateOutOfRange]) {
-    return AutoingestionResponseCodeDailyReportDateOutOfRange;
-  } else if ([response containsString:kAutoingestionResponseWeeklyReportDateOutOfRange]) {
-    return AutoingestionResponseCodeWeeklyReportDateOutOfRange;
-  } else {
-    return AutoingestionResponseCodeUnrecognized;
-  }
-}
-
-
 - (void)run;
 {
-  NSString *response = [self runTask];
-  responseCode = [self responseCodeFromResponse:response];
-
-  if (AutoingestionResponseCodeSuccess == responseCode) {
-    [monitor infoWithFormat:@"Downloaded %@", description];
+  response = [self runTask];
+  if ([response isSuccess]) {
+    [monitor infoWithFormat:@"Downloaded %@: %@", description, [response filename]];
   } else {
     [monitor warningWithFormat:@"%@: %@", description, response];
   }
 }
 
 
-- (NSString *)runTask
+- (AutoingestionResponse *)runTask
 {
   NSTask *task = [[NSTask alloc] init];
   [task setArguments:arguments];
@@ -167,9 +113,7 @@ static NSString *const kAutoingestionResponseNoRouteToHostException =
              description, [task terminationStatus]];
   }
   
-  NSString *response = [[NSString alloc] initWithData:buffer
-                                             encoding:NSUTF8StringEncoding];
-  return response;
+  return [[AutoingestionResponse alloc] initWithOutput:buffer];
 }
 
 

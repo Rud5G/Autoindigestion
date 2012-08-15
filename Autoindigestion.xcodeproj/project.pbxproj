@@ -28,6 +28,12 @@
 		D4A7719B15A380E400CEC757 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
 		D4A7719C15A380E400CEC757 /* Vendor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718915A380E400CEC757 /* Vendor.m */; };
 		D4A7719D15A380E400CEC757 /* VendorFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718B15A380E400CEC757 /* VendorFile.m */; };
+		D4EDA1D315DB1D950084B460 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51515894E48000F0173 /* SenTestingKit.framework */; };
+		D4EDA1D415DB1D950084B460 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
+		D4EDA1DD15DB1D950084B460 /* AutoingestionResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */; };
+		D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */; };
+		D4EDA1E615DB1FD00084B460 /* AutoingestionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */; };
+		D4EDA1E715DB26ED0084B460 /* NSString+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717815A380E400CEC757 /* NSString+Autoindigestion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -110,6 +116,12 @@
 		D4A7718915A380E400CEC757 /* Vendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vendor.m; sourceTree = "<group>"; };
 		D4A7718A15A380E400CEC757 /* VendorFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorFile.h; sourceTree = "<group>"; };
 		D4A7718B15A380E400CEC757 /* VendorFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorFile.m; sourceTree = "<group>"; };
+		D4EDA1D215DB1D950084B460 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponseTest.m; sourceTree = "<group>"; };
+		D4EDA1DE15DB1D950084B460 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		D4EDA1E315DB1FD00084B460 /* AutoingestionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoingestionResponse.h; sourceTree = "<group>"; };
+		D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +130,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D46A5014157436120092B175 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4EDA1CE15DB1D950084B460 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4EDA1D315DB1D950084B460 /* SenTestingKit.framework in Frameworks */,
+				D4EDA1D415DB1D950084B460 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +162,7 @@
 				D407936A15A7F9350018FBBA /* README.md */,
 				D4A7719E15A3816E00CEC757 /* Documentation */,
 				D4A7716215A380E400CEC757 /* Source */,
+				D4EDA1D515DB1D950084B460 /* UnitTests */,
 				D46A5012157436120092B175 /* Frameworks */,
 				D46A5010157436120092B175 /* Products */,
 			);
@@ -151,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				D46A500F157436120092B175 /* Autoindigestion */,
+				D4EDA1D215DB1D950084B460 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +198,8 @@
 				D4A7716715A380E400CEC757 /* Autoingestion.m */,
 				D4A7716815A380E400CEC757 /* AutoingestionJob.h */,
 				D4A7716915A380E400CEC757 /* AutoingestionJob.m */,
+				D4EDA1E315DB1FD00084B460 /* AutoingestionResponse.h */,
+				D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */,
 				D4A7716A15A380E400CEC757 /* ConfigurationFile.h */,
 				D4A7716B15A380E400CEC757 /* ConfigurationFile.m */,
 				D4A7716C15A380E400CEC757 /* Defaults.h */,
@@ -232,6 +257,16 @@
 			path = Documentation;
 			sourceTree = "<group>";
 		};
+		D4EDA1D515DB1D950084B460 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */,
+				D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */,
+				D4EDA1DE15DB1D950084B460 /* UnitTests-Prefix.pch */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -252,6 +287,24 @@
 			productName = Autoindigestion;
 			productReference = D46A500F157436120092B175 /* Autoindigestion */;
 			productType = "com.apple.product-type.tool";
+		};
+		D4EDA1D115DB1D950084B460 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4EDA1E115DB1D950084B460 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				D4EDA1CD15DB1D950084B460 /* Sources */,
+				D4EDA1CE15DB1D950084B460 /* Frameworks */,
+				D4EDA1CF15DB1D950084B460 /* Resources */,
+				D4EDA1D015DB1D950084B460 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = D4EDA1D215DB1D950084B460 /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -275,9 +328,36 @@
 			projectRoot = "";
 			targets = (
 				D46A500E157436120092B175 /* Autoindigestion */,
+				D4EDA1D115DB1D950084B460 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4EDA1CF15DB1D950084B460 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D4EDA1D015DB1D950084B460 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D46A500B157436120092B175 /* Sources */ = {
@@ -304,6 +384,17 @@
 				D4A7719D15A380E400CEC757 /* VendorFile.m in Sources */,
 				D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */,
 				D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */,
+				D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4EDA1CD15DB1D950084B460 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4EDA1DD15DB1D950084B460 /* AutoingestionResponseTest.m in Sources */,
+				D4EDA1E615DB1FD00084B460 /* AutoingestionResponse.m in Sources */,
+				D4EDA1E715DB26ED0084B460 /* NSString+Autoindigestion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +468,38 @@
 			};
 			name = Release;
 		};
+		D4EDA1DF15DB1D950084B460 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D4EDA1E015DB1D950084B460 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
+				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -397,6 +520,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D4EDA1E115DB1D950084B460 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4EDA1DF15DB1D950084B460 /* Debug */,
+				D4EDA1E015DB1D950084B460 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
