@@ -27,6 +27,7 @@ static NSString *const kAutoingestionResponseNoRouteToHostException =
 static NSString *const kAutoingestionResponseConnectException =
     @"java.net.ConnectException: Operation timed out";
 
+static NSString *const kJavaExceptionStackTracePrefix = @"\tat ";
 static NSString *const kLineBreak = @"\n";
 
 
@@ -129,10 +130,13 @@ static NSString *responseSummaryFromResponseText(NSString *responseText)
   NSMutableArray *filteredLines = [NSMutableArray array];
   for (NSUInteger i = 0; i < [lines count]; ++i) {
     NSString *line = [lines objectAtIndex:i];
-    if ( ! [line hasPrefix:@"\tat "]) {
-      if (i) line = [@"\t" stringByAppendingString:line];
-      [filteredLines addObject:line];
-    }
+    if ([line hasPrefix:kJavaExceptionStackTracePrefix]) continue;
+    
+    line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ( ! [line length]) continue;
+    
+    if (i) line = [@"\t" stringByAppendingString:line];
+    [filteredLines addObject:line];
   }
   return [filteredLines componentsJoinedByString:kLineBreak];
 }

@@ -79,7 +79,7 @@
   if ([response isSuccess]) {
     [monitor infoWithFormat:@"Downloaded %@: %@", description, [response filename]];
   } else {
-    [monitor warningWithFormat:@"%@: %@", description, response];
+    [monitor warningWithFormat:@"%@:\n\t%@", description, response];
   }
 }
 

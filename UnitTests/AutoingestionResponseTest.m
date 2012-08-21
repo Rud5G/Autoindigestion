@@ -24,7 +24,7 @@
   STAssertEqualObjects(expectedText, [response text], nil);
   
   NSString *expectedSummary = @"S_D_80123456_20120812.txt.gz\n"
-                               "\tFile Downloaded Successfully ";
+                               "\tFile Downloaded Successfully";
   STAssertEqualObjects(expectedSummary, [response summary], nil);
 
   NSString *expectedFilename = @"S_D_80123456_20120812.txt.gz";
@@ -52,7 +52,7 @@
       "\tat sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1014)\n"
       "\tat sun.net.www.protocol.https.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:230)\n"
       "\tat Autoingestion.main(Autoingestion.java:61)\n"
-      "The report you requested is not available at this time.  Please try again in a few minutes.";
+      "The report you requested is not available at this time.  Please try again in a few minutes.\n";
   NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
@@ -93,7 +93,7 @@
       "\tat sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1014)\n"
       "\tat sun.net.www.protocol.https.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:230)\n"
       "\tat Autoingestion.main(Autoingestion.java:61)\n"
-      "The report you requested is not available at this time.  Please try again in a few minutes.";
+      "The report you requested is not available at this time.  Please try again in a few minutes.\n";
   NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
@@ -152,7 +152,7 @@
       "\tat sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1014)\n"
       "\tat sun.net.www.protocol.https.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:230)\n"
       "\tat Autoingestion.main(Autoingestion.java:61)\n"
-      "The report you requested is not available at this time.  Please try again in a few minutes.";
+      "The report you requested is not available at this time.  Please try again in a few minutes.\n";
   NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
@@ -187,7 +187,7 @@
       "\tat sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1014)\n"
       "\tat sun.net.www.protocol.https.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:230)\n"
       "\tat Autoingestion.main(Autoingestion.java:61)\n"
-      "The report you requested is not available at this time.  Please try again in a few minutes.";
+      "The report you requested is not available at this time.  Please try again in a few minutes.\n";
   NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
   
@@ -225,7 +225,7 @@
 - (void)testDailyReportDataOutOfRangeResponse;
 {
   char const bytes[] =
-      "Daily reports are available only for past 14 days, please enter a date within past 14 days.";
+      "Daily reports are available only for past 14 days, please enter a date within past 14 days.\n";
   NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
@@ -234,7 +234,10 @@
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
   STAssertEqualObjects(expectedText, [response text], nil);
-  STAssertEqualObjects(expectedText, [response summary], nil);
+  
+  NSString *expectedSummary =
+      @"Daily reports are available only for past 14 days, please enter a date within past 14 days.";
+  STAssertEqualObjects(expectedSummary, [response summary], nil);
 
   STAssertNil([response filename], nil);
 }
@@ -243,7 +246,7 @@
 - (void)testWeeklyReportDataOutOfRangeResponse;
 {
   char const bytes[] =
-      "Weekly reports are available only for past 13 weeks, please enter a weekend date within past 13 weeks.";
+      "Weekly reports are available only for past 13 weeks, please enter a weekend date within past 13 weeks.\n";
   NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
@@ -252,9 +255,10 @@
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
   STAssertEqualObjects(expectedText, [response text], nil);
-  STAssertEqualObjects(expectedText, [response summary], nil);
-
-  STAssertNil([response filename], nil);
+  
+  NSString *expectedSummary =
+      @"Weekly reports are available only for past 13 weeks, please enter a weekend date within past 13 weeks.";
+  STAssertEqualObjects(expectedSummary, [response summary], nil);
 }
 
 
