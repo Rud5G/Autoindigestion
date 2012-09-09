@@ -20,11 +20,11 @@ enum AutoingestionResponseCode {
 @interface AutoingestionResponse : NSObject
 
 @property (readonly) enum AutoingestionResponseCode code;
-@property (readonly, copy) NSString *filename;
+@property (readonly) NSString *filename;
 @property (readonly, getter=isNetworkUnavailable) BOOL networkUnavailable;
 @property (readonly, getter=isSuccess) BOOL success;
-@property (readonly, copy) NSString *summary;
-@property (readonly, copy) NSString *text;
+@property (readonly) NSString *summary;
+@property (readonly) NSString *text;
 
 - (id)initWithOutput:(NSData *)output;
 

@@ -18,14 +18,14 @@
     @try {
       id value = [object valueForKey:key];
       if (value) return value;
-    } @catch (id exception) {
+    } @catch (id /*exception*/) {
       // ignore
     }
 
     @try {
       id value = [object valueForKey:alternateKey];
       if (value) return value;
-    } @catch (id exception) {
+    } @catch (id /*exception*/) {
       // ignore
     }
 

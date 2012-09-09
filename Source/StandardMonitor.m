@@ -1,6 +1,9 @@
 #import "StandardMonitor.h"
 
 
+static NSString *stringWithFormatAndArguments(NSString *format, va_list arguments);
+
+
 @implementation StandardMonitor
 
 
@@ -18,9 +21,10 @@
 {
   va_list arguments;
   va_start(arguments, format);
-  NSString *message = [[NSString alloc] initWithFormat:format
-                                             arguments:arguments];
+
+  NSString *message = stringWithFormatAndArguments(format, arguments);
   [self exitOnFailureWithMessage:message];
+  
   va_end(arguments);
 }
 
@@ -36,9 +40,10 @@
 {
   va_list arguments;
   va_start(arguments, format);
-  NSString *message = [[NSString alloc] initWithFormat:format
-                                             arguments:arguments];
+  
+  NSString *message = stringWithFormatAndArguments(format, arguments);
   [self writeMessage:message toFile:stderr];
+  
   va_end(arguments);
   exit(EXIT_FAILURE);
 }
@@ -48,9 +53,10 @@
 {
   va_list arguments;
   va_start(arguments, format);
-  NSString *message = [[NSString alloc] initWithFormat:format
-                                             arguments:arguments];
+  
+  NSString *message = stringWithFormatAndArguments(format, arguments);
   [self infoWithMessage:message];
+  
   va_end(arguments);
 }
 
@@ -96,9 +102,10 @@
 {
   va_list arguments;
   va_start(arguments, format);
-  NSString *message = [[NSString alloc] initWithFormat:format
-                                             arguments:arguments];
+  
+  NSString *message = stringWithFormatAndArguments(format, arguments);
   [self warningWithMessage:message];
+  
   va_end(arguments);
 }
 
@@ -128,3 +135,17 @@
 
 
 @end
+
+
+static NSString *stringWithFormatAndArguments(NSString *format, va_list arguments)
+{
+  
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wformat-nonliteral"
+
+  return [[NSString alloc] initWithFormat:format
+                                arguments:arguments];
+  
+# pragma clang diagnostic pop
+  
+}

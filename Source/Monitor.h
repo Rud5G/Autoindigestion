@@ -9,9 +9,9 @@
 
 - (void)exitOnFailureWithFormat:(NSString *)format, ...;
 
-- (void)exitOnFailureWithMessage:(NSString *)message;
+- (void)exitOnFailureWithMessage:(NSString *)message __attribute__ ((noreturn));
 
-- (void)exitWithUsage:(NSString *)format, ...;
+- (void)exitWithUsage:(NSString *)format, ... __attribute__ ((noreturn));
 
 - (void)infoWithFormat:(NSString *)format, ...;
 

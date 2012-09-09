@@ -455,6 +455,11 @@
 				GCC_PREFIX_HEADER = "Source/Autoindigestion-Prefix.pch";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = (
+					"-Werror",
+					"-Weverything",
+					"-Wno-semicolon-before-method-body",
+				);
 			};
 			name = Debug;
 		};
@@ -465,6 +470,11 @@
 				GCC_PREFIX_HEADER = "Source/Autoindigestion-Prefix.pch";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = (
+					"-Werror",
+					"-Weverything",
+					"-Wno-semicolon-before-method-body",
+				);
 			};
 			name = Release;
 		};
@@ -528,6 +538,7 @@
 				D4EDA1E015DB1D950084B460 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
