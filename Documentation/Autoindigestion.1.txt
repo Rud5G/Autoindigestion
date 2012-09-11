@@ -24,9 +24,9 @@ CONFIGURATION
      Autoingestion.class
 	      The Auto-Ingest tool, a Java command line tool provided by
 	      Apple.  Newer Macs do not have Java installed by default; you
-	      may be prompted to download and install Java the first time you
-	      run Autoindigestion or the Auto-Ingest tool.  Alternately, you
-	      can download the latest Java installer from
+	      may be prompted to download and install a Java runtime the first
+	      time you run Autoindigestion or the Auto-Ingest tool.  Alter-
+	      nately, you can download the latest Java installer from
 		    http://support.apple.com/downloads/#Java
 	      By default, Autoindigestion looks for Autoingestion.class in
 	      "/Library/Autoindigestion".
