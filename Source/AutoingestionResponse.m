@@ -26,6 +26,9 @@ static NSString *const kAutoingestionResponseNoRouteToHostException =
     @"java.net.NoRouteToHostException: No route to host";
 static NSString *const kAutoingestionResponseConnectException =
     @"java.net.ConnectException: Operation timed out";
+static NSString *const kAutoingestionResponseSSLHandshakeException =
+    @"javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake";
+
 
 static NSString *const kJavaExceptionStackTracePrefix = @"\tat ";
 static NSString *const kLineBreak = @"\n";
@@ -106,6 +109,8 @@ static enum AutoingestionResponseCode responseCodeFromResponseText(NSString *res
     return AutoingestionResponseCodeNoRouteToHostException;
   } else if ([responseText containsString:kAutoingestionResponseConnectException]) {
     return AutoingestionResponseCodeConnectException;
+  } else if ([responseText containsString:kAutoingestionResponseSSLHandshakeException]) {
+    return AutoingestionResponseCodeSSLHandshakeException;
   }
 
   if ([responseText containsString:kAutoingestionResponseNotAvailable]) {

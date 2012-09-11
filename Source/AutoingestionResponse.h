@@ -13,6 +13,7 @@ enum AutoingestionResponseCode {
   AutoingestionResponseCodeSocketException,
   AutoingestionResponseCodeNoRouteToHostException,
   AutoingestionResponseCodeConnectException,
+  AutoingestionResponseCodeSSLHandshakeException,
   AutoingestionResponseCodeUnrecognized,
 };
 
