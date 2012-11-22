@@ -4,10 +4,22 @@
 #import "User.h"
 
 
+static char **duplicateNullTerminatedArrayOfStrings(char **arrayOfStrings);
+static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
+
+
 @implementation Group
 
 
 @synthesize group;
+
+
+- (void)dealloc;
+{
+  freeNullTerminatedArrayOfStrings(group.gr_mem);
+  free(group.gr_passwd);
+  free(group.gr_name);
+}
 
 
 - (NSString *)description;
@@ -65,9 +77,31 @@
 {
   self = [super init];
   if ( ! self) return nil;
-
-  memcpy(&group, theGroup, sizeof(struct group));
-
+  
+  group.gr_gid = theGroup->gr_gid;
+  
+  if (theGroup->gr_name) {
+    group.gr_name = strdup(theGroup->gr_name);
+    if ( ! group.gr_name) return nil;
+  }
+  
+  if (theGroup->gr_passwd) {
+    group.gr_passwd = strdup(theGroup->gr_passwd);
+    if ( ! group.gr_passwd) {
+      free(group.gr_name);
+      return nil;
+    }
+  }
+  
+  if (theGroup->gr_mem) {
+    group.gr_mem = duplicateNullTerminatedArrayOfStrings(theGroup->gr_mem);
+    if ( ! group.gr_mem) {
+      free(group.gr_passwd);
+      free(group.gr_name);
+      return nil;
+    }
+  }
+  
   return self;
 }
 
@@ -129,3 +163,43 @@
 
 
 @end
+
+
+static char **duplicateNullTerminatedArrayOfStrings(char **arrayOfStrings)
+{
+  size_t stringCount = 0;
+  char **strings = arrayOfStrings;
+  while (*strings) {
+    ++stringCount;
+    ++strings;
+  }
+  
+  size_t itemCount = stringCount + 1;
+  char **duplicateArray = calloc(itemCount, sizeof(char *));
+  if ( ! duplicateArray) return NULL;
+  
+  strings = arrayOfStrings;
+  char **duplicateStrings = duplicateArray;
+  while (*strings) {
+    *duplicateStrings = strdup(*strings);
+    if ( ! *duplicateStrings) {
+      freeNullTerminatedArrayOfStrings(duplicateArray);
+      return NULL;
+    }
+    ++strings;
+    ++duplicateStrings;
+  }
+  
+  return duplicateArray;
+}
+
+
+static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings)
+{
+  char **strings = arrayOfStrings;
+  while (*strings) {
+    free(*strings);
+    ++strings;
+  }
+  free(arrayOfStrings);
+}
