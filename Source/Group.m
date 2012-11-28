@@ -5,6 +5,7 @@
 
 
 static char **duplicateNullTerminatedArrayOfStrings(char **arrayOfStrings);
+static void freeGroupMemory(struct group *group);
 static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 
 
@@ -16,15 +17,13 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 
 - (void)dealloc;
 {
-  freeNullTerminatedArrayOfStrings(group.gr_mem);
-  free(group.gr_passwd);
-  free(group.gr_name);
+  freeGroupMemory(&group);
 }
 
 
 - (NSString *)description;
 {
-  return [self name];
+  return group.gr_name ? [self name] : @"(NULL)";
 }
 
 
@@ -37,12 +36,6 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 - (gid_t)GID;
 {
   return group.gr_gid;
-}
-
-
-- (char const *)groupName;
-{
-  return group.gr_name;
 }
 
 
@@ -88,7 +81,7 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
   if (theGroup->gr_passwd) {
     group.gr_passwd = strdup(theGroup->gr_passwd);
     if ( ! group.gr_passwd) {
-      free(group.gr_name);
+      freeGroupMemory(&group);
       return nil;
     }
   }
@@ -96,8 +89,7 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
   if (theGroup->gr_mem) {
     group.gr_mem = duplicateNullTerminatedArrayOfStrings(theGroup->gr_mem);
     if ( ! group.gr_mem) {
-      free(group.gr_passwd);
-      free(group.gr_name);
+      freeGroupMemory(&group);
       return nil;
     }
   }
@@ -106,14 +98,13 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-- (id)initWithName:(NSString *)name
-             error:(NSError **)error;
+- (id)initWithGroupName:(char const *)groupName
+                  error:(NSError **)error;
 {
-  char const *groupName = [name UTF8String];
   errno = 0;
   struct group *theGroup = getgrnam(groupName);
   if (theGroup) return [self initWithGroup:theGroup];
-
+  
   if (error) {
     *error = errno ? [NSError currentPOSIXError] : nil;
   }
@@ -121,29 +112,49 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
+- (id)initWithID:(NSNumber *)ID
+           error:(NSError **)error;
+{
+  gid_t GID = [ID unsignedIntValue];
+  return [self initWithGID:GID error:error];
+}
+
+
+- (id)initWithName:(NSString *)name
+             error:(NSError **)error;
+{
+  char const *groupName = [name UTF8String];
+  return [self initWithGroupName:groupName error:error];
+}
+
+
 - (NSArray *)memberNames;
 {
-  NSMutableArray *members = [NSMutableArray array];
-  char **groupMember = group.gr_mem;
-  while (*groupMember) {
-    NSString *member = [NSString stringWithCString:*groupMember
-                                          encoding:NSUTF8StringEncoding];
-    [members addObject:member];
-    ++groupMember;
+  NSMutableArray *memberNames = [NSMutableArray array];
+  if (group.gr_mem) {    
+    char **groupMember = group.gr_mem;
+    while (*groupMember) {
+      NSString *memberName = [NSString stringWithCString:*groupMember
+                                                encoding:NSUTF8StringEncoding];
+      [memberNames addObject:memberName];
+      ++groupMember;
+    }
   }
-  return [members copy];
+  return [memberNames copy];
 }
 
 
 - (NSArray *)membersWithError:(NSError **)error;
 {
   NSMutableArray *members = [NSMutableArray array];
-  char **groupMember = group.gr_mem;
-  while (*groupMember) {
-    User *member = [[User alloc] initWithUsername:*groupMember error:error];
-    if ( ! member) return nil;
-    [members addObject:member];
-    ++groupMember;
+  if (group.gr_mem) {    
+    char **groupMember = group.gr_mem;
+    while (*groupMember) {
+      User *member = [[User alloc] initWithUsername:*groupMember error:error];
+      if ( ! member) return nil;
+      [members addObject:member];
+      ++groupMember;
+    }
   }
   return [members copy];
 }
@@ -151,8 +162,12 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 
 - (NSString *)name;
 {
-  return [NSString stringWithCString:group.gr_name
-                            encoding:NSUTF8StringEncoding];
+  if (group.gr_name) {
+    return [NSString stringWithCString:group.gr_name
+                              encoding:NSUTF8StringEncoding];
+  } else {
+    return nil;
+  }
 }
 
 
@@ -194,8 +209,18 @@ static char **duplicateNullTerminatedArrayOfStrings(char **arrayOfStrings)
 }
 
 
+static void freeGroupMemory(struct group *group)
+{
+  freeNullTerminatedArrayOfStrings(group->gr_mem);
+  free(group->gr_passwd);
+  free(group->gr_name);
+}
+
+
 static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings)
 {
+  if ( ! arrayOfStrings) return;
+  
   char **strings = arrayOfStrings;
   while (*strings) {
     free(*strings);

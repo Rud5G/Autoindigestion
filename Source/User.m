@@ -5,22 +5,35 @@
 #import "NSError+Autoindigestion.h"
 
 
+static void freePasswdMemory(struct passwd *passwd);
+
+
 @implementation User
 
 
 @synthesize passwd;
 
 
+- (void)dealloc;
+{
+  freePasswdMemory(&passwd);
+}
+
+
 - (NSString *)description;
 {
-  return [self name];
+  return passwd.pw_name ? [self name] : @"(NULL)";
 }
 
 
 - (NSString *)directory;
 {
-  return [NSString stringWithCString:passwd.pw_dir
-                            encoding:NSUTF8StringEncoding];
+  if (passwd.pw_dir) {
+    return [NSString stringWithCString:passwd.pw_dir
+                              encoding:NSUTF8StringEncoding];
+  } else {
+    return nil;
+  }
 }
 
 
@@ -30,9 +43,26 @@
 }
 
 
+- (NSString *)fullName;
+{
+  if (passwd.pw_gecos) {
+    return [NSString stringWithCString:passwd.pw_gecos
+                              encoding:NSUTF8StringEncoding];
+  } else {
+    return nil;
+  }
+}
+
+
+- (gid_t)GID;
+{
+  return passwd.pw_gid;
+}
+
+
 - (NSNumber *)ID;
 {
-  return [NSNumber numberWithUnsignedLong:passwd.pw_gid];
+  return [NSNumber numberWithUnsignedLong:passwd.pw_uid];
 }
 
 
@@ -54,7 +84,8 @@
 - (id)initWithName:(NSString *)name
              error:(NSError **)error;
 {
-  return [self initWithUsername:[name UTF8String] error:error];
+  char const *username = [name UTF8String];
+  return [self initWithUsername:username error:error];
 }
 
 
@@ -62,10 +93,59 @@
 {
   self = [super init];
   if ( ! self) return nil;
-
-  passwd = *thePasswd;
-  memcpy(&passwd, thePasswd, sizeof(struct passwd));
-
+  
+  if (thePasswd->pw_name) {
+    passwd.pw_name = strdup(thePasswd->pw_name);
+    if ( ! passwd.pw_name) return nil;
+  }
+  
+  if (thePasswd->pw_passwd) {
+    passwd.pw_passwd = strdup(thePasswd->pw_passwd);
+    if ( ! passwd.pw_passwd) {
+      freePasswdMemory(&passwd);
+      return nil;
+    }
+  }
+  
+  passwd.pw_uid = thePasswd->pw_uid;
+  passwd.pw_gid = thePasswd->pw_gid;
+  passwd.pw_change = thePasswd->pw_change;
+  
+  if (thePasswd->pw_class) {    
+    passwd.pw_class = strdup(thePasswd->pw_class);
+    if ( ! passwd.pw_class) {
+      freePasswdMemory(&passwd);
+      return nil;
+      
+    }
+  }
+  
+  if (thePasswd->pw_gecos) {
+    passwd.pw_gecos = strdup(thePasswd->pw_gecos);
+    if ( ! passwd.pw_gecos) {
+      freePasswdMemory(&passwd);
+      return nil;
+    }
+  }
+  
+  if (thePasswd->pw_dir) {
+    passwd.pw_dir = strdup(thePasswd->pw_dir);
+    if ( ! passwd.pw_dir) {
+      freePasswdMemory(&passwd);
+      return nil;
+    }
+  }
+  
+  if (thePasswd->pw_shell) {
+    passwd.pw_shell = strdup(thePasswd->pw_shell);
+    if ( ! passwd.pw_shell) {
+      freePasswdMemory(&passwd);
+      return nil;
+    }
+  }
+  
+  passwd.pw_expire = thePasswd->pw_expire;
+  
   return self;
 }
 
@@ -114,8 +194,29 @@
 
 - (NSString *)name;
 {
-  return [NSString stringWithCString:passwd.pw_name
-                            encoding:NSUTF8StringEncoding];
+  if (passwd.pw_name) {
+    return [NSString stringWithCString:passwd.pw_name
+                              encoding:NSUTF8StringEncoding];
+  } else {
+    return nil;
+  }
+}
+
+
+- (NSString *)password;
+{
+  if (passwd.pw_passwd) {
+    return [NSString stringWithCString:passwd.pw_passwd
+                              encoding:NSUTF8StringEncoding];
+  } else {
+    return nil;
+  }
+}
+
+
+- (NSNumber *)primaryGroupID;
+{
+  return [NSNumber numberWithUnsignedLong:passwd.pw_gid];
 }
 
 
@@ -133,8 +234,12 @@
 
 - (NSString *)shell;
 {
-  return [NSString stringWithCString:passwd.pw_shell
-                            encoding:NSUTF8StringEncoding];
+  if (passwd.pw_shell) {
+    return [NSString stringWithCString:passwd.pw_shell
+                              encoding:NSUTF8StringEncoding];
+  } else {
+    return nil;
+  }
 }
 
 
@@ -144,22 +249,15 @@
 }
 
 
-- (char const *)userDir;
-{
-  return passwd.pw_dir;
-}
-
-
-- (char const *)username;
-{
-  return passwd.pw_name;
-}
-
-
-- (char const *)userShell;
-{
-  return passwd.pw_shell;
-}
-
-
 @end
+
+
+static void freePasswdMemory(struct passwd *passwd)
+{
+  free(passwd->pw_shell);
+  free(passwd->pw_dir);
+  free(passwd->pw_gecos);
+  free(passwd->pw_class);
+  free(passwd->pw_passwd);
+  free(passwd->pw_name);
+}
