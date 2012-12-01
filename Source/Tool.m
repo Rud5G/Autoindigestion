@@ -18,15 +18,6 @@
 @implementation Tool
 
 
-@synthesize autoingestion;
-@synthesize fileMode;
-@synthesize group;
-@synthesize monitor;
-@synthesize owner;
-@synthesize reportRoot;
-@synthesize vendors;
-
-
 - (id)initWithMonitor:(id <Monitor>)theMonitor
              defaults:(Defaults *)defaults
     configurationFile:(ConfigurationFile *)configurationFile
@@ -35,25 +26,25 @@
   self = [super init];
   if ( ! self) return nil;
 
-  monitor = theMonitor;
-  vendors = [NSMutableArray array];
+  _monitor = theMonitor;
+  _vendors = [NSMutableArray array];
 
-  autoingestion = [[Autoingestion alloc] initWithMonitor:monitor
-                                                defaults:defaults
-                                                 options:options
-                                    andConfigurationFile:configurationFile];
-  fileMode = [defaults fileMode];
-  group = [NSObject firstValueForKey:kGroupKey
-                         fromObjects:configurationFile, defaults, nil];
-  owner = [NSObject firstValueForKey:kOwnerKey
-                         fromObjects:configurationFile, defaults, nil];
-  reportRoot = [defaults reportRoot];
+  _autoingestion = [[Autoingestion alloc] initWithMonitor:_monitor
+                                                 defaults:defaults
+                                                  options:options
+                                     andConfigurationFile:configurationFile];
+  _fileMode = [defaults fileMode];
+  _group = [NSObject firstValueForKey:kGroupKey
+                          fromObjects:configurationFile, defaults, nil];
+  _owner = [NSObject firstValueForKey:kOwnerKey
+                          fromObjects:configurationFile, defaults, nil];
+  _reportRoot = [defaults reportRoot];
 
   NSString *vendorsDir = [NSObject firstValueForKey:kVendorsDirKey
                                         fromObjects:options, configurationFile, defaults, nil];
   if ( ! [[NSFileManager defaultManager] fileExistsAtPath:vendorsDir]) {
-    [monitor exitOnFailureWithFormat:@"Configuration directory \"%@\" not found",
-             vendorsDir];
+    [_monitor exitOnFailureWithFormat:@"Configuration directory \"%@\" not found",
+              vendorsDir];
     return nil;
   }
 
@@ -61,32 +52,32 @@
   NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:vendorsDir
                                                                            error:&error];
   if ( ! filenames) {
-    [monitor exitOnFailureWithError:error];
+    [_monitor exitOnFailureWithError:error];
     return nil;
   }
 
   for (NSString *filename in filenames) {
     if ([filename hasSuffix:@".plist"]) {
       NSString *vendorFilePath = [vendorsDir stringByAppendingPathComponent:filename];
-      VendorFile *vendorFile = [[VendorFile alloc] initWithMonitor:monitor
+      VendorFile *vendorFile = [[VendorFile alloc] initWithMonitor:_monitor
                                                            andPath:vendorFilePath];
-      Vendor *vendor = [[Vendor alloc] initWithMonitor:monitor
+      Vendor *vendor = [[Vendor alloc] initWithMonitor:_monitor
                                               defaults:defaults
                                      configurationFile:configurationFile
-                                         autoingestion:autoingestion
+                                         autoingestion:_autoingestion
                                          andVendorFile:vendorFile];
-      [vendors addObject:vendor];
+      [_vendors addObject:vendor];
     }
   }
   
-  if ( ! [vendors count]) {
-    [monitor warningWithFormat:@"No vendor files found in \"%@\"", vendorsDir];
+  if ( ! [_vendors count]) {
+    [_monitor warningWithFormat:@"No vendor files found in \"%@\"", vendorsDir];
   }
 
   NSPredicate *enabled = [NSPredicate predicateWithFormat:@"disabled = NO"];
-  [vendors filterUsingPredicate:enabled];
-  if ( ! [vendors count]) {
-    [monitor warningWithFormat:@"No enabled vendor files found in \"%@\"", vendorsDir];
+  [_vendors filterUsingPredicate:enabled];
+  if ( ! [_vendors count]) {
+    [_monitor warningWithFormat:@"No enabled vendor files found in \"%@\"", vendorsDir];
   }
 
   return self;
@@ -95,21 +86,21 @@
 
 - (void)prepare;
 {
-  for (Vendor *vendor in vendors) {
-    if ([reportRoot isParentOfPath:[vendor reportDir]]) {
-      if ( ! [[NSFileManager defaultManager] fileExistsAtPath:reportRoot]) {
+  for (Vendor *vendor in _vendors) {
+    if ([_reportRoot isParentOfPath:[vendor reportDir]]) {
+      if ( ! [[NSFileManager defaultManager] fileExistsAtPath:_reportRoot]) {
         NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                     [owner ID], NSFileOwnerAccountID,
-                                                     [group ID], NSFileGroupOwnerAccountID,
-                                                     fileMode, NSFilePosixPermissions,
+                                                     [_owner ID], NSFileOwnerAccountID,
+                                                     [_group ID], NSFileGroupOwnerAccountID,
+                                                     _fileMode, NSFilePosixPermissions,
                                                      nil];
         NSError *error;
-        BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:reportRoot
+        BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:_reportRoot
                                                  withIntermediateDirectories:YES
                                                                   attributes:attributes
                                                                        error:&error];
         if ( ! created) {
-          [monitor exitOnFailureWithError:error];
+          [_monitor exitOnFailureWithError:error];
         }
       }
     }
@@ -122,7 +113,7 @@
 - (void)downloadReports;
 {
   NSMutableArray *autoingestionJobs = [NSMutableArray array];
-  for (Vendor *vendor in vendors) {
+  for (Vendor *vendor in _vendors) {
     [autoingestionJobs addObjectsFromArray:[vendor autoingestionJobs]];
   }
 
@@ -142,9 +133,9 @@
         ++retryCount;
         tryAgain = YES;
         double waitForNetworkTimeout = 60.0;
-        [monitor warningWithFormat:@"Can't reach iTunes Connect server: "
-                                   @"sleeping for %.0f seconds and trying again",
-                                   waitForNetworkTimeout];
+        [_monitor warningWithFormat:@"Can't reach iTunes Connect server: "
+                                    @"sleeping for %.0f seconds and trying again",
+                                    waitForNetworkTimeout];
         [NSThread sleepForTimeInterval:waitForNetworkTimeout];
         break;
       }

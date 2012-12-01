@@ -26,19 +26,6 @@ NSString *const kVendorNameKey = @"VendorName";
 @implementation Defaults
 
 
-@synthesize autoingestionClass;
-@synthesize configurationFile;
-@synthesize disabled;
-@synthesize fileMode;
-@synthesize group;
-@synthesize optInReportsEnabled;
-@synthesize owner;
-@synthesize preOrderReportsEnabled;
-@synthesize reportRoot;
-@synthesize salesReportsDisabled;
-@synthesize vendorsDir;
-
-
 - (id)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
@@ -75,24 +62,24 @@ NSString *const kVendorNameKey = @"VendorName";
   NSString *userDir = [userDirs objectAtIndex:0];
   NSString *sharedDir = [userDir stringByAppendingPathComponent:@"Shared"];
 
-  autoingestionClass = [appDir stringByAppendingPathComponent:@"Autoingestion.class"];
-  configurationFile = [appDir stringByAppendingPathComponent:@"Configuration.plist"];
-  disabled = [NSNumber numberWithBool:NO];
-  fileMode = [NSNumber numberWithShort:0775];
-  optInReportsEnabled = [NSNumber numberWithBool:NO];
-  preOrderReportsEnabled = [NSNumber numberWithBool:NO];
-  reportRoot = [sharedDir stringByAppendingPathComponent:@"iTunes Connect"];
-  salesReportsDisabled = [NSNumber numberWithBool:NO];
-  vendorsDir = [appDir stringByAppendingPathComponent:@"Vendors"];
+  _autoingestionClass = [appDir stringByAppendingPathComponent:@"Autoingestion.class"];
+  _configurationFile = [appDir stringByAppendingPathComponent:@"Configuration.plist"];
+  _disabled = [NSNumber numberWithBool:NO];
+  _fileMode = [NSNumber numberWithShort:0775];
+  _optInReportsEnabled = [NSNumber numberWithBool:NO];
+  _preOrderReportsEnabled = [NSNumber numberWithBool:NO];
+  _reportRoot = [sharedDir stringByAppendingPathComponent:@"iTunes Connect"];
+  _salesReportsDisabled = [NSNumber numberWithBool:NO];
+  _vendorsDir = [appDir stringByAppendingPathComponent:@"Vendors"];
 
   NSError *error;
-  group = [Group effectiveGroupWithError:&error];
-  if ( ! group) {
+  _group = [Group effectiveGroupWithError:&error];
+  if ( ! _group) {
     [monitor exitOnFailureWithError:error];
   }
 
-  owner = [User effectiveUserWithError:&error];
-  if ( ! owner) {
+  _owner = [User effectiveUserWithError:&error];
+  if ( ! _owner) {
     [monitor exitOnFailureWithError:error];
   }
 

@@ -9,20 +9,13 @@
 
 @implementation AutoingestionJob
 {
-  NSString *description;
+  NSString *_description;
 }
-
-
-@synthesize arguments;
-@synthesize monitor;
-@synthesize reportCategory;
-@synthesize reportDate;
-@synthesize response;
 
 
 - (NSString *)description;
 {
-  return description;
+  return _description;
 }
 
 
@@ -33,41 +26,41 @@
   self = [super init];
   if ( ! self) return nil;
   
-  monitor = theMonitor;
-  reportCategory = theReportCategory;
-  reportDate = theReportDate;
+  _monitor = theMonitor;
+  _reportCategory = theReportCategory;
+  _reportDate = theReportDate;
   
-  Vendor *vendor = [reportCategory vendor];
+  Vendor *vendor = [_reportCategory vendor];
 
   NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
   [dateFormatter setLocale:locale];
 
   [dateFormatter setDateFormat:@"dd-MMM-yyyy"];
-  NSString *reportDateString = [dateFormatter stringFromDate:reportDate];
-  description = [NSString stringWithFormat:@"%@ %@ %@ Report for %@",
-                                           reportDateString,
-                                           [reportCategory dateType],
-                                           [reportCategory reportType],
-                                           [vendor vendorName]];
+  NSString *reportDateString = [dateFormatter stringFromDate:_reportDate];
+  _description = [NSString stringWithFormat:@"%@ %@ %@ Report for %@",
+                                            reportDateString,
+                                            [_reportCategory dateType],
+                                            [_reportCategory reportType],
+                                            [vendor vendorName]];
 
-  Autoingestion *autoingestion = [reportCategory autoingestion];
+  Autoingestion *autoingestion = [_reportCategory autoingestion];
   [dateFormatter setDateFormat:@"yyyyMMdd"];
-  NSString *argumentDateString = [dateFormatter stringFromDate:reportDate];
-  arguments = [NSArray arrayWithObjects:
-                       @"--exec",
-                       @"java",
-                       @"-classpath",
-                       [autoingestion classPath],
-                       [autoingestion className],
-                       [vendor username],
-                       [vendor password],
-                       [vendor vendorID],
-                       [reportCategory reportType],
-                       [reportCategory dateType],
-                       [reportCategory reportSubtype],
-                       argumentDateString,
-                       nil];
+  NSString *argumentDateString = [dateFormatter stringFromDate:_reportDate];
+  _arguments = [NSArray arrayWithObjects:
+                        @"--exec",
+                        @"java",
+                        @"-classpath",
+                        [autoingestion classPath],
+                        [autoingestion className],
+                        [vendor username],
+                        [vendor password],
+                        [vendor vendorID],
+                        [_reportCategory reportType],
+                        [_reportCategory dateType],
+                        [_reportCategory reportSubtype],
+                        argumentDateString,
+                        nil];
 
   return self;
 }
@@ -75,11 +68,11 @@
 
 - (void)run;
 {
-  response = [self runTask];
-  if ([response isSuccess]) {
-    [monitor infoWithFormat:@"Downloaded %@: %@", description, [response filename]];
+  _response = [self runTask];
+  if ([_response isSuccess]) {
+    [_monitor infoWithFormat:@"Downloaded %@: %@", _description, [_response filename]];
   } else {
-    [monitor warningWithFormat:@"%@:\n\t%@", description, response];
+    [_monitor warningWithFormat:@"%@:\n\t%@", _description, _response];
   }
 }
 
@@ -87,8 +80,8 @@
 - (AutoingestionResponse *)runTask
 {
   NSTask *task = [[NSTask alloc] init];
-  [task setArguments:arguments];
-  [task setCurrentDirectoryPath:[reportCategory reportDir]];
+  [task setArguments:_arguments];
+  [task setCurrentDirectoryPath:[_reportCategory reportDir]];
   [task setLaunchPath:@"/usr/libexec/java_home"];
 
   NSPipe *pipe = [NSPipe pipe];
@@ -105,12 +98,12 @@
   }
 
   if (NSTaskTerminationReasonExit != [task terminationReason]) {
-    [monitor warningWithFormat:@"%@: Autoingestion task failed to exit normally",
-             description];
+    [_monitor warningWithFormat:@"%@: Autoingestion task failed to exit normally",
+                                _description];
   }
   if ([task terminationStatus]) {
-    [monitor warningWithFormat:@"%@: Autoingestion task failed with status %i",
-             description, [task terminationStatus]];
+    [_monitor warningWithFormat:@"%@: Autoingestion task failed with status %i",
+                                _description, [task terminationStatus]];
   }
   
   return [[AutoingestionResponse alloc] initWithOutput:buffer];

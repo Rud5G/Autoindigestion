@@ -471,6 +471,7 @@
 					"-Werror",
 					"-Weverything",
 					"-Wno-semicolon-before-method-body",
+					"-Wno-objc-missing-property-synthesis",
 				);
 			};
 			name = Debug;
@@ -486,6 +487,7 @@
 					"-Werror",
 					"-Weverything",
 					"-Wno-semicolon-before-method-body",
+					"-Wno-objc-missing-property-synthesis",
 				);
 			};
 			name = Release;
@@ -502,6 +504,7 @@
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Werror";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -518,6 +521,7 @@
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Werror";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;

@@ -11,25 +11,22 @@ static void freePasswdMemory(struct passwd *passwd);
 @implementation User
 
 
-@synthesize passwd;
-
-
 - (void)dealloc;
 {
-  freePasswdMemory(&passwd);
+  freePasswdMemory(&_passwd);
 }
 
 
 - (NSString *)description;
 {
-  return passwd.pw_name ? [self name] : @"(NULL)";
+  return _passwd.pw_name ? [self name] : @"(NULL)";
 }
 
 
 - (NSString *)directory;
 {
-  if (passwd.pw_dir) {
-    return [NSString stringWithCString:passwd.pw_dir
+  if (_passwd.pw_dir) {
+    return [NSString stringWithCString:_passwd.pw_dir
                               encoding:NSUTF8StringEncoding];
   } else {
     return nil;
@@ -45,8 +42,8 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSString *)fullName;
 {
-  if (passwd.pw_gecos) {
-    return [NSString stringWithCString:passwd.pw_gecos
+  if (_passwd.pw_gecos) {
+    return [NSString stringWithCString:_passwd.pw_gecos
                               encoding:NSUTF8StringEncoding];
   } else {
     return nil;
@@ -56,13 +53,13 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (gid_t)GID;
 {
-  return passwd.pw_gid;
+  return _passwd.pw_gid;
 }
 
 
 - (NSNumber *)ID;
 {
-  return [NSNumber numberWithUnsignedLong:passwd.pw_uid];
+  return [NSNumber numberWithUnsignedLong:_passwd.pw_uid];
 }
 
 
@@ -95,56 +92,56 @@ static void freePasswdMemory(struct passwd *passwd);
   if ( ! self) return nil;
   
   if (thePasswd->pw_name) {
-    passwd.pw_name = strdup(thePasswd->pw_name);
-    if ( ! passwd.pw_name) return nil;
+    _passwd.pw_name = strdup(thePasswd->pw_name);
+    if ( ! _passwd.pw_name) return nil;
   }
   
   if (thePasswd->pw_passwd) {
-    passwd.pw_passwd = strdup(thePasswd->pw_passwd);
-    if ( ! passwd.pw_passwd) {
-      freePasswdMemory(&passwd);
+    _passwd.pw_passwd = strdup(thePasswd->pw_passwd);
+    if ( ! _passwd.pw_passwd) {
+      freePasswdMemory(&_passwd);
       return nil;
     }
   }
+
+  _passwd.pw_uid = thePasswd->pw_uid;
+  _passwd.pw_gid = thePasswd->pw_gid;
+  _passwd.pw_change = thePasswd->pw_change;
   
-  passwd.pw_uid = thePasswd->pw_uid;
-  passwd.pw_gid = thePasswd->pw_gid;
-  passwd.pw_change = thePasswd->pw_change;
-  
-  if (thePasswd->pw_class) {    
-    passwd.pw_class = strdup(thePasswd->pw_class);
-    if ( ! passwd.pw_class) {
-      freePasswdMemory(&passwd);
+  if (thePasswd->pw_class) {
+    _passwd.pw_class = strdup(thePasswd->pw_class);
+    if ( ! _passwd.pw_class) {
+      freePasswdMemory(&_passwd);
       return nil;
       
     }
   }
   
   if (thePasswd->pw_gecos) {
-    passwd.pw_gecos = strdup(thePasswd->pw_gecos);
-    if ( ! passwd.pw_gecos) {
-      freePasswdMemory(&passwd);
+    _passwd.pw_gecos = strdup(thePasswd->pw_gecos);
+    if ( ! _passwd.pw_gecos) {
+      freePasswdMemory(&_passwd);
       return nil;
     }
   }
   
   if (thePasswd->pw_dir) {
-    passwd.pw_dir = strdup(thePasswd->pw_dir);
-    if ( ! passwd.pw_dir) {
-      freePasswdMemory(&passwd);
+    _passwd.pw_dir = strdup(thePasswd->pw_dir);
+    if ( ! _passwd.pw_dir) {
+      freePasswdMemory(&_passwd);
       return nil;
     }
   }
   
   if (thePasswd->pw_shell) {
-    passwd.pw_shell = strdup(thePasswd->pw_shell);
-    if ( ! passwd.pw_shell) {
-      freePasswdMemory(&passwd);
+    _passwd.pw_shell = strdup(thePasswd->pw_shell);
+    if ( ! _passwd.pw_shell) {
+      freePasswdMemory(&_passwd);
       return nil;
     }
   }
-  
-  passwd.pw_expire = thePasswd->pw_expire;
+
+  _passwd.pw_expire = thePasswd->pw_expire;
   
   return self;
 }
@@ -194,8 +191,8 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSString *)name;
 {
-  if (passwd.pw_name) {
-    return [NSString stringWithCString:passwd.pw_name
+  if (_passwd.pw_name) {
+    return [NSString stringWithCString:_passwd.pw_name
                               encoding:NSUTF8StringEncoding];
   } else {
     return nil;
@@ -205,8 +202,8 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSString *)password;
 {
-  if (passwd.pw_passwd) {
-    return [NSString stringWithCString:passwd.pw_passwd
+  if (_passwd.pw_passwd) {
+    return [NSString stringWithCString:_passwd.pw_passwd
                               encoding:NSUTF8StringEncoding];
   } else {
     return nil;
@@ -216,13 +213,13 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSNumber *)primaryGroupID;
 {
-  return [NSNumber numberWithUnsignedLong:passwd.pw_gid];
+  return [NSNumber numberWithUnsignedLong:_passwd.pw_gid];
 }
 
 
 - (Group *)primaryGroupWithError:(NSError **)error;
 {
-  return [[Group alloc] initWithGID:passwd.pw_gid error:error];
+  return [[Group alloc] initWithGID:_passwd.pw_gid error:error];
 }
 
 
@@ -234,8 +231,8 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSString *)shell;
 {
-  if (passwd.pw_shell) {
-    return [NSString stringWithCString:passwd.pw_shell
+  if (_passwd.pw_shell) {
+    return [NSString stringWithCString:_passwd.pw_shell
                               encoding:NSUTF8StringEncoding];
   } else {
     return nil;
@@ -245,7 +242,7 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (uid_t)UID;
 {
-  return passwd.pw_uid;
+  return _passwd.pw_uid;
 }
 
 

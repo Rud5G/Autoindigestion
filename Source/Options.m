@@ -8,13 +8,6 @@
 @implementation Options
 
 
-@synthesize autoingestionClass;
-@synthesize configurationFile;
-@synthesize defaults;
-@synthesize monitor;
-@synthesize vendorsDir;
-
-
 - (id)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
@@ -30,8 +23,8 @@
   self = [super init];
   if ( ! self) return nil;
 
-  defaults = theDefaults;
-  monitor = theMonitor;
+  _defaults = theDefaults;
+  _monitor = theMonitor;
 
   struct option longOptions[] = {
       {
@@ -74,16 +67,16 @@
         [self printUsageAndExit];
         break;
       case 'a':
-        autoingestionClass = [NSString stringWithCString:optarg
-                                                encoding:NSUTF8StringEncoding];
+        _autoingestionClass = [NSString stringWithCString:optarg
+                                                 encoding:NSUTF8StringEncoding];
         break;
       case 'c':
-        configurationFile = [NSString stringWithCString:optarg
-                                               encoding:NSUTF8StringEncoding];
+        _configurationFile = [NSString stringWithCString:optarg
+                                                encoding:NSUTF8StringEncoding];
         break;
       case 'v':
-        vendorsDir = [NSString stringWithCString:optarg
-                                              encoding:NSUTF8StringEncoding];
+        _vendorsDir = [NSString stringWithCString:optarg
+                                         encoding:NSUTF8StringEncoding];
         break;
       case '?':
         [self printUsageAndExit];
@@ -100,7 +93,7 @@
 
 - (void)printUsageAndExit
 {
-  [monitor exitWithUsage:
+  [_monitor exitWithUsage:
       @"USAGE: %@ [options]...\n"
       @"  -h, --help                       display this help message\n"
       @"  -a, --autoingestion-class=PATH   path to Autoingestion.class\n"
@@ -110,10 +103,10 @@
       @"  -v, --vendors-dir=PATH           path to vendors directory\n"
       @"                                   (default: %@)\n"
       ,
-      [monitor command],
-      [defaults autoingestionClass],
-      [defaults configurationFile],
-      [defaults vendorsDir]
+      [_monitor command],
+      [_defaults autoingestionClass],
+      [_defaults configurationFile],
+      [_defaults vendorsDir]
   ];
 }
 

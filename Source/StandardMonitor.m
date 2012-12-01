@@ -7,10 +7,6 @@ static NSString *stringWithFormatAndArguments(NSString *format, va_list argument
 @implementation StandardMonitor
 
 
-@synthesize command;
-@synthesize dateFormatter;
-
-
 - (void)exitOnFailureWithError:(NSError *)error;
 {
   [self exitOnFailureWithMessage:[error localizedDescription]];
@@ -81,12 +77,12 @@ static NSString *stringWithFormatAndArguments(NSString *format, va_list argument
 
   NSString *commandPath = [NSString stringWithCString:argv[0]
                                              encoding:NSUTF8StringEncoding];
-  command = [commandPath lastPathComponent];
+  _command = [commandPath lastPathComponent];
 
-  dateFormatter = [[NSDateFormatter alloc] init];
-  [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+  _dateFormatter = [[NSDateFormatter alloc] init];
+  [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
   NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-  [dateFormatter setLocale:locale];
+  [_dateFormatter setLocale:locale];
 
   return self;
 }
@@ -127,10 +123,10 @@ static NSString *stringWithFormatAndArguments(NSString *format, va_list argument
 - (void)writeLogMessage:(NSString *)message
                  toFile:(FILE *)file;
 {
-  NSString *timestamp = [dateFormatter stringFromDate:[NSDate date]];
+  NSString *timestamp = [_dateFormatter stringFromDate:[NSDate date]];
   char const *end = [message hasSuffix:@"\n"] ? "" : "\n";
   fprintf(file, "%s %s: %s%s",
-          [timestamp UTF8String], [command UTF8String], [message UTF8String], end);
+          [timestamp UTF8String], [_command UTF8String], [message UTF8String], end);
 }
 
 

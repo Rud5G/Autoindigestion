@@ -12,18 +12,15 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 @implementation Group
 
 
-@synthesize group;
-
-
 - (void)dealloc;
 {
-  freeGroupMemory(&group);
+  freeGroupMemory(&_group);
 }
 
 
 - (NSString *)description;
 {
-  return group.gr_name ? [self name] : @"(NULL)";
+  return _group.gr_name ? [self name] : @"(NULL)";
 }
 
 
@@ -35,13 +32,13 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 
 - (gid_t)GID;
 {
-  return group.gr_gid;
+  return _group.gr_gid;
 }
 
 
 - (NSNumber *)ID;
 {
-  return [NSNumber numberWithUnsignedLong:group.gr_gid];
+  return [NSNumber numberWithUnsignedLong:_group.gr_gid];
 }
 
 
@@ -71,25 +68,25 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
   self = [super init];
   if ( ! self) return nil;
   
-  group.gr_gid = theGroup->gr_gid;
+  _group.gr_gid = theGroup->gr_gid;
   
   if (theGroup->gr_name) {
-    group.gr_name = strdup(theGroup->gr_name);
-    if ( ! group.gr_name) return nil;
+    _group.gr_name = strdup(theGroup->gr_name);
+    if ( ! _group.gr_name) return nil;
   }
   
   if (theGroup->gr_passwd) {
-    group.gr_passwd = strdup(theGroup->gr_passwd);
-    if ( ! group.gr_passwd) {
-      freeGroupMemory(&group);
+    _group.gr_passwd = strdup(theGroup->gr_passwd);
+    if ( ! _group.gr_passwd) {
+      freeGroupMemory(&_group);
       return nil;
     }
   }
   
   if (theGroup->gr_mem) {
-    group.gr_mem = duplicateNullTerminatedArrayOfStrings(theGroup->gr_mem);
-    if ( ! group.gr_mem) {
-      freeGroupMemory(&group);
+    _group.gr_mem = duplicateNullTerminatedArrayOfStrings(theGroup->gr_mem);
+    if ( ! _group.gr_mem) {
+      freeGroupMemory(&_group);
       return nil;
     }
   }
@@ -131,8 +128,8 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 - (NSArray *)memberNames;
 {
   NSMutableArray *memberNames = [NSMutableArray array];
-  if (group.gr_mem) {    
-    char **groupMember = group.gr_mem;
+  if (_group.gr_mem) {
+    char **groupMember = _group.gr_mem;
     while (*groupMember) {
       NSString *memberName = [NSString stringWithCString:*groupMember
                                                 encoding:NSUTF8StringEncoding];
@@ -147,8 +144,8 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 - (NSArray *)membersWithError:(NSError **)error;
 {
   NSMutableArray *members = [NSMutableArray array];
-  if (group.gr_mem) {    
-    char **groupMember = group.gr_mem;
+  if (_group.gr_mem) {
+    char **groupMember = _group.gr_mem;
     while (*groupMember) {
       User *member = [[User alloc] initWithUsername:*groupMember error:error];
       if ( ! member) return nil;
@@ -162,8 +159,8 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 
 - (NSString *)name;
 {
-  if (group.gr_name) {
-    return [NSString stringWithCString:group.gr_name
+  if (_group.gr_name) {
+    return [NSString stringWithCString:_group.gr_name
                               encoding:NSUTF8StringEncoding];
   } else {
     return nil;

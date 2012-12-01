@@ -9,19 +9,6 @@
 @implementation VendorFile
 
 
-@synthesize disabled;
-@synthesize group;
-@synthesize optInReportsEnabled;
-@synthesize owner;
-@synthesize password;
-@synthesize preOrderReportsEnabled;
-@synthesize reportDir;
-@synthesize salesReportsDisabled;
-@synthesize username;
-@synthesize vendorID;
-@synthesize vendorName;
-
-
 - (id)initWithMonitor:(id <Monitor>)monitor
               andPath:(NSString *)vendorFile;
 {
@@ -35,27 +22,27 @@
     return nil;
   }
 
-  disabled = [configuration objectForKey:kDisabledKey];
-  optInReportsEnabled = [configuration objectForKey:kOptInReportsEnabledKey];
-  password = [configuration objectForKey:kPasswordKey];
-  preOrderReportsEnabled = [configuration objectForKey:kPreOrderReportsEnabledKey];
-  reportDir = [configuration objectForKey:kReportDirKey];
-  salesReportsDisabled = [configuration objectForKey:kSalesReportsDisabledKey];
-  username = [configuration objectForKey:kUsernameKey];
-  vendorID = [configuration objectForKey:kVendorIDKey];
-  vendorName = [configuration objectForKey:kVendorNameKey];
+  _disabled = [configuration objectForKey:kDisabledKey];
+  _optInReportsEnabled = [configuration objectForKey:kOptInReportsEnabledKey];
+  _password = [configuration objectForKey:kPasswordKey];
+  _preOrderReportsEnabled = [configuration objectForKey:kPreOrderReportsEnabledKey];
+  _reportDir = [configuration objectForKey:kReportDirKey];
+  _salesReportsDisabled = [configuration objectForKey:kSalesReportsDisabledKey];
+  _username = [configuration objectForKey:kUsernameKey];
+  _vendorID = [configuration objectForKey:kVendorIDKey];
+  _vendorName = [configuration objectForKey:kVendorNameKey];
 
   NSString *format = @"Configuration file \"%@\" is missing required key %@";
-  if ( ! password) [monitor warningWithFormat:format, vendorFile, kPasswordKey];
-  if ( ! username) [monitor warningWithFormat:format, vendorFile, kUsernameKey];
-  if ( ! vendorID) [monitor warningWithFormat:format, vendorFile, kVendorIDKey];
-  if ( ! vendorName) [monitor warningWithFormat:format, vendorFile, kVendorNameKey];
+  if ( ! _password) [monitor warningWithFormat:format, vendorFile, kPasswordKey];
+  if ( ! _username) [monitor warningWithFormat:format, vendorFile, kUsernameKey];
+  if ( ! _vendorID) [monitor warningWithFormat:format, vendorFile, kVendorIDKey];
+  if ( ! _vendorName) [monitor warningWithFormat:format, vendorFile, kVendorNameKey];
 
   NSString *groupName = [configuration objectForKey:kGroupKey];
   if (groupName) {
     NSError *error;
-    group = [[Group alloc] initWithName:groupName error:&error];
-    if ( ! group) {
+    _group = [[Group alloc] initWithName:groupName error:&error];
+    if ( ! _group) {
       if (error) {
         [monitor exitOnFailureWithError:error];
       } else {
@@ -68,8 +55,8 @@
   NSString *ownerName = [configuration objectForKey:kOwnerKey];
   if (ownerName) {
     NSError *error;
-    owner = [[User alloc] initWithName:ownerName error:&error];
-    if ( ! owner) {
+    _owner = [[User alloc] initWithName:ownerName error:&error];
+    if ( ! _owner) {
       if (error) {
         [monitor exitOnFailureWithError:error];
       } else {
@@ -84,7 +71,7 @@
 
 - (BOOL)isValid;
 {
-  return (password && username && vendorID && vendorName) ? YES : NO;
+  return (_password && _username && _vendorID && _vendorName) ? YES : NO;
 }
 
 

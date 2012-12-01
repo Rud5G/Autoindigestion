@@ -10,10 +10,6 @@
 @implementation Autoingestion
 
 
-@synthesize className;
-@synthesize classPath;
-
-
 - (id)initWithMonitor:(id <Monitor>)monitor
              defaults:(Defaults *)defaults
               options:(Options *)options
@@ -30,12 +26,12 @@
     return nil;
   }
 
-  className = [autoingestionClass lastPathComponent];
-  if ([@"class" isEqualToString:[className pathExtension]]) {
-    className = [className stringByDeletingPathExtension];
+  _className = [autoingestionClass lastPathComponent];
+  if ([@"class" isEqualToString:[_className pathExtension]]) {
+    _className = [_className stringByDeletingPathExtension];
   }
 
-  classPath = [autoingestionClass stringByDeletingLastPathComponent];
+  _classPath = [autoingestionClass stringByDeletingLastPathComponent];
 
   return self;
 }

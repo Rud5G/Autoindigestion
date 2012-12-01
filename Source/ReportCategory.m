@@ -22,37 +22,24 @@ NSString *const kReportTypeSales = @"Sales";
 @implementation ReportCategory
 
 
-@synthesize autoingestion;
-@synthesize dateType;
-@synthesize defaults;
-@synthesize fileMode;
-@synthesize group;
-@synthesize monitor;
-@synthesize owner;
-@synthesize reportDir;
-@synthesize reportSubtype;
-@synthesize reportType;
-@synthesize vendor;
-
-
 - (NSArray *)autoingestionJobs;
 {
   NSError *error;
-  NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:reportDir
+  NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_reportDir
                                                                            error:&error];
   if ( ! filenames) {
-    [monitor warningWithError:error];
+    [_monitor warningWithError:error];
     return [NSArray array];
   }
 
   // TODO: works for Sales Summary reports but is a guess for Opt-In and Pre-Order
   NSString *reportFilenamePattern = [NSString stringWithFormat:@"%@_(\\d{8})",
-                                              [vendor vendorID]];
+                                              [_vendor vendorID]];
   NSRegularExpression *reportFilenameExpression = [NSRegularExpression regularExpressionWithPattern:reportFilenamePattern
                                                                                             options:0
                                                                                               error:&error];
   if ( ! reportFilenameExpression) {
-    [monitor exitOnFailureWithError:error];
+    [_monitor exitOnFailureWithError:error];
   }
 
   NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
@@ -88,11 +75,11 @@ NSString *const kReportTypeSales = @"Sales";
                                                                                       options:0
                                                                                         range:range];
       if (NSNotFound == [textCheckingResult range].location) {
-        [monitor warningWithFormat:@"Filename \"%@\" in \"%@\" didn't match",
-                 reportFilename, reportDir];
+        [_monitor warningWithFormat:@"Filename \"%@\" in \"%@\" didn't match",
+                  reportFilename, _reportDir];
       } else if ([textCheckingResult numberOfRanges] < 2) {
-        [monitor warningWithFormat:@"Date part not found in filename \"%@\" in \"%@\"",
-                 reportFilename, reportDir];
+        [_monitor warningWithFormat:@"Date part not found in filename \"%@\" in \"%@\"",
+                  reportFilename, _reportDir];
       } else {
         NSString *existingReportDate = [reportFilename substringWithRange:[textCheckingResult rangeAtIndex:1]];
         [existingReportDates addObject:existingReportDate];
@@ -114,7 +101,7 @@ NSString *const kReportTypeSales = @"Sales";
   NSMutableArray *autoingestionJobs = [NSMutableArray array];
   NSDate *reportDate = startingReportDate;
   while ([reportDate isEarlierThanDate:today]) {
-    AutoingestionJob *autoingestionJob = [[AutoingestionJob alloc] initWithMonitor:monitor
+    AutoingestionJob *autoingestionJob = [[AutoingestionJob alloc] initWithMonitor:_monitor
                                                                     reportCategory:self
                                                                      andReportDate:reportDate];
     [autoingestionJobs addObject:autoingestionJob];
@@ -141,25 +128,25 @@ NSString *const kReportTypeSales = @"Sales";
   self = [super init];
   if ( ! self) return nil;
 
-  autoingestion = theAutoingestion;
-  dateType = theDateType;
-  defaults = theDefaults;
-  monitor = theMonitor;
-  reportSubtype = theReportSubtype;
-  reportType = theReportType;
-  vendor = theVendor;
+  _autoingestion = theAutoingestion;
+  _dateType = theDateType;
+  _defaults = theDefaults;
+  _monitor = theMonitor;
+  _reportSubtype = theReportSubtype;
+  _reportType = theReportType;
+  _vendor = theVendor;
 
-  fileMode = [defaults fileMode];
-  group = [vendor group];
-  owner = [vendor owner];
+  _fileMode = [_defaults fileMode];
+  _group = [_vendor group];
+  _owner = [_vendor owner];
 
-  if (   [kReportTypeSales isEqualToString:reportType]
-      && [kReportSubtypeOptIn isEqualToString:reportSubtype])
+  if (   [kReportTypeSales isEqualToString:_reportType]
+      && [kReportSubtypeOptIn isEqualToString:_reportSubtype])
   {
-    reportDir = [[vendor reportDir] stringByAppendingPathComponent:reportSubtype];
+    _reportDir = [[_vendor reportDir] stringByAppendingPathComponent:_reportSubtype];
   } else {
-    NSString *reportTypeDir = [[vendor reportDir] stringByAppendingPathComponent:reportType];
-    reportDir = [reportTypeDir stringByAppendingPathComponent:dateType];
+    NSString *reportTypeDir = [[_vendor reportDir] stringByAppendingPathComponent:_reportType];
+    _reportDir = [reportTypeDir stringByAppendingPathComponent:_dateType];
   }
 
   return self;
@@ -168,31 +155,31 @@ NSString *const kReportTypeSales = @"Sales";
 
 - (BOOL)isDaily;
 {
-  return [kDateTypeDaily isEqualToString:dateType];
+  return [kDateTypeDaily isEqualToString:_dateType];
 }
 
 
 - (BOOL)isWeekly;
 {
-  return [kDateTypeWeekly isEqualToString:dateType];
+  return [kDateTypeWeekly isEqualToString:_dateType];
 }
 
 
 - (void)prepare;
 {
-  if ( ! [[NSFileManager defaultManager] fileExistsAtPath:reportDir]) {
+  if ( ! [[NSFileManager defaultManager] fileExistsAtPath:_reportDir]) {
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [owner ID], NSFileOwnerAccountID,
-                                                 [group ID], NSFileGroupOwnerAccountID,
-                                                 fileMode, NSFilePosixPermissions,
+                                                 [_owner ID], NSFileOwnerAccountID,
+                                                 [_group ID], NSFileGroupOwnerAccountID,
+                                                 _fileMode, NSFilePosixPermissions,
                                                  nil];
     NSError *error;
-    BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:reportDir
+    BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:_reportDir
                                              withIntermediateDirectories:YES
                                                               attributes:attributes
                                                                    error:&error];
     if ( ! created) {
-      [monitor exitOnFailureWithError:error];
+      [_monitor exitOnFailureWithError:error];
     }
   }
 }

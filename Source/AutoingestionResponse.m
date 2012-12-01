@@ -42,17 +42,9 @@ static NSString *responseSummaryFromResponseText(NSString *responseText);
 @implementation AutoingestionResponse
 
 
-@synthesize code;
-@synthesize filename;
-@synthesize networkUnavailable;
-@synthesize success;
-@synthesize summary;
-@synthesize text;
-
-
 - (NSString *)description;
 {
-  return summary;
+  return _summary;
 }
 
 
@@ -61,23 +53,23 @@ static NSString *responseSummaryFromResponseText(NSString *responseText);
   self = [super init];
   if ( ! self) return nil;
   
-  text = [[NSString alloc] initWithData:output
-                               encoding:NSUTF8StringEncoding];
+  _text = [[NSString alloc] initWithData:output
+                                encoding:NSUTF8StringEncoding];
 
-  code = responseCodeFromResponseText(text);
-  summary = responseSummaryFromResponseText(text);
-  success = (AutoingestionResponseCodeSuccess == code);
+  _code = responseCodeFromResponseText(_text);
+  _summary = responseSummaryFromResponseText(_text);
+  _success = (AutoingestionResponseCodeSuccess == _code);
 
-  if (success) {
-    filename = filenameFromResponseText(text);
+  if (_success) {
+    _filename = filenameFromResponseText(_text);
   }
 
-  if (   AutoingestionResponseCodeUnknownHostException == code
-      || AutoingestionResponseCodeSocketException == code
-      || AutoingestionResponseCodeNoRouteToHostException == code
-      || AutoingestionResponseCodeConnectException == code)
+  if (   AutoingestionResponseCodeUnknownHostException == _code
+      || AutoingestionResponseCodeSocketException == _code
+      || AutoingestionResponseCodeNoRouteToHostException == _code
+      || AutoingestionResponseCodeConnectException == _code)
   {
-    networkUnavailable = YES;
+    _networkUnavailable = YES;
   }
 
   return self;

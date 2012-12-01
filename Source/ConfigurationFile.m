@@ -11,12 +11,6 @@
 @implementation ConfigurationFile
 
 
-@synthesize autoingestionClass;
-@synthesize group;
-@synthesize owner;
-@synthesize vendorsDir;
-
-
 - (id)initWithMonitor:(id <Monitor>)monitor
              defaults:(Defaults *)defaults
            andOptions:(Options *)options;
@@ -37,14 +31,14 @@
     return nil;
   }
 
-  autoingestionClass = [configuration objectForKey:kAutoingestionClassKey];
-  vendorsDir = [configuration objectForKey:kVendorsDirKey];
+  _autoingestionClass = [configuration objectForKey:kAutoingestionClassKey];
+  _vendorsDir = [configuration objectForKey:kVendorsDirKey];
 
   NSString *groupName = [configuration objectForKey:kGroupKey];
   if (groupName) {
     NSError *error;
-    group = [[Group alloc] initWithName:groupName error:&error];
-    if ( ! group) {
+    _group = [[Group alloc] initWithName:groupName error:&error];
+    if ( ! _group) {
       if (error) {
         [monitor exitOnFailureWithError:error];
       } else {
@@ -57,8 +51,8 @@
   NSString *ownerName = [configuration objectForKey:kOwnerKey];
   if (ownerName) {
     NSError *error;
-    owner = [[User alloc] initWithName:ownerName error:&error];
-    if ( ! owner) {
+    _owner = [[User alloc] initWithName:ownerName error:&error];
+    if ( ! _owner) {
       if (error) {
         [monitor exitOnFailureWithError:error];
       } else {

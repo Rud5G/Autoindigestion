@@ -14,26 +14,10 @@
 @implementation Vendor
 
 
-@synthesize disabled;
-@synthesize fileMode;
-@synthesize group;
-@synthesize monitor;
-@synthesize optInReportsEnabled;
-@synthesize owner;
-@synthesize password;
-@synthesize preOrderReportsEnabled;
-@synthesize reportDir;
-@synthesize reportCategories;
-@synthesize salesReportsDisabled;
-@synthesize username;
-@synthesize vendorID;
-@synthesize vendorName;
-
-
 - (NSArray *)autoingestionJobs;
 {
   NSMutableArray *autoingestionJobs = [NSMutableArray array];
-  for (ReportCategory *reportCategory in reportCategories) {
+  for (ReportCategory *reportCategory in _reportCategories) {
     [autoingestionJobs addObjectsFromArray:[reportCategory autoingestionJobs]];
   }
   return autoingestionJobs;
@@ -49,102 +33,102 @@
   self = [super init];
   if ( ! self) return nil;
 
-  monitor = theMonitor;
-  reportCategories = [NSMutableArray array];
+  _monitor = theMonitor;
+  _reportCategories = [NSMutableArray array];
 
   if ( ! [vendorFile isValid]) {
-    disabled = YES;
+    _disabled = YES;
     return self;
   }
 
-  group = [NSObject firstValueForKey:kGroupKey
-                         fromObjects:vendorFile, configurationFile, defaults, nil];
-  owner = [NSObject firstValueForKey:kOwnerKey
-                         fromObjects:vendorFile, configurationFile, defaults, nil];
-  fileMode = [defaults fileMode];
+  _group = [NSObject firstValueForKey:kGroupKey
+                          fromObjects:vendorFile, configurationFile, defaults, nil];
+  _owner = [NSObject firstValueForKey:kOwnerKey
+                          fromObjects:vendorFile, configurationFile, defaults, nil];
+  _fileMode = [defaults fileMode];
 
-  password = [vendorFile password];
-  username = [vendorFile username];
-  vendorID = [vendorFile vendorID];
-  vendorName = [vendorFile vendorName];
+  _password = [vendorFile password];
+  _username = [vendorFile username];
+  _vendorID = [vendorFile vendorID];
+  _vendorName = [vendorFile vendorName];
 
   NSNumber *disabledNumber = [NSObject firstValueForKey:kDisabledKey
                                             fromObjects:vendorFile, defaults, nil];
-  disabled = [disabledNumber boolValue];
+  _disabled = [disabledNumber boolValue];
 
   NSNumber *optInReportsEnabledNumber = [NSObject firstValueForKey:kOptInReportsEnabledKey
                                                        fromObjects:vendorFile, defaults, nil];
-  optInReportsEnabled = [optInReportsEnabledNumber boolValue];
+  _optInReportsEnabled = [optInReportsEnabledNumber boolValue];
 
   NSNumber *preOrderReportsEnabledNumber = [NSObject firstValueForKey:kPreOrderReportsEnabledKey
                                                           fromObjects:vendorFile, defaults, nil];
-  preOrderReportsEnabled = [preOrderReportsEnabledNumber boolValue];
+  _preOrderReportsEnabled = [preOrderReportsEnabledNumber boolValue];
 
   NSNumber *salesReportsDisabledNumber = [NSObject firstValueForKey:kSalesReportsDisabledKey
                                                         fromObjects:vendorFile, defaults, nil];
-  salesReportsDisabled = [salesReportsDisabledNumber boolValue];
+  _salesReportsDisabled = [salesReportsDisabledNumber boolValue];
 
-  reportDir = [vendorFile reportDir];
-  if ( ! reportDir) {
-    reportDir = [[defaults reportRoot] stringByAppendingPathComponent:vendorName];
+  _reportDir = [vendorFile reportDir];
+  if ( ! _reportDir) {
+    _reportDir = [[defaults reportRoot] stringByAppendingPathComponent:_vendorName];
   }
 
-  if (optInReportsEnabled) {
-    ReportCategory *weeklyOptIn = [[ReportCategory alloc] initWithMonitor:monitor
+  if (_optInReportsEnabled) {
+    ReportCategory *weeklyOptIn = [[ReportCategory alloc] initWithMonitor:_monitor
                                                                  defaults:defaults
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
                                                                  dateType:kDateTypeWeekly
                                                          andReportSubtype:kReportSubtypeOptIn];
-    [reportCategories addObject:weeklyOptIn];
+    [_reportCategories addObject:weeklyOptIn];
   }
 
-  if (preOrderReportsEnabled) {
-    ReportCategory *dailyPreOrder = [[ReportCategory alloc] initWithMonitor:monitor
+  if (_preOrderReportsEnabled) {
+    ReportCategory *dailyPreOrder = [[ReportCategory alloc] initWithMonitor:_monitor
                                                                    defaults:defaults
                                                               autoingestion:autoingestion
                                                                      vendor:self
                                                                  reportType:kReportTypePreOrder
                                                                    dateType:kDateTypeDaily
                                                            andReportSubtype:kReportSubtypeSummary];
-    [reportCategories addObject:dailyPreOrder];
+    [_reportCategories addObject:dailyPreOrder];
 
-    ReportCategory *weeklyPreOrder = [[ReportCategory alloc] initWithMonitor:monitor
+    ReportCategory *weeklyPreOrder = [[ReportCategory alloc] initWithMonitor:_monitor
                                                                     defaults:defaults
                                                                autoingestion:autoingestion
                                                                       vendor:self
                                                                   reportType:kReportTypePreOrder
                                                                     dateType:kDateTypeWeekly
                                                             andReportSubtype:kReportSubtypeSummary];
-    [reportCategories addObject:weeklyPreOrder];
+    [_reportCategories addObject:weeklyPreOrder];
   }
 
-  if ( ! salesReportsDisabled) {
-    ReportCategory *dailySales = [[ReportCategory alloc] initWithMonitor:monitor
+  if ( ! _salesReportsDisabled) {
+    ReportCategory *dailySales = [[ReportCategory alloc] initWithMonitor:_monitor
                                                                 defaults:defaults
                                                            autoingestion:autoingestion
                                                                   vendor:self
                                                               reportType:kReportTypeSales
                                                                 dateType:kDateTypeDaily
                                                         andReportSubtype:kReportSubtypeSummary];
-    [reportCategories addObject:dailySales];
+    [_reportCategories addObject:dailySales];
 
-    ReportCategory *weeklySales = [[ReportCategory alloc] initWithMonitor:monitor
+    ReportCategory *weeklySales = [[ReportCategory alloc] initWithMonitor:_monitor
                                                                  defaults:defaults
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
                                                                  dateType:kDateTypeWeekly
                                                          andReportSubtype:kReportSubtypeSummary];
-    [reportCategories addObject:weeklySales];
+    [_reportCategories addObject:weeklySales];
 
 
   }
 
-  if ( ! [reportCategories count]) {
-    [monitor warningWithFormat:@"All reports are disabled for vendor \"%@\"", vendorName];
-    disabled = YES;
+  if ( ! [_reportCategories count]) {
+    [_monitor warningWithFormat:@"All reports are disabled for vendor \"%@\"", _vendorName];
+    _disabled = YES;
   }
 
   return self;
@@ -153,23 +137,23 @@
 
 - (void)prepare;
 {
-  if ( ! [[NSFileManager defaultManager] fileExistsAtPath:reportDir]) {
+  if ( ! [[NSFileManager defaultManager] fileExistsAtPath:_reportDir]) {
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [owner ID], NSFileOwnerAccountID,
-                                                 [group ID], NSFileGroupOwnerAccountID,
-                                                 fileMode, NSFilePosixPermissions,
+                                                 [_owner ID], NSFileOwnerAccountID,
+                                                 [_group ID], NSFileGroupOwnerAccountID,
+                                                 _fileMode, NSFilePosixPermissions,
                                                  nil];
     NSError *error;
-    BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:reportDir
+    BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:_reportDir
                                              withIntermediateDirectories:YES
                                                               attributes:attributes
                                                                    error:&error];
     if ( ! created) {
-      [monitor exitOnFailureWithError:error];
+      [_monitor exitOnFailureWithError:error];
     }
   }
 
-  for (ReportCategory *reportCategory in reportCategories) {
+  for (ReportCategory *reportCategory in _reportCategories) {
     [reportCategory prepare];
   }
 }

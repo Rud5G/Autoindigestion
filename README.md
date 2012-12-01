@@ -16,10 +16,11 @@ LICENSE file for details.
 
 System Requirements
 -------------------
-Autoindigestion is developed on Mac OS X 10.7 Lion using Xcode 4.3.3.  It is a
-modern Objective-C command line tool.  The current distribution is source
-only, so a Mac running Lion with Xcode installed is required.  Autoindigestion
-also depends on Apple's Auto-Ingest tool, a Java class available from Apple at
+Autoindigestion is developed on Mac OS X 10.8 Mountain Lion using Xcode 4.5.  
+It is a modern Objective-C command line tool.  The current distribution is 
+source only, so a Mac running Lion with Xcode installed is required.  
+Autoindigestion also depends on Apple's Auto-Ingest tool, a Java class 
+available from Apple at 
 [http://www.apple.com/itunesnews/docs/Autoingestion.class.zip][1].  Java is 
 needed to run the Auto-Ingest tool, but is no longer installed on Mac OS X by
 default.  You can download the latest Java installer from Apple at
