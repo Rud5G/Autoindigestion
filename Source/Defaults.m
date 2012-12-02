@@ -47,7 +47,7 @@ NSString *const kVendorNameKey = @"VendorName";
     [monitor exitOnFailureWithFormat:@"Found more than one \"/Library\" directory: %@",
              libraryDirs];
   }
-  NSString *libraryDir = [libraryDirs objectAtIndex:0];
+  NSString *libraryDir = libraryDirs[0];
   NSString *appDir = [libraryDir stringByAppendingPathComponent:@"Autoindigestion"];
 
   NSArray *userDirs = NSSearchPathForDirectoriesInDomains(NSUserDirectory,
@@ -59,17 +59,17 @@ NSString *const kVendorNameKey = @"VendorName";
     [monitor exitOnFailureWithFormat:@"Found more than one \"/Users\" directory: %@",
              userDirs];
   }
-  NSString *userDir = [userDirs objectAtIndex:0];
+  NSString *userDir = userDirs[0];
   NSString *sharedDir = [userDir stringByAppendingPathComponent:@"Shared"];
 
   _autoingestionClass = [appDir stringByAppendingPathComponent:@"Autoingestion.class"];
   _configurationFile = [appDir stringByAppendingPathComponent:@"Configuration.plist"];
-  _disabled = [NSNumber numberWithBool:NO];
-  _fileMode = [NSNumber numberWithShort:0775];
-  _optInReportsEnabled = [NSNumber numberWithBool:NO];
-  _preOrderReportsEnabled = [NSNumber numberWithBool:NO];
+  _disabled = @NO;
+  _fileMode = @0775;
+  _optInReportsEnabled = @NO;
+  _preOrderReportsEnabled = @NO;
   _reportRoot = [sharedDir stringByAppendingPathComponent:@"iTunes Connect"];
-  _salesReportsDisabled = [NSNumber numberWithBool:NO];
+  _salesReportsDisabled = @NO;
   _vendorsDir = [appDir stringByAppendingPathComponent:@"Vendors"];
 
   NSError *error;

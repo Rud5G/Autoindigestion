@@ -18,7 +18,7 @@
   if ([parent count] >= [child count]) return NO;
   
   for (NSUInteger i = 0; i < [parent count]; ++i) {
-    if ( ![[parent objectAtIndex:i] isEqualToString:[child objectAtIndex:i]]) {
+    if ( ! [parent[i] isEqualToString:child[i]]) {
       return NO;
     }
   }

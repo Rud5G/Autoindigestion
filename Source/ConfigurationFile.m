@@ -31,10 +31,10 @@
     return nil;
   }
 
-  _autoingestionClass = [configuration objectForKey:kAutoingestionClassKey];
-  _vendorsDir = [configuration objectForKey:kVendorsDirKey];
+  _autoingestionClass = configuration[kAutoingestionClassKey];
+  _vendorsDir = configuration[kVendorsDirKey];
 
-  NSString *groupName = [configuration objectForKey:kGroupKey];
+  NSString *groupName = configuration[kGroupKey];
   if (groupName) {
     NSError *error;
     _group = [[Group alloc] initWithName:groupName error:&error];
@@ -48,7 +48,7 @@
     }
   }
 
-  NSString *ownerName = [configuration objectForKey:kOwnerKey];
+  NSString *ownerName = configuration[kOwnerKey];
   if (ownerName) {
     NSError *error;
     _owner = [[User alloc] initWithName:ownerName error:&error];

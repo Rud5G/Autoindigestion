@@ -38,7 +38,7 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 
 - (NSNumber *)ID;
 {
-  return [NSNumber numberWithUnsignedLong:_group.gr_gid];
+  return @(_group.gr_gid);
 }
 
 

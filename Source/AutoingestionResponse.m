@@ -82,7 +82,7 @@ static NSString *responseSummaryFromResponseText(NSString *responseText);
 static NSString *filenameFromResponseText(NSString *responseText)
 {
   NSArray *lines = [responseText componentsSeparatedByString:kLineBreak];
-  return [lines objectAtIndex:0];
+  return lines[0];
 }
 
 
@@ -126,7 +126,7 @@ static NSString *responseSummaryFromResponseText(NSString *responseText)
   NSArray *lines = [responseText componentsSeparatedByString:kLineBreak];
   NSMutableArray *filteredLines = [NSMutableArray array];
   for (NSUInteger i = 0; i < [lines count]; ++i) {
-    NSString *line = [lines objectAtIndex:i];
+    NSString *line = lines[i];
     if ([line hasPrefix:kJavaExceptionStackTracePrefix]) continue;
     
     line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

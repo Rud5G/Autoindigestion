@@ -8,9 +8,7 @@
 {
   NSString *localizedDescription = [NSString stringWithCString:strerror(errno)
                                                       encoding:NSUTF8StringEncoding];
-  NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                             localizedDescription, NSLocalizedDescriptionKey,
-                                             nil];
+  NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : localizedDescription };
   return [self errorWithDomain:NSPOSIXErrorDomain
                           code:errno
                       userInfo:userInfo];

@@ -22,15 +22,15 @@
     return nil;
   }
 
-  _disabled = [configuration objectForKey:kDisabledKey];
-  _optInReportsEnabled = [configuration objectForKey:kOptInReportsEnabledKey];
-  _password = [configuration objectForKey:kPasswordKey];
-  _preOrderReportsEnabled = [configuration objectForKey:kPreOrderReportsEnabledKey];
-  _reportDir = [configuration objectForKey:kReportDirKey];
-  _salesReportsDisabled = [configuration objectForKey:kSalesReportsDisabledKey];
-  _username = [configuration objectForKey:kUsernameKey];
-  _vendorID = [configuration objectForKey:kVendorIDKey];
-  _vendorName = [configuration objectForKey:kVendorNameKey];
+  _disabled = configuration[kDisabledKey];
+  _optInReportsEnabled = configuration[kOptInReportsEnabledKey];
+  _password = configuration[kPasswordKey];
+  _preOrderReportsEnabled = configuration[kPreOrderReportsEnabledKey];
+  _reportDir = configuration[kReportDirKey];
+  _salesReportsDisabled = configuration[kSalesReportsDisabledKey];
+  _username = configuration[kUsernameKey];
+  _vendorID = configuration[kVendorIDKey];
+  _vendorName = configuration[kVendorNameKey];
 
   NSString *format = @"Configuration file \"%@\" is missing required key %@";
   if ( ! _password) [monitor warningWithFormat:format, vendorFile, kPasswordKey];
@@ -38,7 +38,7 @@
   if ( ! _vendorID) [monitor warningWithFormat:format, vendorFile, kVendorIDKey];
   if ( ! _vendorName) [monitor warningWithFormat:format, vendorFile, kVendorNameKey];
 
-  NSString *groupName = [configuration objectForKey:kGroupKey];
+  NSString *groupName = configuration[kGroupKey];
   if (groupName) {
     NSError *error;
     _group = [[Group alloc] initWithName:groupName error:&error];
@@ -52,7 +52,7 @@
     }
   }
 
-  NSString *ownerName = [configuration objectForKey:kOwnerKey];
+  NSString *ownerName = configuration[kOwnerKey];
   if (ownerName) {
     NSError *error;
     _owner = [[User alloc] initWithName:ownerName error:&error];

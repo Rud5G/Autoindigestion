@@ -68,9 +68,9 @@
   
   NSArray *memberNames = [group memberNames];
   STAssertEquals(3ul, [memberNames count], nil);
-  STAssertEqualObjects(@"me", [memberNames objectAtIndex:0], nil);
-  STAssertEqualObjects(@"you", [memberNames objectAtIndex:1], nil);
-  STAssertEqualObjects(@"someone", [memberNames objectAtIndex:2], nil);
+  STAssertEqualObjects(@"me", memberNames[0], nil);
+  STAssertEqualObjects(@"you", memberNames[1], nil);
+  STAssertEqualObjects(@"someone", memberNames[2], nil);
 }
 
 

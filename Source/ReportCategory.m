@@ -168,11 +168,11 @@ NSString *const kReportTypeSales = @"Sales";
 - (void)prepare;
 {
   if ( ! [[NSFileManager defaultManager] fileExistsAtPath:_reportDir]) {
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [_owner ID], NSFileOwnerAccountID,
-                                                 [_group ID], NSFileGroupOwnerAccountID,
-                                                 _fileMode, NSFilePosixPermissions,
-                                                 nil];
+    NSDictionary *attributes = @{
+        NSFileOwnerAccountID : [_owner ID],
+        NSFileGroupOwnerAccountID : [_group ID],
+        NSFilePosixPermissions : _fileMode,
+    };
     NSError *error;
     BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:_reportDir
                                              withIntermediateDirectories:YES

@@ -47,20 +47,20 @@
   Autoingestion *autoingestion = [_reportCategory autoingestion];
   [dateFormatter setDateFormat:@"yyyyMMdd"];
   NSString *argumentDateString = [dateFormatter stringFromDate:_reportDate];
-  _arguments = [NSArray arrayWithObjects:
-                        @"--exec",
-                        @"java",
-                        @"-classpath",
-                        [autoingestion classPath],
-                        [autoingestion className],
-                        [vendor username],
-                        [vendor password],
-                        [vendor vendorID],
-                        [_reportCategory reportType],
-                        [_reportCategory dateType],
-                        [_reportCategory reportSubtype],
-                        argumentDateString,
-                        nil];
+  _arguments = @[
+      @"--exec",
+      @"java",
+      @"-classpath",
+      [autoingestion classPath],
+      [autoingestion className],
+      [vendor username],
+      [vendor password],
+      [vendor vendorID],
+      [_reportCategory reportType],
+      [_reportCategory dateType],
+      [_reportCategory reportSubtype],
+      argumentDateString,
+  ];
 
   return self;
 }

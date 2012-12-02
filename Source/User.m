@@ -59,7 +59,7 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSNumber *)ID;
 {
-  return [NSNumber numberWithUnsignedLong:_passwd.pw_uid];
+  return @(_passwd.pw_uid);
 }
 
 
@@ -213,7 +213,7 @@ static void freePasswdMemory(struct passwd *passwd);
 
 - (NSNumber *)primaryGroupID;
 {
-  return [NSNumber numberWithUnsignedLong:_passwd.pw_gid];
+  return @(_passwd.pw_gid);
 }
 
 
