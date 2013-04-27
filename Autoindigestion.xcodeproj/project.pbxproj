@@ -320,7 +320,7 @@
 		D46A5006157436120092B175 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Able Pear Software";
 			};
 			buildConfigurationList = D46A5009157436120092B175 /* Build configuration list for PBXProject "Autoindigestion" */;
@@ -419,6 +419,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -446,6 +450,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -469,9 +477,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
 					"-Werror",
-					"-Weverything",
-					"-Wno-semicolon-before-method-body",
+					"-Wall",
+					"-Wextra",
+					"-Wno-direct-ivar-access",
 					"-Wno-objc-missing-property-synthesis",
+					"-Wno-semicolon-before-method-body",
+					"-Wno-unused-parameter",
 				);
 			};
 			name = Debug;
@@ -485,9 +496,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
 					"-Werror",
-					"-Weverything",
-					"-Wno-semicolon-before-method-body",
+					"-Wall",
+					"-Wextra",
+					"-Wno-direct-ivar-access",
 					"-Wno-objc-missing-property-synthesis",
+					"-Wno-semicolon-before-method-body",
+					"-Wno-unused-parameter",
 				);
 			};
 			name = Release;
