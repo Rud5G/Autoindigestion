@@ -69,6 +69,23 @@
 		};
 /* End PBXBuildRule section */
 
+/* Begin PBXContainerItemProxy section */
+		D454923F1744A23B00F48F19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D46A5006157436120092B175 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D46A500E157436120092B175;
+			remoteInfo = Autoindigestion;
+		};
+		D45492411744A23B00F48F19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D46A5006157436120092B175 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4EDA1D115DB1D950084B460;
+			remoteInfo = UnitTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		D46A500D157436120092B175 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -92,9 +109,13 @@
 		D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.5.txt; sourceTree = "<group>"; };
 		D4197D6E174DEC4D009FAE8E /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
 		D41D101A15A799A400E3C972 /* Sample Vendor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sample Vendor.plist"; sourceTree = "<group>"; };
-		D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Autoindigestion LaunchDaemon.plist"; sourceTree = "<group>"; };
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
 		D425F60216601D850035DF8D /* UserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
+		D45492441744A24800F48F19 /* Installer.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; indentWidth = 4; path = Installer.mk; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
+		D45492531744A46300F48F19 /* Root */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Root; sourceTree = "<group>"; };
+		D45492541744A46300F48F19 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
+		D45492551744AAD300F48F19 /* LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LaunchDaemon.plist; sourceTree = "<group>"; };
+		D45492561744AB0A00F48F19 /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
 		D464C51515894E48000F0173 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D464C51715894E48000F0173 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		D464C51A15894E48000F0173 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -178,6 +199,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D45492431744A24800F48F19 /* Installer */ = {
+			isa = PBXGroup;
+			children = (
+				D45492531744A46300F48F19 /* Root */,
+				D45492541744A46300F48F19 /* Scripts */,
+				D45492441744A24800F48F19 /* Installer.mk */,
+			);
+			path = Installer;
+			sourceTree = "<group>";
+		};
 		D464C51915894E48000F0173 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +225,7 @@
 				D407936915A7F9350018FBBA /* LICENSE */,
 				D407936A15A7F9350018FBBA /* README.md */,
 				D4A7719E15A3816E00CEC757 /* Documentation */,
+				D45492431744A24800F48F19 /* Installer */,
 				D4A7716215A380E400CEC757 /* Source */,
 				D4EDA1D515DB1D950084B460 /* UnitTests */,
 				D46A5012157436120092B175 /* Frameworks */,
@@ -298,9 +330,9 @@
 				D407937A15A82B2B0018FBBA /* Autoindigestion.1.txt */,
 				D407937515A800AA0018FBBA /* Autoindigestion.5 */,
 				D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */,
-				D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */,
 				D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */,
-				D4197D6E174DEC4D009FAE8E /* Object Relationship Diagram.txt */,
+				D45492551744AAD300F48F19 /* LaunchDaemon.plist */,
+				D45492561744AB0A00F48F19 /* Object Relationship Diagram.txt */,
 				D41D101A15A799A400E3C972 /* Sample Vendor.plist */,
 			);
 			path = Documentation;
@@ -323,6 +355,25 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D454923B1744A1FC00F48F19 /* Installer */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "--makefile=${SRCROOT}/Installer/Installer.mk $(ACTION)";
+			buildConfigurationList = D454923C1744A1FC00F48F19 /* Build configuration list for PBXLegacyTarget "Installer" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "${SRCROOT}/Installer";
+			dependencies = (
+				D45492401744A23B00F48F19 /* PBXTargetDependency */,
+				D45492421744A23B00F48F19 /* PBXTargetDependency */,
+			);
+			name = Installer;
+			passBuildSettingsInEnvironment = 1;
+			productName = Installer;
+		};
+/* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
 		D46A500E157436120092B175 /* Autoindigestion */ = {
@@ -383,6 +434,7 @@
 			projectRoot = "";
 			targets = (
 				D46A500E157436120092B175 /* Autoindigestion */,
+				D454923B1744A1FC00F48F19 /* Installer */,
 				D4EDA1D115DB1D950084B460 /* UnitTests */,
 			);
 		};
@@ -474,7 +526,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D45492401744A23B00F48F19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D46A500E157436120092B175 /* Autoindigestion */;
+			targetProxy = D454923F1744A23B00F48F19 /* PBXContainerItemProxy */;
+		};
+		D45492421744A23B00F48F19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4EDA1D115DB1D950084B460 /* UnitTests */;
+			targetProxy = D45492411744A23B00F48F19 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		D454923D1744A1FC00F48F19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D454923E1744A1FC00F48F19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		D46A501C157436120092B175 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -615,6 +709,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D454923C1744A1FC00F48F19 /* Build configuration list for PBXLegacyTarget "Installer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D454923D1744A1FC00F48F19 /* Debug */,
+				D454923E1744A1FC00F48F19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		D46A5009157436120092B175 /* Build configuration list for PBXProject "Autoindigestion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
