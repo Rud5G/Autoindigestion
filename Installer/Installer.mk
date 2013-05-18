@@ -7,6 +7,10 @@ PKG_FILES := \
 	$(DERIVED_SOURCES_DIR)/Root/usr/local/share/man/man1/Autoindigestion.1 \
 	$(DERIVED_SOURCES_DIR)/Root/usr/local/share/man/man5/Autoindigestion.5
 
+RESOURCES := \
+	$(SRCROOT)/Installer/Resources/license.html \
+	$(SRCROOT)/Installer/Resources/welcome.html
+
 SCRIPTS := $(shell find $(SRCROOT)/Installer/Scripts -type f \! -name .DS_Store \! -path "*/.svn/*")
 
 
@@ -21,8 +25,21 @@ clean :
 	rm -rf $(DERIVED_SOURCES_DIR)
 
 
-$(BUILT_PRODUCTS_DIR)/Autoindigestion.pkg : $(PKG_FILES) $(SCRIPTS)
-	@printf '===== Building Autoindigestion package =====\n'
+$(BUILT_PRODUCTS_DIR)/Autoindigestion.pkg : \
+		$(DERIVED_SOURCES_DIR)/Autoindigestion.pkg \
+		$(SRCROOT)/Installer/Distribution.xml \
+		$(RESOURCES)
+	@printf '===== Building Autoindigestion product archive =====\n'
+	productbuild \
+		--distribution $(SRCROOT)/Installer/Distribution.xml \
+		--resources $(SRCROOT)/Installer/Resources \
+		--package-path $(DERIVED_SOURCES_DIR) \
+		$@
+
+
+$(DERIVED_SOURCES_DIR)/Autoindigestion.pkg : $(PKG_FILES) $(SCRIPTS)
+	@printf '===== Building Autoindigestion component package =====\n'
+	mkdir -p $(dir $@)
 	pkgbuild \
 		--root $(DERIVED_SOURCES_DIR)/Root \
 		--identifier com.ablepear.autoindigestion \
