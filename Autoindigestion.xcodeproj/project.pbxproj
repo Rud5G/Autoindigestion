@@ -95,8 +95,6 @@
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
 		D425F60216601D850035DF8D /* UserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
 		D45492441744A24800F48F19 /* Installer.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; indentWidth = 4; path = Installer.mk; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
-		D45492531744A46300F48F19 /* Root */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Root; sourceTree = "<group>"; };
-		D45492541744A46300F48F19 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		D45492551744AAD300F48F19 /* LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LaunchDaemon.plist; sourceTree = "<group>"; };
 		D45492561744AB0A00F48F19 /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
 		D464C51515894E48000F0173 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -106,6 +104,12 @@
 		D464C51C15894E48000F0173 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D46A500F157436120092B175 /* Autoindigestion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Autoindigestion; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A5013157436120092B175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D48AE5041748121B00257888 /* Distribution.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Distribution.xml; sourceTree = "<group>"; };
+		D48AE5071748161B00257888 /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
+		D48AE5091748162400257888 /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
+		D48AE50A1748162400257888 /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
+		D48AE50B174816AB00257888 /* license.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = license.html; sourceTree = "<group>"; };
+		D48AE50D17481B7D00257888 /* Autoindigestion.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; path = Autoindigestion.pkg; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iTunes Connect- New File Names for Sales and Trends Reports.txt"; sourceTree = "<group>"; };
 		D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Autoindigestion-Prefix.pch"; sourceTree = "<group>"; };
 		D4A7716615A380E400CEC757 /* Autoingestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Autoingestion.h; sourceTree = "<group>"; };
@@ -176,8 +180,9 @@
 		D45492431744A24800F48F19 /* Installer */ = {
 			isa = PBXGroup;
 			children = (
-				D45492531744A46300F48F19 /* Root */,
-				D45492541744A46300F48F19 /* Scripts */,
+				D48AE5051748161B00257888 /* Resources */,
+				D48AE5081748162400257888 /* Scripts */,
+				D48AE5041748121B00257888 /* Distribution.xml */,
 				D45492441744A24800F48F19 /* Installer.mk */,
 			);
 			path = Installer;
@@ -204,6 +209,7 @@
 				D4EDA1D515DB1D950084B460 /* UnitTests */,
 				D46A5012157436120092B175 /* Frameworks */,
 				D46A5010157436120092B175 /* Products */,
+				D48AE50D17481B7D00257888 /* Autoindigestion.pkg */,
 			);
 			sourceTree = "<group>";
 			wrapsLines = 0;
@@ -226,6 +232,24 @@
 				D464C51915894E48000F0173 /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D48AE5051748161B00257888 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D48AE50B174816AB00257888 /* license.html */,
+				D48AE5071748161B00257888 /* welcome.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D48AE5081748162400257888 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				D48AE5091748162400257888 /* postinstall */,
+				D48AE50A1748162400257888 /* preinstall */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		D4A7716215A380E400CEC757 /* Source */ = {
@@ -646,6 +670,7 @@
 				D454923E1744A1FC00F48F19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D46A5009157436120092B175 /* Build configuration list for PBXProject "Autoindigestion" */ = {
 			isa = XCConfigurationList;

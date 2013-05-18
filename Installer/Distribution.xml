@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+  <title>Autoindigestion</title>
+  
+  <welcome file="welcome.html" mime-type="text/html" />
+  <license file="license.html" mime-type="text/html" />
+  
+  <pkg-ref id="com.ablepear.autoindigestion"/>
+  
+  <options allow-external-scripts="no" customize="never" require-scripts="false"/>
+  
+  <choices-outline>
+    <line choice="default">
+      <line choice="com.ablepear.autoindigestion"/>
+    </line>
+  </choices-outline>
+  
+  <choice id="default"/>
+  
+  <choice id="com.ablepear.autoindigestion" visible="false">
+    <pkg-ref id="com.ablepear.autoindigestion"/>
+  </choice>
+  <pkg-ref id="com.ablepear.autoindigestion" version="0" onConclusion="none">Autoindigestion.pkg</pkg-ref>
+  
+</installer-gui-script>
