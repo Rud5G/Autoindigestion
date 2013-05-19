@@ -3,6 +3,7 @@
 
 PKG_FILES := \
 	$(DERIVED_SOURCES_DIR)/Root/Library/Autoindigestion/Autoindigestion \
+	$(DERIVED_SOURCES_DIR)/Root/Library/Autoindigestion/Vendors/ExampleVendor.plist \
 	$(DERIVED_SOURCES_DIR)/Root/Library/LaunchDaemons/Autoindigestion.plist \
 	$(DERIVED_SOURCES_DIR)/Root/usr/local/share/man/man1/Autoindigestion.1 \
 	$(DERIVED_SOURCES_DIR)/Root/usr/local/share/man/man5/Autoindigestion.5
@@ -51,6 +52,12 @@ $(DERIVED_SOURCES_DIR)/Autoindigestion.pkg : $(PKG_FILES) $(SCRIPTS)
 $(DERIVED_SOURCES_DIR)/Root/Library/Autoindigestion/Autoindigestion : $(BUILT_PRODUCTS_DIR)/Autoindigestion
 	mkdir -p $(dir $@)
 	cp $< $@
+
+
+$(DERIVED_SOURCES_DIR)/Root/Library/Autoindigestion/Vendors/ExampleVendor.plist : $(SRCROOT)/Documentation/ExampleVendor.plist
+	mkdir -p $(dir $@)
+	cp $< $@
+	/usr/libexec/PlistBuddy -c "Add :Disabled bool true" $@
 
 
 $(DERIVED_SOURCES_DIR)/Root/Library/LaunchDaemons/Autoindigestion.plist : $(SRCROOT)/Documentation/LaunchDaemon.plist
