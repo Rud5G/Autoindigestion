@@ -1,3 +1,8 @@
 #!/bin/sh
 
 printf "Autoindigestion postinstall\n"
+
+if [ -e /Library/LaunchDaemons/Autoindigestion.plist ]
+then
+  launchctl unload -F /Library/LaunchDaemons/Autoindigestion.plist
+fi
