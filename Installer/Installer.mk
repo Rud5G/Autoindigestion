@@ -29,6 +29,8 @@ clean :
 $(BUILT_PRODUCTS_DIR)/Autoindigestion.pkg : \
 		$(DERIVED_SOURCES_DIR)/Autoindigestion.pkg \
 		$(SRCROOT)/Installer/Distribution.xml \
+		$(BUILT_PRODUCTS_DIR)/DownloadAutoingestionPlugin.bundle \
+		$(SRCROOT)/Installer/InstallerSections.plist \
 		$(RESOURCES)
 	@printf '===== Building Autoindigestion product archive =====\n'
 	productbuild \
@@ -36,6 +38,14 @@ $(BUILT_PRODUCTS_DIR)/Autoindigestion.pkg : \
 		--resources $(SRCROOT)/Installer/Resources \
 		--package-path $(DERIVED_SOURCES_DIR) \
 		$@
+	# add plugin to product archive
+	-rm -rf $(DERIVED_SOURCES_DIR)/ProductArchive
+	pkgutil --expand $@ $(DERIVED_SOURCES_DIR)/ProductArchive
+	rm $@
+	mkdir -p $(DERIVED_SOURCES_DIR)/ProductArchive/Plugins
+	cp -R $(BUILT_PRODUCTS_DIR)/DownloadAutoingestionPlugin.bundle $(DERIVED_SOURCES_DIR)/ProductArchive/Plugins
+	cp $(SRCROOT)/Installer/InstallerSections.plist $(DERIVED_SOURCES_DIR)/ProductArchive/Plugins
+	pkgutil --flatten $(DERIVED_SOURCES_DIR)/ProductArchive $@
 
 
 $(DERIVED_SOURCES_DIR)/Autoindigestion.pkg : $(PKG_FILES) $(SCRIPTS)

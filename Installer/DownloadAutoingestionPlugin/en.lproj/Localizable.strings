@@ -1,0 +1,6 @@
+/* Localized versions of Info.plist keys */
+
+"Auto-Ingest tool downloaded." = "Auto-Ingest tool downloaded.";
+"Download Auto-Ingest Tool" = "Download Auto-Ingest Tool";
+"Downloading Auto-Ingest tool." = "Downloading Auto-Ingest tool.";
+"Error downloading Auto-Ingest tool." = "Error downloading Auto-Ingest tool.";

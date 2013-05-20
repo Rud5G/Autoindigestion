@@ -13,6 +13,13 @@
 		D425F5FF165DF1670035DF8D /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717A15A380E400CEC757 /* Group.m */; };
 		D425F600165DF17A0035DF8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
 		D425F60316601D850035DF8D /* UserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D425F60216601D850035DF8D /* UserTest.m */; };
+		D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
+		D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */; };
+		D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */ = {isa = PBXBuildFile; fileRef = D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */; };
+		D44F2C4D17499D4A0005DD9E /* DownloadAutoingestionPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44F2C4417499D4A0005DD9E /* DownloadAutoingestionPlugin.xib */; };
+		D44F2C4E17499D4A0005DD9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D44F2C4617499D4A0005DD9E /* InfoPlist.strings */; };
+		D44F2C4F17499D4A0005DD9E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D44F2C4817499D4A0005DD9E /* Localizable.strings */; };
+		D44F2C5C1749BBB80005DD9E /* AutoingestionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D44F2C5B1749BBB80005DD9E /* AutoingestionTool.m */; };
 		D46A5014157436120092B175 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A5013157436120092B175 /* Foundation.framework */; };
 		D4A7718C15A380E400CEC757 /* Autoingestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716715A380E400CEC757 /* Autoingestion.m */; };
 		D4A7718D15A380E400CEC757 /* AutoingestionJob.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716915A380E400CEC757 /* AutoingestionJob.m */; };
@@ -55,6 +62,13 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		D44F2C5117499D650005DD9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D46A5006157436120092B175 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D44F2C2517499D0E0005DD9E;
+			remoteInfo = DownloadAutoingestionPlugin;
+		};
 		D454923F1744A23B00F48F19 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D46A5006157436120092B175 /* Project object */;
@@ -95,6 +109,19 @@
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
 		D425F60216601D850035DF8D /* UserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
 		D44F2C1F174971F20005DD9E /* ExampleVendor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExampleVendor.plist; sourceTree = "<group>"; };
+		D44F2C2617499D0E0005DD9E /* DownloadAutoingestionPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownloadAutoingestionPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstallerPlugins.framework; path = System/Library/Frameworks/InstallerPlugins.framework; sourceTree = SDKROOT; };
+		D44F2C4217499D4A0005DD9E /* DownloadAutoingestionPluginPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadAutoingestionPluginPane.h; sourceTree = "<group>"; };
+		D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadAutoingestionPluginPane.m; sourceTree = "<group>"; };
+		D44F2C4517499D4A0005DD9E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DownloadAutoingestionPlugin.xib; sourceTree = "<group>"; };
+		D44F2C4717499D4A0005DD9E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D44F2C4917499D4A0005DD9E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D44F2C5317499DAC0005DD9E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D44F2C5417499DAC0005DD9E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		D44F2C5617499F270005DD9E /* InstallerSections.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InstallerSections.plist; sourceTree = "<group>"; };
+		D44F2C5A1749BBB80005DD9E /* AutoingestionTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoingestionTool.h; sourceTree = "<group>"; };
+		D44F2C5B1749BBB80005DD9E /* AutoingestionTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoingestionTool.m; sourceTree = "<group>"; };
+		D44F2C5D1749BE220005DD9E /* AutoingestionToolDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoingestionToolDelegate.h; sourceTree = "<group>"; };
 		D45492441744A24800F48F19 /* Installer.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; indentWidth = 4; path = Installer.mk; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		D45492551744AAD300F48F19 /* LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LaunchDaemon.plist; sourceTree = "<group>"; };
 		D45492561744AB0A00F48F19 /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
@@ -158,6 +185,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D44F2C2317499D0E0005DD9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */,
+				D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D46A500C157436120092B175 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -178,12 +214,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D44F2C3F17499D4A0005DD9E /* DownloadAutoingestionPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				D44F2C5A1749BBB80005DD9E /* AutoingestionTool.h */,
+				D44F2C5B1749BBB80005DD9E /* AutoingestionTool.m */,
+				D44F2C5D1749BE220005DD9E /* AutoingestionToolDelegate.h */,
+				D44F2C4217499D4A0005DD9E /* DownloadAutoingestionPluginPane.h */,
+				D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */,
+				D44F2C4417499D4A0005DD9E /* DownloadAutoingestionPlugin.xib */,
+				D44F2C5317499DAC0005DD9E /* Info.plist */,
+				D44F2C4617499D4A0005DD9E /* InfoPlist.strings */,
+				D44F2C4817499D4A0005DD9E /* Localizable.strings */,
+				D44F2C5417499DAC0005DD9E /* Prefix.pch */,
+			);
+			path = DownloadAutoingestionPlugin;
+			sourceTree = "<group>";
+		};
 		D45492431744A24800F48F19 /* Installer */ = {
 			isa = PBXGroup;
 			children = (
+				D44F2C3F17499D4A0005DD9E /* DownloadAutoingestionPlugin */,
 				D48AE5051748161B00257888 /* Resources */,
 				D48AE5081748162400257888 /* Scripts */,
 				D48AE5041748121B00257888 /* Distribution.xml */,
+				D44F2C5617499F270005DD9E /* InstallerSections.plist */,
 				D45492441744A24800F48F19 /* Installer.mk */,
 			);
 			path = Installer;
@@ -220,6 +275,7 @@
 			children = (
 				D46A500F157436120092B175 /* Autoindigestion */,
 				D4EDA1D215DB1D950084B460 /* UnitTests.octest */,
+				D44F2C2617499D0E0005DD9E /* DownloadAutoingestionPlugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +286,7 @@
 				D46A5013157436120092B175 /* Foundation.framework */,
 				D464C51515894E48000F0173 /* SenTestingKit.framework */,
 				D464C51715894E48000F0173 /* Cocoa.framework */,
+				D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */,
 				D464C51915894E48000F0173 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -347,6 +404,7 @@
 			buildWorkingDirectory = "${SRCROOT}/Installer";
 			dependencies = (
 				D45492401744A23B00F48F19 /* PBXTargetDependency */,
+				D44F2C5217499D650005DD9E /* PBXTargetDependency */,
 				D45492421744A23B00F48F19 /* PBXTargetDependency */,
 			);
 			name = Installer;
@@ -356,6 +414,23 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
+		D44F2C2517499D0E0005DD9E /* DownloadAutoingestionPlugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D44F2C3C17499D0E0005DD9E /* Build configuration list for PBXNativeTarget "DownloadAutoingestionPlugin" */;
+			buildPhases = (
+				D44F2C2217499D0E0005DD9E /* Sources */,
+				D44F2C2317499D0E0005DD9E /* Frameworks */,
+				D44F2C2417499D0E0005DD9E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DownloadAutoingestionPlugin;
+			productName = DownloadAutoingestionPlugin;
+			productReference = D44F2C2617499D0E0005DD9E /* DownloadAutoingestionPlugin.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D46A500E157436120092B175 /* Autoindigestion */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D46A501E157436120092B175 /* Build configuration list for PBXNativeTarget "Autoindigestion" */;
@@ -414,6 +489,7 @@
 			projectRoot = "";
 			targets = (
 				D46A500E157436120092B175 /* Autoindigestion */,
+				D44F2C2517499D0E0005DD9E /* DownloadAutoingestionPlugin */,
 				D454923B1744A1FC00F48F19 /* Installer */,
 				D4EDA1D115DB1D950084B460 /* UnitTests */,
 			);
@@ -421,6 +497,16 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D44F2C2417499D0E0005DD9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D44F2C4D17499D4A0005DD9E /* DownloadAutoingestionPlugin.xib in Resources */,
+				D44F2C4E17499D4A0005DD9E /* InfoPlist.strings in Resources */,
+				D44F2C4F17499D4A0005DD9E /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4EDA1CF15DB1D950084B460 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,6 +533,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D44F2C2217499D0E0005DD9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */,
+				D44F2C5C1749BBB80005DD9E /* AutoingestionTool.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D46A500B157436120092B175 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -492,6 +587,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D44F2C5217499D650005DD9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D44F2C2517499D0E0005DD9E /* DownloadAutoingestionPlugin */;
+			targetProxy = D44F2C5117499D650005DD9E /* PBXContainerItemProxy */;
+		};
 		D45492401744A23B00F48F19 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D46A500E157436120092B175 /* Autoindigestion */;
@@ -504,7 +604,76 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		D44F2C4417499D4A0005DD9E /* DownloadAutoingestionPlugin.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D44F2C4517499D4A0005DD9E /* en */,
+			);
+			name = DownloadAutoingestionPlugin.xib;
+			sourceTree = "<group>";
+		};
+		D44F2C4617499D4A0005DD9E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D44F2C4717499D4A0005DD9E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D44F2C4817499D4A0005DD9E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D44F2C4917499D4A0005DD9E /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		D44F2C3D17499D0E0005DD9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Installer/DownloadAutoingestionPlugin/Prefix.pch;
+				INFOPLIST_FILE = Installer/DownloadAutoingestionPlugin/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		D44F2C3E17499D0E0005DD9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Installer/DownloadAutoingestionPlugin/Prefix.pch;
+				INFOPLIST_FILE = Installer/DownloadAutoingestionPlugin/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		D454923D1744A1FC00F48F19 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -664,6 +833,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D44F2C3C17499D0E0005DD9E /* Build configuration list for PBXNativeTarget "DownloadAutoingestionPlugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D44F2C3D17499D0E0005DD9E /* Debug */,
+				D44F2C3E17499D0E0005DD9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		D454923C1744A1FC00F48F19 /* Build configuration list for PBXLegacyTarget "Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
