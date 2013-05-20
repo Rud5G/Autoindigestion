@@ -1,5 +1,6 @@
 #import "AutoingestionTool.h"
 
+#import <syslog.h>
 #import "AutoingestionToolDelegate.h"
 
 
@@ -13,12 +14,15 @@ static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/doc
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error;
 {
+  syslog(LOG_ERR, "ERROR: failed to download %s: (%li) %s",
+         [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);
   [_delegate autoingestionTool:self downloadFailedWithError:error];
 }
 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 {
+  syslog(LOG_INFO, "Downloaded %s", [kAutoingestionURL UTF8String]);
   [_delegate autoingestionToolDidFinishDownloading:self];
   // TODO: extract from zip
   _downloaded = YES;
@@ -63,6 +67,7 @@ didReceiveResponse:(NSURLResponse *)response;
   _downloaded = NO;
   _zipData = [NSMutableData data];
   
+  syslog(LOG_INFO, "Downloading %s", [kAutoingestionURL UTF8String]);
   NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kAutoingestionURL]];
   _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
