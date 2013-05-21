@@ -10,6 +10,7 @@
 @property (readonly) NSUInteger contentLength;
 @property (weak) id<AutoingestionToolDelegate> delegate;
 @property (readonly, getter=isDownloaded) BOOL downloaded;
+@property (readonly) NSURL *url;
 @property (readonly) NSMutableData *zipData;
 
 - (void)download;
