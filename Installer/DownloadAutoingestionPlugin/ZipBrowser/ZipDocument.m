@@ -210,14 +210,16 @@ static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrows
             // We place the entries on a queue, and when we have enough we send them over to the main thread to be added to the document's entry tree and displayed
             [entryArray addObject:entry];
             if ([entryArray count] >= ENTRY_READ_QUEUE_LENGTH) {
-                [self performSelectorOnMainThread:@selector(addEntries:) withObject:[entryArray copy] waitUntilDone:NO];
+                //[self performSelectorOnMainThread:@selector(addEntries:) withObject:[entryArray copy] waitUntilDone:NO];
+                [self addEntries:entryArray];
                 [entryArray removeAllObjects];
             }
         }
         directoryIndex += DIRECTORY_ENTRY_LENGTH + namelen + extralen + commentlen;
     }
     if ([entryArray count] > 0) {
-        [self performSelectorOnMainThread:@selector(addEntries:) withObject:[entryArray copy] waitUntilDone:NO];
+        // [self performSelectorOnMainThread:@selector(addEntries:) withObject:[entryArray copy] waitUntilDone:NO];
+        [self addEntries:entryArray];
     }
 }
 
@@ -303,8 +305,9 @@ static inline uint32_t _crcFromData(NSData *data) {
 
         // If we have a valid zip directory, report success and queue reading of the actual entries in the background
         if (numberOfDirectoryEntries > 0 && directoryEntriesEnd > 0 && directoryEntriesStart > 0 && directoryEntriesStart < length) {
-            operation = [[ZipDirectoryReadOperation alloc] initWithZipDocument:self];
-            [operationQueue addOperation:operation];
+            // operation = [[ZipDirectoryReadOperation alloc] initWithZipDocument:self];
+            // [operationQueue addOperation:operation];
+            [self readEntriesForOperation:nil];
             retval = YES;
         } else {
             [fileBuffer close];
@@ -515,6 +518,15 @@ static inline uint32_t _crcFromData(NSData *data) {
 + (void)exportData:(NSPasteboard *)pasteboard userData:(NSString *)data error:(NSString **)error {
     ZipDocument *document = [[[NSApp makeWindowsPerform:@selector(windowController) inOrder:YES] windowController] document];
     if (document) [document writeSelectionToPasteboard:pasteboard];
+}
+
+
+- (void)setFileBuffer:(FileBuffer *)theFileBuffer {
+    fileBuffer = theFileBuffer;
+}
+
+- (ZipEntry *)rootEntry {
+    return rootEntry;
 }
 
 @end

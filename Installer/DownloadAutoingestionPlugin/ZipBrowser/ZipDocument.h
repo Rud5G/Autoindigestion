@@ -75,5 +75,7 @@
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error;
 - (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pboard;
 + (void)registerServices;
+- (void)setFileBuffer:(FileBuffer *)theFileBuffer;
+- (ZipEntry *)rootEntry;
 
 @end

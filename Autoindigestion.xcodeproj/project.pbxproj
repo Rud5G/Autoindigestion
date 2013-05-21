@@ -19,6 +19,7 @@
 		D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */; };
 		D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */; };
 		D444DF74174B2D4900F47BC2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D444DF73174B2D4900F47BC2 /* libz.dylib */; };
+		D444DF7A174B3C4B00F47BC2 /* DataBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF79174B3C4B00F47BC2 /* DataBuffer.m */; };
 		D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
 		D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */; };
 		D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */ = {isa = PBXBuildFile; fileRef = D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */; };
@@ -136,6 +137,8 @@
 		D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipEntry.h; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ZipEntry.m; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF73174B2D4900F47BC2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D444DF78174B3C4B00F47BC2 /* DataBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBuffer.h; sourceTree = "<group>"; };
+		D444DF79174B3C4B00F47BC2 /* DataBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBuffer.m; sourceTree = "<group>"; };
 		D44F2C1F174971F20005DD9E /* ExampleVendor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExampleVendor.plist; sourceTree = "<group>"; };
 		D44F2C2617499D0E0005DD9E /* DownloadAutoingestionPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownloadAutoingestionPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstallerPlugins.framework; path = System/Library/Frameworks/InstallerPlugins.framework; sourceTree = SDKROOT; };
@@ -272,6 +275,8 @@
 				D44F2C5A1749BBB80005DD9E /* AutoingestionTool.h */,
 				D44F2C5B1749BBB80005DD9E /* AutoingestionTool.m */,
 				D44F2C5D1749BE220005DD9E /* AutoingestionToolDelegate.h */,
+				D444DF78174B3C4B00F47BC2 /* DataBuffer.h */,
+				D444DF79174B3C4B00F47BC2 /* DataBuffer.m */,
 				D44F2C4217499D4A0005DD9E /* DownloadAutoingestionPluginPane.h */,
 				D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */,
 				D44F2C4417499D4A0005DD9E /* DownloadAutoingestionPlugin.xib */,
@@ -614,6 +619,7 @@
 				D444DF70174B2CAB00F47BC2 /* FileBuffer.m in Sources */,
 				D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */,
 				D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */,
+				D444DF7A174B3C4B00F47BC2 /* DataBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
