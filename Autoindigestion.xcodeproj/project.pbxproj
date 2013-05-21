@@ -15,6 +15,10 @@
 		D425F5FF165DF1670035DF8D /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717A15A380E400CEC757 /* Group.m */; };
 		D425F600165DF17A0035DF8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
 		D425F60316601D850035DF8D /* UserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D425F60216601D850035DF8D /* UserTest.m */; };
+		D444DF70174B2CAB00F47BC2 /* FileBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */; };
+		D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */; };
+		D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */; };
+		D444DF74174B2D4900F47BC2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D444DF73174B2D4900F47BC2 /* libz.dylib */; };
 		D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
 		D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */; };
 		D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */ = {isa = PBXBuildFile; fileRef = D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */; };
@@ -125,6 +129,13 @@
 		D41D101A15A799A400E3C972 /* Sample Vendor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sample Vendor.plist"; sourceTree = "<group>"; };
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
 		D425F60216601D850035DF8D /* UserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
+		D444DF6A174B2CAB00F47BC2 /* FileBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = FileBuffer.h; sourceTree = "<group>"; tabWidth = 4; };
+		D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = FileBuffer.m; sourceTree = "<group>"; tabWidth = 4; };
+		D444DF6C174B2CAB00F47BC2 /* ZipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipDocument.h; sourceTree = "<group>"; tabWidth = 4; };
+		D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ZipDocument.m; sourceTree = "<group>"; tabWidth = 4; };
+		D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipEntry.h; sourceTree = "<group>"; tabWidth = 4; };
+		D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ZipEntry.m; sourceTree = "<group>"; tabWidth = 4; };
+		D444DF73174B2D4900F47BC2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D44F2C1F174971F20005DD9E /* ExampleVendor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExampleVendor.plist; sourceTree = "<group>"; };
 		D44F2C2617499D0E0005DD9E /* DownloadAutoingestionPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownloadAutoingestionPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstallerPlugins.framework; path = System/Library/Frameworks/InstallerPlugins.framework; sourceTree = SDKROOT; };
@@ -215,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D444DF74174B2D4900F47BC2 /* libz.dylib in Frameworks */,
 				D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */,
 				D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */,
 			);
@@ -240,9 +252,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D444DF69174B2CAB00F47BC2 /* ZipBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				D444DF6A174B2CAB00F47BC2 /* FileBuffer.h */,
+				D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */,
+				D444DF6C174B2CAB00F47BC2 /* ZipDocument.h */,
+				D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */,
+				D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */,
+				D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */,
+			);
+			path = ZipBrowser;
+			sourceTree = "<group>";
+		};
 		D44F2C3F17499D4A0005DD9E /* DownloadAutoingestionPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				D444DF69174B2CAB00F47BC2 /* ZipBrowser */,
 				D44F2C5A1749BBB80005DD9E /* AutoingestionTool.h */,
 				D44F2C5B1749BBB80005DD9E /* AutoingestionTool.m */,
 				D44F2C5D1749BE220005DD9E /* AutoingestionToolDelegate.h */,
@@ -283,6 +309,7 @@
 		D46A5004157436120092B175 = {
 			isa = PBXGroup;
 			children = (
+				D444DF73174B2D4900F47BC2 /* libz.dylib */,
 				D407936915A7F9350018FBBA /* LICENSE */,
 				D407936A15A7F9350018FBBA /* README.md */,
 				D4A7719E15A3816E00CEC757 /* Documentation */,
@@ -584,6 +611,9 @@
 			files = (
 				D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */,
 				D44F2C5C1749BBB80005DD9E /* AutoingestionTool.m in Sources */,
+				D444DF70174B2CAB00F47BC2 /* FileBuffer.m in Sources */,
+				D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */,
+				D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,6 +940,7 @@
 				D44F2C3E17499D0E0005DD9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D454923C1744A1FC00F48F19 /* Build configuration list for PBXLegacyTarget "Installer" */ = {
 			isa = XCConfigurationList;
