@@ -51,7 +51,6 @@
 
 #import "ZipDocument.h"
 #import "ZipEntry.h"
-#import "ZipEntryView.h"
 #import "FileBuffer.h"
 #import <zlib.h>
 
@@ -125,7 +124,9 @@ static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrows
 
 - (void)main {
     // Call on the document to do the actual work
-    succeeded = [zipDocument writeEntry:zipEntry toFileURL:fileURL forOperation:self error:&error];
+    NSError *errorOut;
+    succeeded = [zipDocument writeEntry:zipEntry toFileURL:fileURL forOperation:self error:&errorOut];
+    error = errorOut;
 }
 
 @synthesize succeeded;
@@ -154,25 +155,6 @@ static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrows
 
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
     return (flag ? NSDragOperationNone : (NSDragOperationCopy|NSDragOperationGeneric));
-}
-
-- (void)windowControllerDidLoadNib:(NSWindowController *)aController {
-    [super windowControllerDidLoadNib:aController];
-    
-    // Set up state associated with the browser
-    [zipDocumentBrowser setDraggingSourceOperationMask:[self draggingSourceOperationMaskForLocal:NO] forLocal:NO];
-    [zipDocumentBrowser setDraggingSourceOperationMask:[self draggingSourceOperationMaskForLocal:YES] forLocal:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadBrowser:) name:ZipDocumentReloadBrowserNotification object:self];
-    
-    // Set up state associated with the preview column
-    previewViewController = [[NSViewController alloc] initWithNibName:nil bundle:nil];
-    previewEntryView = [[ZipEntryView alloc] initWithFrame:NSMakeRect(0, 0, 200, 200)];
-    [previewViewController setView:previewEntryView];
-    [previewEntryView setViewController:previewViewController];
-    [previewEntryView setZipDocument:self];
-    
-    // Make sure services are registered
-    [[self class] registerServices];
 }
 
 
@@ -240,8 +222,8 @@ static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrows
 }
 
 static inline uint32_t _crcFromData(NSData *data) {
-    uint32_t crc = crc32(0, NULL, 0);
-    return crc32(crc, [data bytes], [data length]);
+    uint32_t crc = (uint32_t) crc32(0, NULL, 0);
+    return (uint32_t) crc32(crc, [data bytes], (uInt) [data length]);
 }
 
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error {
@@ -271,7 +253,7 @@ static inline uint32_t _crcFromData(NSData *data) {
                 mutableData = [NSMutableData dataWithLength:usize];
                 bzero(&stream, sizeof(stream));
                 stream.next_in = (Bytef *)[compressedData bytes];
-                stream.avail_in = [compressedData length];
+                stream.avail_in = (uInt) [compressedData length];
                 stream.next_out = (Bytef *)[mutableData mutableBytes];
                 stream.avail_out = usize;
 

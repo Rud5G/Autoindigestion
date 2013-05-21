@@ -51,13 +51,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ZipEntry, ZipEntryView, FileBuffer;
+@class ZipEntry, FileBuffer;
 
 @interface ZipDocument : NSDocument {
     ZipEntry *rootEntry;
     NSOperationQueue *operationQueue;
     NSViewController *previewViewController;
-    ZipEntryView *previewEntryView;
     IBOutlet NSBrowser *zipDocumentBrowser;
     FileBuffer *fileBuffer;
     NSStringEncoding documentEncoding;
