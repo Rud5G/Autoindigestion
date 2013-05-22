@@ -56,7 +56,6 @@
 @interface ZipDocument : NSObject {
     ZipEntry *rootEntry;
     FileBuffer *fileBuffer;
-    NSStringEncoding documentEncoding;
     uint32_t directoryEntriesStart;
     uint16_t numberOfDirectoryEntries;
 }
@@ -64,6 +63,6 @@
 - (void)readEntries;
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL error:(NSError **)error;
 - (ZipEntry *)rootEntry;
-- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)outError;
+- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)error;
 
 @end
