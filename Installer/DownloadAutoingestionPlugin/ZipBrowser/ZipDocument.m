@@ -64,111 +64,22 @@
 #define DIRECTORY_ENTRY_TAG         0x02014b50
 #define FILE_ENTRY_TAG              0x04034b50
 
-static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrowserNotification";
 
-
-/* NSOperation subclass representing background zip directory reading */
-
-@interface ZipDirectoryReadOperation : NSOperation {
-    ZipDocument *zipDocument;
-}
-
-- (id)initWithZipDocument:(ZipDocument *)document;
-
-@end
-
-@implementation ZipDirectoryReadOperation 
-
-- (id)initWithZipDocument:(ZipDocument *)document {
-    self = [super init];
-    if (self) zipDocument = document;
-    return self;
-}
-
-- (void)main {
-    // Call on the document to do the actual work
-    [zipDocument readEntriesForOperation:self];
-}
-
-@end
-
-
-/* NSOperation subclass representing background zip entry extraction and writing to disk */
-
-@interface ZipEntryWriteOperation : NSOperation {
-    ZipDocument *zipDocument;
-    ZipEntry *zipEntry;
-    NSURL *fileURL;
-    NSError *error;
-    BOOL succeeded;
-}
-
-- (id)initWithZipDocument:(ZipDocument *)document entry:(ZipEntry *)entry fileURL:(NSURL *)url;
-
-@property (readonly) BOOL succeeded;
-@property (readonly) NSError *error;
-
-@end
-
-@implementation ZipEntryWriteOperation
-
-- (id)initWithZipDocument:(ZipDocument *)document entry:(ZipEntry *)entry fileURL:(NSURL *)url {
-    self = [super init];
-    if (self) {
-        zipDocument = document;
-        zipEntry = entry;
-        fileURL = url;
-    }
-    return self;
-}
-
-- (void)main {
-    // Call on the document to do the actual work
-    NSError *errorOut;
-    succeeded = [zipDocument writeEntry:zipEntry toFileURL:fileURL forOperation:self error:&errorOut];
-    error = errorOut;
-}
-
-@synthesize succeeded;
-@synthesize error;
-
-@end
-
-
-@implementation ZipDocument
-
-/* Initialization and setup methods */
+ @implementation ZipDocument
 
 - (id)init {
     self = [super init];
     if (self) {
         rootEntry = [ZipEntry rootEntry];
-        operationQueue = [[NSOperationQueue alloc] init];
-        [operationQueue setMaxConcurrentOperationCount:1];
     }
     return self;
 }
 
-- (NSString *)windowNibName {
-    return @"ZipDocument";
-}
-
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag {
-    return (flag ? NSDragOperationNone : (NSDragOperationCopy|NSDragOperationGeneric));
-}
-
-
-/* Document reading methods */
-
 - (void)addEntries:(NSArray *)array {
-    // This method is called on the main thread when a background read operation has entries to be added to the entry tree and displayed
     for (ZipEntry *entry in array) [entry addToRootEntry:rootEntry];
-
-    [[NSNotificationQueue defaultQueue] enqueueNotification:[NSNotification notificationWithName:ZipDocumentReloadBrowserNotification object:self] postingStyle:NSPostWhenIdle coalesceMask:NSNotificationCoalescingOnSender forModes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
 }
 
 - (void)readEntriesForOperation:(NSOperation *)operation {
-    // This method is called in the background to read the entries from a zip archive's directory
     NSString *path = nil;
     ZipEntry *entry;
     NSMutableArray *entryArray = [NSMutableArray array];
@@ -194,7 +105,6 @@ static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrows
         if (directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen > length) break;
 
         if (namelen > 0 && headeridx < directoryEntriesStart) {
-            // We try to interpret the name using the document's encoding, but if this fails we fall back to the filesystem encoding, Windows Latin 1, and finally Mac Roman (which always succeeds)
             NSData *nameData = [fileBuffer dataAtOffset:directoryIndex + DIRECTORY_ENTRY_LENGTH length:namelen];
             if (nameData && [nameData length] == namelen) {
                 path = [[NSString alloc] initWithData:nameData encoding:documentEncoding];
@@ -206,7 +116,8 @@ static NSString *ZipDocumentReloadBrowserNotification = @"ZipDocumentReloadBrows
 
         if (path) {
             entry = [[ZipEntry alloc] initWithPath:path headerOffset:headeridx CRC:crcval compressedSize:csize uncompressedSize:usize compressionType:compression];
-    
+
+            // TODO: no need to add entries in small groups
             // We place the entries on a queue, and when we have enough we send them over to the main thread to be added to the document's entry tree and displayed
             [entryArray addObject:entry];
             if ([entryArray count] >= ENTRY_READ_QUEUE_LENGTH) {
@@ -227,7 +138,6 @@ static inline uint32_t _crcFromData(NSData *data) {
 }
 
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error {
-    // This method is called in the background to uncompress an individual zip entry and write it to disk as a result of a drag
     BOOL retval = NO;
     unsigned long long length = [fileBuffer fileLength];
     uint16_t compression = [zipEntry compressionType], namelen, extralen;
@@ -272,22 +182,14 @@ static inline uint32_t _crcFromData(NSData *data) {
     return retval;
 }
 
-+ (BOOL)canConcurrentlyReadDocumentsOfType:(NSString *)typeName {
-    return YES;
-}
-
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName encoding:(NSStringEncoding)encoding error:(NSError **)error {
-    // This is the main method for reading a document from disk
     BOOL retval = NO;
     unsigned long long i, length, directoryEntriesEnd = 0;
     uint32_t potentialTag;
-    ZipDirectoryReadOperation *operation;
     NSError *localError = nil;
 
     if (!fileBuffer) fileBuffer = [[FileBuffer alloc] initWithURL:absoluteURL error:&localError];
     if (fileBuffer) {
-        documentURL = [absoluteURL copy];
-        documentType = [typeName copy];
         documentEncoding = encoding;
         length = [fileBuffer fileLength];
 
@@ -314,208 +216,9 @@ static inline uint32_t _crcFromData(NSData *data) {
     return retval;
 }
 
-- (void)close {
-    [operationQueue cancelAllOperations];
-    [operationQueue waitUntilAllOperationsAreFinished];
-    [fileBuffer close];
-    fileBuffer = nil;
-    [super close];
-}
-
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError {
     return [self readFromURL:absoluteURL ofType:typeName encoding:NSUTF8StringEncoding error:outError];
 }
-
-
-/* Methods supporting reopening with encoding */
-
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item {
-    return ([item action] == @selector(reopenWithEncoding:) ? YES : [super validateUserInterfaceItem:item]);
-}
-
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    // Supply a check mark on the menu item corresponding to the current document encoding
-    if ([menuItem action] == @selector(reopenWithEncoding:)) [menuItem setState:([menuItem tag] == documentEncoding ? 1 : 0)];
-    return [self validateUserInterfaceItem:menuItem];
-}
-
-- (void)reopenWithEncoding:(id)sender {
-    NSError *error = nil;
-    ZipEntry *oldRootEntry = rootEntry;
-    NSStringEncoding oldDocumentEncoding = documentEncoding;
-    
-    // First we must make sure that our file operations are all stopped
-    [operationQueue cancelAllOperations];
-    [operationQueue waitUntilAllOperationsAreFinished];
-    
-    // Reset the entry tree and try to re-read it from disk
-    rootEntry = [ZipEntry rootEntry];
-    if (![self readFromURL:documentURL ofType:documentType encoding:[sender tag] error:&error]) {
-        // If this fails, present an error and restore the old entry tree
-        [self presentError:error modalForWindow:[zipDocumentBrowser window] delegate:nil didPresentSelector:0 contextInfo:NULL];
-        rootEntry = oldRootEntry;
-        documentEncoding = oldDocumentEncoding;
-    }
-    [zipDocumentBrowser loadColumnZero];
-}
-
-
-/* Browser support methods */
-
-- (id)rootItemForBrowser:(NSBrowser *)browser {
-    return rootEntry;
-}
-
-- (NSInteger)browser:(NSBrowser *)browser numberOfChildrenOfItem:(id)item {
-    return [[(ZipEntry *)item childEntries] count];
-}    
-
-- (id)browser:(NSBrowser *)browser child:(NSInteger)index ofItem:(id)item {
-    return [[(ZipEntry *)item childEntries] objectAtIndex:index];
-}
-
-- (BOOL)browser:(NSBrowser *)browser isLeafItem:(id)item {
-    return [(ZipEntry *)item isLeaf];
-}
-
-- (id)browser:(NSBrowser *)browser objectValueForItem:(id)item {
-    return [(ZipEntry *)item name];
-}
-
-- (NSViewController *)browser:(NSBrowser *)browser previewViewControllerForLeafItem:(id)item {
-    return previewViewController;
-}
-
-- (void)reloadBrowser:(id)sender {
-    [zipDocumentBrowser reloadColumn:0];
-}
-
-
-/* Drag support methods that set up drags */
-
-- (ZipEntry *)entryForDraggingRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column browser:(NSBrowser *)browser {
-    // This is the common method for locating the entry to be dragged
-    ZipEntry *parentEntry = [browser itemAtIndexPath:[browser indexPathForColumn:column]], *childEntry = nil;
-    NSArray *childEntries;
-    NSUInteger childIndex;
-    
-    draggedRow = NSNotFound;
-    draggedColumn = NSNotFound;
-    
-    // Currently this code handles only dragging a single leaf entry at a time
-    if ([rowIndexes count] == 1) {
-        childEntries = [parentEntry childEntries];
-        childIndex = [rowIndexes firstIndex];
-        if (childIndex < [childEntries count] && [[childEntries objectAtIndex:childIndex] isLeaf]) {
-            childEntry = [childEntries objectAtIndex:childIndex];
-            draggedRow = childIndex;
-            draggedColumn = column;
-        }
-    }
-    return childEntry;
-}
-
-- (BOOL)browser:(NSBrowser *)browser canDragRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column withEvent:(NSEvent *)event {
-    // If a suitable entry is found, then dragging is allowed
-    return [self entryForDraggingRowsWithIndexes:rowIndexes inColumn:column browser:browser] ? YES : NO;
-}
-
-- (NSImage *)browser:(NSBrowser *)browser draggingImageForRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column withEvent:(NSEvent *)event offset:(NSPointPointer)dragImageOffset {
-    // The image used for dragging is an icon from NSWorkspace
-    NSImage *image = nil;
-    ZipEntry *childEntry = [self entryForDraggingRowsWithIndexes:rowIndexes inColumn:column browser:browser];
-    if (childEntry) {
-        image = [[NSWorkspace sharedWorkspace] iconForFileType:[[childEntry name] pathExtension]];
-        if (!image) image = [browser draggingImageForRowsWithIndexes:rowIndexes inColumn:column withEvent:event offset:dragImageOffset];
-    }
-    return image;
-}
-
-// The two methods that follow represent two ways by which the document may be asked to set up a drag pasteboard
-
-- (BOOL)browser:(NSBrowser *)browser writeRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column toPasteboard:(NSPasteboard *)pasteboard {
-    // This method will be called for drags originating from the browser
-    BOOL retval = NO;
-    ZipEntry *childEntry = [self entryForDraggingRowsWithIndexes:rowIndexes inColumn:column browser:browser];
-    if (childEntry) {
-        // Note that all actual filesystem operations are done lazily later
-        [pasteboard declareTypes:[NSArray arrayWithObjects:NSFilesPromisePboardType, NSFilenamesPboardType, NSStringPboardType, nil] owner:self];
-        if ([pasteboard setPropertyList:[NSArray arrayWithObject:[[childEntry name] pathExtension]] forType:NSFilesPromisePboardType]) retval = YES;
-        if ([pasteboard setString:[childEntry name] forType:NSStringPboardType]) retval = YES;
-    }
-    return retval;
-}
-
-- (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pasteboard {
-    // This method will be called for services, or for drags originating from the preview column ZipEntryView, and it calls the previous method
-    NSInteger selectedColumn = [zipDocumentBrowser selectedColumn];
-    return ((selectedColumn >= 0 && [self browser:zipDocumentBrowser writeRowsWithIndexes:[zipDocumentBrowser selectedRowIndexesInColumn:selectedColumn] inColumn:selectedColumn toPasteboard:pasteboard]) ? YES : NO);
-}
-
-
-/* Drag support methods that lazily provide the actual files */
-
-- (NSURL *)writeDraggedRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column browser:(NSBrowser *)browser toDestination:(NSURL *)dropDestination {
-    // This is the common method that queues the writing of the dragged entry to the disk
-    NSURL *fileURL = nil;
-    ZipEntry *childEntry = [self entryForDraggingRowsWithIndexes:rowIndexes inColumn:column browser:browser];
-    ZipEntryWriteOperation *operation;
-    NSError *error = nil;
-    
-    if (childEntry) {
-        // Create an operation and wait for it to finish
-        fileURL = [NSURL fileURLWithPath:[[dropDestination path] stringByAppendingPathComponent:[childEntry name]] isDirectory:NO];
-        operation = [[ZipEntryWriteOperation alloc] initWithZipDocument:self entry:childEntry fileURL:fileURL];
-        [operationQueue addOperation:operation];
-        [operationQueue waitUntilAllOperationsAreFinished];
-
-        if (![operation succeeded]) {
-            // If it fails, present an appropriate error
-            fileURL = nil;
-            error = [operation error];
-            if (error) [self presentError:error];
-        }
-    }
-    return fileURL;
-}
-
-// The three methods that follow represent three ways by which the document may be asked for drag data
-
-- (void)pasteboard:(NSPasteboard *)pasteboard provideDataForType:(NSString *)type {
-    // This method will be called to provide data for NSFilenamesPboardType
-    if ([type isEqualToString:NSFilenamesPboardType] && draggedRow != NSNotFound && draggedColumn != NSNotFound) {
-        NSURL *fileURL = [self writeDraggedRowsWithIndexes:[NSIndexSet indexSetWithIndex:draggedRow] inColumn:draggedColumn browser:zipDocumentBrowser toDestination:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
-        if (fileURL) [pasteboard setPropertyList:[NSArray arrayWithObject:[fileURL path]] forType:NSFilenamesPboardType];
-    }
-}
-
-- (NSArray *)browser:(NSBrowser *)browser namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)rowIndexes inColumn:(NSInteger)column {
-    // This method will be called to provide data for NSFilesPromisePboardType, for drags originating from the browser
-    NSURL *fileURL = [self writeDraggedRowsWithIndexes:rowIndexes inColumn:column browser:browser toDestination:dropDestination];
-    return (fileURL ? [NSArray arrayWithObject:[[fileURL path] lastPathComponent]] : nil);
-}
-
-- (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
-    // This method will be called to provide data for NSFilesPromisePboardType, for drags originating from the preview column ZipEntryView, and it calls the previous method
-    return ((draggedRow != NSNotFound && draggedColumn != NSNotFound) ? [self browser:zipDocumentBrowser namesOfPromisedFilesDroppedAtDestination:dropDestination forDraggedRowsWithIndexes:[NSIndexSet indexSetWithIndex:draggedRow] inColumn:draggedColumn] : nil);
-}
-
-
-/* Services support methods */
-
-+ (void)registerServices {
-    static BOOL registeredServices = NO;
-    if (!registeredServices) {
-        [NSApp setServicesProvider:self];
-        registeredServices = YES;
-    }
-}
-
-+ (void)exportData:(NSPasteboard *)pasteboard userData:(NSString *)data error:(NSString **)error {
-    ZipDocument *document = [[[NSApp makeWindowsPerform:@selector(windowController) inOrder:YES] windowController] document];
-    if (document) [document writeSelectionToPasteboard:pasteboard];
-}
-
 
 - (void)setFileBuffer:(FileBuffer *)theFileBuffer {
     fileBuffer = theFileBuffer;
