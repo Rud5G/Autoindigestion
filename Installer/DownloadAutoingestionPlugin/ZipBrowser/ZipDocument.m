@@ -121,7 +121,7 @@ static inline uint32_t _crcFromData(NSData *data) {
     return (uint32_t) crc32(crc, [data bytes], (uInt) [data length]);
 }
 
-- (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error {
+- (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL error:(NSError **)error {
     BOOL retval = NO;
     unsigned long long length = [fileBuffer fileLength];
     uint16_t compression = [zipEntry compressionType], namelen, extralen;
@@ -130,7 +130,7 @@ static inline uint32_t _crcFromData(NSData *data) {
     NSMutableData *mutableData = nil;
     NSError *localError = nil;
     z_stream stream;
-    
+
     if (headeridx < length && headeridx + FILE_HEADER_LENGTH > headeridx && headeridx + FILE_HEADER_LENGTH < length && csize > 0 && usize > 0 && [fileBuffer littleUnsignedIntAtOffset:headeridx] == FILE_ENTRY_TAG && [fileBuffer littleUnsignedShortAtOffset:headeridx + 8] == compression) {
         namelen = [fileBuffer littleUnsignedShortAtOffset:headeridx + 26];
         extralen = [fileBuffer littleUnsignedShortAtOffset:headeridx + 28];
