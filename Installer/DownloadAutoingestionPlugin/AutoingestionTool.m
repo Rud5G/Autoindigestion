@@ -49,6 +49,13 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
   for (ZipEntry *zipEntry in zipEntries) {
     syslog(LOG_INFO, "Found zip entry: %s", [[zipEntry name] UTF8String]);
     if ([kAutoingestionFilename isEqualToString:[zipEntry name]]) {
+      syslog(LOG_INFO, "Unzipping %s", [kAutoingestionFilename UTF8String]);
+      NSData *autoingestionClass = [zipDocument unzipEntry:zipEntry];
+      if ( ! autoingestionClass) {
+        syslog(LOG_ERR, "Unable to unzip %s", [kAutoingestionFilename UTF8String]);
+        return;
+      }
+
       if ([[NSFileManager defaultManager] fileExistsAtPath:kAutoingestionTempPath]) {
         syslog(LOG_INFO, "Removing old %s directory", [kAutoingestionTempPath UTF8String]);
         BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:kAutoingestionTempPath
@@ -69,15 +76,14 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
                [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
         return;
       }
-      
-      syslog(LOG_INFO, "Decompressing %s", [kAutoingestionFilename UTF8String]);
-      NSURL *url = [NSURL fileURLWithPathComponents:@[kAutoingestionTempPath, kAutoingestionFilename]];
-      BOOL didWrite = [zipDocument writeEntry:zipEntry
-                                    toFileURL:url
-                                        error:&error];
+
+      NSString *path = [kAutoingestionTempPath stringByAppendingPathComponent:kAutoingestionFilename];
+      BOOL didWrite = [autoingestionClass writeToFile:path
+                                              options:NSAtomicWrite
+                                                error:&error];
       if ( ! didWrite) {
-        syslog(LOG_ERR, "Unable to decompress %s: (%li) %s",
-               [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);
+        syslog(LOG_ERR, "Unable to write %s: (%li) %s",
+            [path UTF8String], [error code], [[error localizedDescription] UTF8String]);
         return;
       }
       break;

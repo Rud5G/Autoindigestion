@@ -120,14 +120,10 @@ static inline uint32_t _crcFromData(NSData *data) {
     return (uint32_t) crc32(crc, [data bytes], (uInt) [data length]);
 }
 
-- (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL error:(NSError **)error {
-    BOOL retval = NO;
+- (NSData *)unzipEntry:(ZipEntry *)zipEntry {
     unsigned long long length = [fileBuffer fileLength];
     uint16_t compression = [zipEntry compressionType], namelen, extralen;
     uint32_t crcval = [zipEntry CRC], csize = [zipEntry compressedSize], usize = [zipEntry uncompressedSize], headeridx = [zipEntry headerOffset], dataidx;
-    NSData *compressedData = nil, *uncompressedData = nil;
-    NSMutableData *mutableData = nil;
-    NSError *localError = nil;
     z_stream stream;
 
     if (headeridx < length && headeridx + FILE_HEADER_LENGTH > headeridx && headeridx + FILE_HEADER_LENGTH < length && csize > 0 && usize > 0 && [fileBuffer littleUnsignedIntAtOffset:headeridx] == FILE_ENTRY_TAG && [fileBuffer littleUnsignedShortAtOffset:headeridx + 8] == compression) {
@@ -136,14 +132,11 @@ static inline uint32_t _crcFromData(NSData *data) {
         dataidx = headeridx + FILE_HEADER_LENGTH + namelen + extralen;
 
         if (dataidx < length && dataidx + csize > dataidx && dataidx + csize > headeridx && dataidx + csize < length) {
-            // Currently this is all done in memory, but it could potentially be done block-by-block as a stream
-            compressedData = [fileBuffer dataAtOffset:dataidx length:csize];
+            NSData *compressedData = [fileBuffer dataAtOffset:dataidx length:csize];
             if (0 == compression && compressedData && [compressedData length] == csize && usize == csize && _crcFromData(compressedData) == crcval) {
-                // If the entry is stored uncompressed, we write it out verbatim
-                uncompressedData = compressedData;
+                return compressedData;
             } else if (8 == compression && compressedData && [compressedData length] == csize && usize / 64 < csize) {
-                // If the entry is stored deflated, we inflate it and write out the results
-                mutableData = [NSMutableData dataWithLength:usize];
+                NSMutableData *mutableData = [NSMutableData dataWithLength:usize];
                 bzero(&stream, sizeof(stream));
                 stream.next_in = (Bytef *)[compressedData bytes];
                 stream.avail_in = (uInt) [compressedData length];
@@ -152,17 +145,15 @@ static inline uint32_t _crcFromData(NSData *data) {
 
                 if (mutableData && Z_OK == inflateInit2(&stream, -15)) {
                     if (Z_STREAM_END == inflate(&stream, Z_FINISH)) {
-                        if (Z_OK == inflateEnd(&stream) && usize == stream.total_out && _crcFromData(mutableData) == crcval) uncompressedData = mutableData;
+                        if (Z_OK == inflateEnd(&stream) && usize == stream.total_out && _crcFromData(mutableData) == crcval) return mutableData;
                     } else {
                         (void)inflateEnd(&stream);
                     }
                 }
             }
-            if (uncompressedData && [uncompressedData writeToURL:fileURL options:NSAtomicWrite error:&localError]) retval = YES;
         }
     }
-    if (!retval && error) *error = localError ? localError : [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:fileURL, NSURLErrorKey, nil]];
-    return retval;
+    return nil;
 }
 
  - (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)error {
