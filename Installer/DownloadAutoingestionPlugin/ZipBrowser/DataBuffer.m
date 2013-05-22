@@ -4,12 +4,6 @@
 @implementation DataBuffer
 
 
-- (void)close;
-{
-  // nothing to do
-}
-
-
 - (NSData *)dataAtOffset:(unsigned long long)offset
                   length:(NSUInteger)length;
 {

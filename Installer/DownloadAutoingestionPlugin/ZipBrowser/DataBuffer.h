@@ -5,8 +5,6 @@
 
 @property (readonly, copy) NSData *data;
 
-- (void)close;
-
 - (NSData *)dataAtOffset:(unsigned long long)offset length:(NSUInteger)length;
 
 - (unsigned long long)fileLength;
