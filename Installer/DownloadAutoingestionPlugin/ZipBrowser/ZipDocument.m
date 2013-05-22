@@ -77,28 +77,28 @@
  - (void)readEntries;
 {
     NSString *path = nil;
-    unsigned long long length = [dataBuffer fileLength];
+    unsigned long long length = [data fileLength];
     uint32_t i, directoryIndex;
 
     for (i = 0, directoryIndex = directoryEntriesStart; i < numberOfDirectoryEntries; i++) {
         uint16_t compression, namelen, extralen, commentlen;
         uint32_t crcval, csize, usize, headeridx;
 
-        if (directoryIndex < directoryEntriesStart || directoryIndex >= length || directoryIndex + DIRECTORY_ENTRY_LENGTH <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH > length || [dataBuffer littleUnsignedIntAtOffset:directoryIndex] != DIRECTORY_ENTRY_TAG) break;
+        if (directoryIndex < directoryEntriesStart || directoryIndex >= length || directoryIndex + DIRECTORY_ENTRY_LENGTH <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH > length || [data littleUnsignedIntAtOffset:directoryIndex] != DIRECTORY_ENTRY_TAG) break;
 
-        compression = [dataBuffer littleUnsignedShortAtOffset:directoryIndex + 10];
-        crcval = [dataBuffer littleUnsignedIntAtOffset:directoryIndex + 16];
-        csize = [dataBuffer littleUnsignedIntAtOffset:directoryIndex + 20];
-        usize = [dataBuffer littleUnsignedIntAtOffset:directoryIndex + 24];
-        namelen = [dataBuffer littleUnsignedShortAtOffset:directoryIndex + 28];
-        extralen = [dataBuffer littleUnsignedShortAtOffset:directoryIndex + 30];
-        commentlen = [dataBuffer littleUnsignedShortAtOffset:directoryIndex + 32];
-        headeridx = [dataBuffer littleUnsignedIntAtOffset:directoryIndex + 42];
+        compression = [data littleUnsignedShortAtOffset:directoryIndex + 10];
+        crcval = [data littleUnsignedIntAtOffset:directoryIndex + 16];
+        csize = [data littleUnsignedIntAtOffset:directoryIndex + 20];
+        usize = [data littleUnsignedIntAtOffset:directoryIndex + 24];
+        namelen = [data littleUnsignedShortAtOffset:directoryIndex + 28];
+        extralen = [data littleUnsignedShortAtOffset:directoryIndex + 30];
+        commentlen = [data littleUnsignedShortAtOffset:directoryIndex + 32];
+        headeridx = [data littleUnsignedIntAtOffset:directoryIndex + 42];
 
         if (directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen > length) break;
 
         if (namelen > 0 && headeridx < directoryEntriesStart) {
-            NSData *nameData = [dataBuffer dataAtOffset:directoryIndex + DIRECTORY_ENTRY_LENGTH length:namelen];
+            NSData *nameData = [data dataAtOffset:directoryIndex + DIRECTORY_ENTRY_LENGTH length:namelen];
             if (nameData && [nameData length] == namelen) {
                 path = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
                 if (!path) path = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:[nameData bytes] length:[nameData length]];
@@ -121,18 +121,18 @@ static inline uint32_t _crcFromData(NSData *data) {
 }
 
 - (NSData *)unzipEntry:(ZipEntry *)zipEntry {
-    unsigned long long length = [dataBuffer fileLength];
+    unsigned long long length = [data fileLength];
     uint16_t compression = [zipEntry compressionType], namelen, extralen;
     uint32_t crcval = [zipEntry CRC], csize = [zipEntry compressedSize], usize = [zipEntry uncompressedSize], headeridx = [zipEntry headerOffset], dataidx;
     z_stream stream;
 
-    if (headeridx < length && headeridx + FILE_HEADER_LENGTH > headeridx && headeridx + FILE_HEADER_LENGTH < length && csize > 0 && usize > 0 && [dataBuffer littleUnsignedIntAtOffset:headeridx] == FILE_ENTRY_TAG && [dataBuffer littleUnsignedShortAtOffset:headeridx + 8] == compression) {
-        namelen = [dataBuffer littleUnsignedShortAtOffset:headeridx + 26];
-        extralen = [dataBuffer littleUnsignedShortAtOffset:headeridx + 28];
+    if (headeridx < length && headeridx + FILE_HEADER_LENGTH > headeridx && headeridx + FILE_HEADER_LENGTH < length && csize > 0 && usize > 0 && [data littleUnsignedIntAtOffset:headeridx] == FILE_ENTRY_TAG && [data littleUnsignedShortAtOffset:headeridx + 8] == compression) {
+        namelen = [data littleUnsignedShortAtOffset:headeridx + 26];
+        extralen = [data littleUnsignedShortAtOffset:headeridx + 28];
         dataidx = headeridx + FILE_HEADER_LENGTH + namelen + extralen;
 
         if (dataidx < length && dataidx + csize > dataidx && dataidx + csize > headeridx && dataidx + csize < length) {
-            NSData *compressedData = [dataBuffer dataAtOffset:dataidx length:csize];
+            NSData *compressedData = [data dataAtOffset:dataidx length:csize];
             if (0 == compression && compressedData && [compressedData length] == csize && usize == csize && _crcFromData(compressedData) == crcval) {
                 return compressedData;
             } else if (8 == compression && compressedData && [compressedData length] == csize && usize / 64 < csize) {
@@ -156,18 +156,18 @@ static inline uint32_t _crcFromData(NSData *data) {
     return nil;
 }
 
- - (BOOL)readFromDataBuffer:(NSData *)theDataBuffer error:(NSError **)error {
-    dataBuffer = theDataBuffer;
-    if (dataBuffer) {
+ - (BOOL)readFromData:(NSData *)theData error:(NSError **)error {
+    data = [theData copy];
+    if (data) {
         unsigned long long directoryEntriesEnd = 0;
-        unsigned long long length = [dataBuffer fileLength];
+        unsigned long long length = [data fileLength];
 
         for (unsigned long long i = MIN_DIRECTORY_END_OFFSET; directoryEntriesEnd == 0 && i < MAX_DIRECTORY_END_OFFSET && i < length; i++) {
-            uint32_t potentialTag = [dataBuffer littleUnsignedIntAtOffset:length - i];
+            uint32_t potentialTag = [data littleUnsignedIntAtOffset:length - i];
             if (potentialTag == DIRECTORY_END_TAG) {
                 directoryEntriesEnd = length - i;
-                numberOfDirectoryEntries = [dataBuffer littleUnsignedShortAtOffset:directoryEntriesEnd + 8];
-                directoryEntriesStart = [dataBuffer littleUnsignedIntAtOffset:directoryEntriesEnd + 16];
+                numberOfDirectoryEntries = [data littleUnsignedShortAtOffset:directoryEntriesEnd + 8];
+                directoryEntriesStart = [data littleUnsignedIntAtOffset:directoryEntriesEnd + 16];
             }
         }
 
@@ -175,7 +175,7 @@ static inline uint32_t _crcFromData(NSData *data) {
             [self readEntries];
             return YES;
         } else {
-            dataBuffer = nil;
+            data = nil;
             if (error) *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
         }
     }
