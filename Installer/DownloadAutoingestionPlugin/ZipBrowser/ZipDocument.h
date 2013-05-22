@@ -61,8 +61,7 @@
     uint16_t numberOfDirectoryEntries;
 }
 
-- (void)addEntries:(NSArray *)array;
-- (void)readEntriesForOperation:(NSOperation *)operation;
+- (void)readEntries;
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error;
 - (void)setFileBuffer:(FileBuffer *)theFileBuffer;
 - (ZipEntry *)rootEntry;

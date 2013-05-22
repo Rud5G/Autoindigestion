@@ -58,7 +58,6 @@
 #define MAX_DIRECTORY_END_OFFSET    66000
 #define FILE_HEADER_LENGTH          30
 #define DIRECTORY_ENTRY_LENGTH      46
-#define ENTRY_READ_QUEUE_LENGTH     256
 
 #define DIRECTORY_END_TAG           0x06054b50
 #define DIRECTORY_ENTRY_TAG         0x02014b50
@@ -75,22 +74,17 @@
     return self;
 }
 
-- (void)addEntries:(NSArray *)array {
-    for (ZipEntry *entry in array) [entry addToRootEntry:rootEntry];
-}
 
-- (void)readEntriesForOperation:(NSOperation *)operation {
+ - (void)readEntries;
+{
     NSString *path = nil;
-    ZipEntry *entry;
-    NSMutableArray *entryArray = [NSMutableArray array];
     unsigned long long length = [fileBuffer fileLength];
     uint32_t i, directoryIndex;
-    
+
     for (i = 0, directoryIndex = directoryEntriesStart; i < numberOfDirectoryEntries; i++) {
         uint16_t compression, namelen, extralen, commentlen;
         uint32_t crcval, csize, usize, headeridx;
 
-        if ([operation isCancelled] || !fileBuffer) break;
         if (directoryIndex < directoryEntriesStart || directoryIndex >= length || directoryIndex + DIRECTORY_ENTRY_LENGTH <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH > length || [fileBuffer littleUnsignedIntAtOffset:directoryIndex] != DIRECTORY_ENTRY_TAG) break;
 
         compression = [fileBuffer littleUnsignedShortAtOffset:directoryIndex + 10];
@@ -115,20 +109,10 @@
         }
 
         if (path) {
-            entry = [[ZipEntry alloc] initWithPath:path headerOffset:headeridx CRC:crcval compressedSize:csize uncompressedSize:usize compressionType:compression];
-
-            // TODO: no need to add entries in small groups
-            // We place the entries on a queue, and when we have enough we send them over to the main thread to be added to the document's entry tree and displayed
-            [entryArray addObject:entry];
-            if ([entryArray count] >= ENTRY_READ_QUEUE_LENGTH) {
-                [self addEntries:entryArray];
-                [entryArray removeAllObjects];
-            }
+            ZipEntry *entry = [[ZipEntry alloc] initWithPath:path headerOffset:headeridx CRC:crcval compressedSize:csize uncompressedSize:usize compressionType:compression];
+            [entry addToRootEntry:rootEntry];
         }
         directoryIndex += DIRECTORY_ENTRY_LENGTH + namelen + extralen + commentlen;
-    }
-    if ([entryArray count] > 0) {
-        [self addEntries:entryArray];
     }
 }
 
@@ -205,7 +189,7 @@ static inline uint32_t _crcFromData(NSData *data) {
 
         // If we have a valid zip directory, report success and queue reading of the actual entries in the background
         if (numberOfDirectoryEntries > 0 && directoryEntriesEnd > 0 && directoryEntriesStart > 0 && directoryEntriesStart < length) {
-            [self readEntriesForOperation:nil];
+            [self readEntries];
             retval = YES;
         } else {
             [fileBuffer close];
