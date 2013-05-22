@@ -100,7 +100,7 @@
         if (namelen > 0 && headeridx < directoryEntriesStart) {
             NSData *nameData = [fileBuffer dataAtOffset:directoryIndex + DIRECTORY_ENTRY_LENGTH length:namelen];
             if (nameData && [nameData length] == namelen) {
-                path = [[NSString alloc] initWithData:nameData encoding:documentEncoding];
+                path = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
                 if (!path) path = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:[nameData bytes] length:[nameData length]];
                 if (!path) path = [[NSString alloc] initWithData:nameData encoding:NSWindowsCP1252StringEncoding];
                 if (!path) path = [[NSString alloc] initWithData:nameData encoding:NSMacOSRomanStringEncoding];
@@ -165,14 +165,13 @@ static inline uint32_t _crcFromData(NSData *data) {
     return retval;
 }
 
-- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer encoding:(NSStringEncoding)encoding error:(NSError **)error {
+ - (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)error {
     BOOL retval = NO;
     unsigned long long i, length, directoryEntriesEnd = 0;
     uint32_t potentialTag;
 
     fileBuffer = theFileBuffer;
     if (fileBuffer) {
-        documentEncoding = encoding;
         length = [fileBuffer fileLength];
 
         for (i = MIN_DIRECTORY_END_OFFSET; directoryEntriesEnd == 0 && i < MAX_DIRECTORY_END_OFFSET && i < length; i++) {
@@ -194,10 +193,6 @@ static inline uint32_t _crcFromData(NSData *data) {
         }
     }
     return retval;
-}
-
-- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)outError {
-    return [self readFromFileBuffer:theFileBuffer encoding:NSUTF8StringEncoding error:outError];
 }
 
  - (ZipEntry *)rootEntry {
