@@ -51,7 +51,7 @@
 
 #import "ZipDocument.h"
 #import "ZipEntry.h"
-#import "DataBuffer.h"
+#import "NSData+ZipBrowser.h"
 #import <zlib.h>
 
 #define MIN_DIRECTORY_END_OFFSET    20
@@ -156,7 +156,7 @@ static inline uint32_t _crcFromData(NSData *data) {
     return nil;
 }
 
- - (BOOL)readFromDataBuffer:(DataBuffer *)theDataBuffer error:(NSError **)error {
+ - (BOOL)readFromDataBuffer:(NSData *)theDataBuffer error:(NSError **)error {
     dataBuffer = theDataBuffer;
     if (dataBuffer) {
         unsigned long long directoryEntriesEnd = 0;

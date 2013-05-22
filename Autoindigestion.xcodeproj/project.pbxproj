@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */ = {isa = PBXBuildFile; fileRef = D407937415A800AA0018FBBA /* Autoindigestion.1 */; };
 		D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */ = {isa = PBXBuildFile; fileRef = D407937515A800AA0018FBBA /* Autoindigestion.5 */; };
-		D4197D6D174D5883009FAE8E /* DataBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4197D6C174D5883009FAE8E /* DataBuffer.m */; };
+		D4197D6D174D5883009FAE8E /* NSData+ZipBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = D4197D6C174D5883009FAE8E /* NSData+ZipBrowser.m */; };
 		D425F5FD165DEFB00035DF8D /* GroupTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D425F5FC165DEFB00035DF8D /* GroupTest.m */; };
 		D425F5FF165DF1670035DF8D /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717A15A380E400CEC757 /* Group.m */; };
 		D425F600165DF17A0035DF8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
@@ -110,8 +110,8 @@
 		D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.5.txt; sourceTree = "<group>"; };
 		D4197D6E174DEC4D009FAE8E /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
 		D41D101A15A799A400E3C972 /* Sample Vendor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sample Vendor.plist"; sourceTree = "<group>"; };
-		D4197D6B174D5883009FAE8E /* DataBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBuffer.h; sourceTree = "<group>"; };
-		D4197D6C174D5883009FAE8E /* DataBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBuffer.m; sourceTree = "<group>"; };
+		D4197D6B174D5883009FAE8E /* NSData+ZipBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ZipBrowser.h"; sourceTree = "<group>"; };
+		D4197D6C174D5883009FAE8E /* NSData+ZipBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ZipBrowser.m"; sourceTree = "<group>"; };
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
 		D425F60216601D850035DF8D /* UserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
 		D444DF6C174B2CAB00F47BC2 /* ZipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipDocument.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -226,8 +226,8 @@
 		D444DF69174B2CAB00F47BC2 /* ZipBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				D4197D6B174D5883009FAE8E /* DataBuffer.h */,
-				D4197D6C174D5883009FAE8E /* DataBuffer.m */,
+				D4197D6B174D5883009FAE8E /* NSData+ZipBrowser.h */,
+				D4197D6C174D5883009FAE8E /* NSData+ZipBrowser.m */,
 				D444DF6C174B2CAB00F47BC2 /* ZipDocument.h */,
 				D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */,
 				D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */,
@@ -563,7 +563,7 @@
 				D44F2C5C1749BBB80005DD9E /* AutoingestionTool.m in Sources */,
 				D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */,
 				D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */,
-				D4197D6D174D5883009FAE8E /* DataBuffer.m in Sources */,
+				D4197D6D174D5883009FAE8E /* NSData+ZipBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
