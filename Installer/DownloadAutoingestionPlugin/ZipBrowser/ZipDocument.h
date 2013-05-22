@@ -65,6 +65,6 @@
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error;
 - (void)setFileBuffer:(FileBuffer *)theFileBuffer;
 - (ZipEntry *)rootEntry;
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outError;
 
 @end
