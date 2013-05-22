@@ -51,11 +51,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ZipEntry, FileBuffer;
+@class ZipEntry, DataBuffer;
 
 @interface ZipDocument : NSObject {
     ZipEntry *rootEntry;
-    FileBuffer *fileBuffer;
+  DataBuffer *fileBuffer;
     uint32_t directoryEntriesStart;
     uint16_t numberOfDirectoryEntries;
 }
@@ -63,6 +63,6 @@
 - (void)readEntries;
 - (NSData *)unzipEntry:(ZipEntry *)zipEntry;
 - (ZipEntry *)rootEntry;
-- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)error;
+- (BOOL)readFromFileBuffer:(DataBuffer *)theFileBuffer error:(NSError **)error;
 
 @end
