@@ -4,13 +4,6 @@
 @implementation DataBuffer
 
 
-- (uint8_t)byteAtOffset:(unsigned long long)offset;
-{
-  uint8_t const *byte = [_data bytes] + offset;
-  return *byte;
-}
-
-
 - (void)close;
 {
   // nothing to do
@@ -35,7 +28,7 @@
   self = [super init];
   if ( ! self) return nil;
   
-  _data = data;
+  _data = [data copy];
   
   return self;
 }

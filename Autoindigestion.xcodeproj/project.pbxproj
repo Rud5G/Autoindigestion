@@ -15,7 +15,6 @@
 		D425F5FF165DF1670035DF8D /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717A15A380E400CEC757 /* Group.m */; };
 		D425F600165DF17A0035DF8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
 		D425F60316601D850035DF8D /* UserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D425F60216601D850035DF8D /* UserTest.m */; };
-		D444DF70174B2CAB00F47BC2 /* FileBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */; };
 		D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */; };
 		D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */; };
 		D444DF7A174B3C4B00F47BC2 /* DataBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF79174B3C4B00F47BC2 /* DataBuffer.m */; };
@@ -130,8 +129,6 @@
 		D41D101A15A799A400E3C972 /* Sample Vendor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sample Vendor.plist"; sourceTree = "<group>"; };
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
 		D425F60216601D850035DF8D /* UserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTest.m; sourceTree = "<group>"; };
-		D444DF6A174B2CAB00F47BC2 /* FileBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = FileBuffer.h; sourceTree = "<group>"; tabWidth = 4; };
-		D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = FileBuffer.m; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF6C174B2CAB00F47BC2 /* ZipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipDocument.h; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ZipDocument.m; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipEntry.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -255,8 +252,6 @@
 		D444DF69174B2CAB00F47BC2 /* ZipBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				D444DF6A174B2CAB00F47BC2 /* FileBuffer.h */,
-				D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */,
 				D444DF6C174B2CAB00F47BC2 /* ZipDocument.h */,
 				D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */,
 				D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */,
@@ -611,7 +606,6 @@
 			files = (
 				D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */,
 				D44F2C5C1749BBB80005DD9E /* AutoingestionTool.m in Sources */,
-				D444DF70174B2CAB00F47BC2 /* FileBuffer.m in Sources */,
 				D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */,
 				D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */,
 				D444DF7A174B3C4B00F47BC2 /* DataBuffer.m in Sources */,
