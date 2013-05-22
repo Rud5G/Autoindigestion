@@ -74,7 +74,6 @@
     return self;
 }
 
-
  - (void)readEntries;
 {
     NSString *path = nil;
@@ -166,18 +165,16 @@ static inline uint32_t _crcFromData(NSData *data) {
     return retval;
 }
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL encoding:(NSStringEncoding)encoding error:(NSError **)error {
+- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer encoding:(NSStringEncoding)encoding error:(NSError **)error {
     BOOL retval = NO;
     unsigned long long i, length, directoryEntriesEnd = 0;
     uint32_t potentialTag;
-    NSError *localError = nil;
 
-    if (!fileBuffer) fileBuffer = [[FileBuffer alloc] initWithURL:absoluteURL error:&localError];
+    fileBuffer = theFileBuffer;
     if (fileBuffer) {
         documentEncoding = encoding;
         length = [fileBuffer fileLength];
 
-        // First, we locate the zip directory
         for (i = MIN_DIRECTORY_END_OFFSET; directoryEntriesEnd == 0 && i < MAX_DIRECTORY_END_OFFSET && i < length; i++) {
             potentialTag = [fileBuffer littleUnsignedIntAtOffset:length - i];
             if (potentialTag == DIRECTORY_END_TAG) {
@@ -187,28 +184,23 @@ static inline uint32_t _crcFromData(NSData *data) {
             }
         }
 
-        // If we have a valid zip directory, report success and queue reading of the actual entries in the background
         if (numberOfDirectoryEntries > 0 && directoryEntriesEnd > 0 && directoryEntriesStart > 0 && directoryEntriesStart < length) {
             [self readEntries];
             retval = YES;
         } else {
             [fileBuffer close];
             fileBuffer = nil;
+            if (error) *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
         }
     }
-    if (!retval && error) *error = localError ? localError : [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:absoluteURL, NSURLErrorKey, nil]];
     return retval;
 }
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outError {
-    return [self readFromURL:absoluteURL encoding:NSUTF8StringEncoding error:outError];
+- (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)outError {
+    return [self readFromFileBuffer:theFileBuffer encoding:NSUTF8StringEncoding error:outError];
 }
 
-- (void)setFileBuffer:(FileBuffer *)theFileBuffer {
-    fileBuffer = theFileBuffer;
-}
-
-- (ZipEntry *)rootEntry {
+ - (ZipEntry *)rootEntry {
     return rootEntry;
 }
 
