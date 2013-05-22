@@ -61,7 +61,7 @@
 }
 
 - (void)readEntries;
-- (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL error:(NSError **)error;
+- (NSData *)unzipEntry:(ZipEntry *)zipEntry;
 - (ZipEntry *)rootEntry;
 - (BOOL)readFromFileBuffer:(FileBuffer *)theFileBuffer error:(NSError **)error;
 
