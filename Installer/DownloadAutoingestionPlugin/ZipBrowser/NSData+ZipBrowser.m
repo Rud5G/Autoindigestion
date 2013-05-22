@@ -1,43 +1,32 @@
-#import "DataBuffer.h"
+#import "NSData+ZipBrowser.h"
 
 
-@implementation DataBuffer
+@implementation NSData (ZipBrowser)
 
 
 - (NSData *)dataAtOffset:(unsigned long long)offset
                   length:(NSUInteger)length;
 {
-  return [_data subdataWithRange:NSMakeRange(offset, length)];
+  return [self subdataWithRange:NSMakeRange(offset, length)];
 }
 
 
 - (unsigned long long)fileLength;
 {
-  return [_data length];
-}
-
-
-- (id)initWithData:(NSData *)data;
-{
-  self = [super init];
-  if ( ! self) return nil;
-  
-  _data = [data copy];
-  
-  return self;
+  return [self length];
 }
 
 
 - (uint16_t)littleUnsignedShortAtOffset:(unsigned long long)offset;
 {
-  uint16_t const *unsignedShort = [_data bytes] + offset;
+  uint16_t const *unsignedShort = [self bytes] + offset;
   return NSSwapLittleShortToHost(*unsignedShort);
 }
 
 
 - (uint32_t)littleUnsignedIntAtOffset:(unsigned long long)offset;
 {
-  uint32_t const *unsignedInt = [_data bytes] + offset;
+  uint32_t const *unsignedInt = [self bytes] + offset;
   return NSSwapLittleIntToHost(*unsignedInt);
 }
 

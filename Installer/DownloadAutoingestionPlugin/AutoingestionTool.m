@@ -2,7 +2,7 @@
 
 #import <syslog.h>
 #import "AutoingestionToolDelegate.h"
-#import "ZipBrowser/DataBuffer.h"
+#import "ZipBrowser/NSData+ZipBrowser.h"
 #import "ZipBrowser/ZipDocument.h"
 #import "ZipBrowser/ZipEntry.h"
 
@@ -33,11 +33,10 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
   syslog(LOG_INFO, "Downloaded %s", [kAutoingestionURL UTF8String]);
   [_delegate autoingestionToolDidFinishDownloading:self];
   
-  DataBuffer *dataBuffer = [[DataBuffer alloc] initWithData:_zipData];
   ZipDocument *zipDocument = [[ZipDocument alloc] init];
 
   NSError *error;
-  BOOL didRead = [zipDocument readFromDataBuffer:dataBuffer error:&error];
+  BOOL didRead = [zipDocument readFromDataBuffer:_zipData error:&error];
   if ( ! didRead) {
     syslog(LOG_ERR, "Unable to decompress %s: (%li) %s",
            [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);

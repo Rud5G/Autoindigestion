@@ -1,15 +1,11 @@
 #import <Foundation/Foundation.h>
 
 
-@interface DataBuffer : NSObject
-
-@property (readonly, copy) NSData *data;
+@interface NSData (ZipBrowser)
 
 - (NSData *)dataAtOffset:(unsigned long long)offset length:(NSUInteger)length;
 
 - (unsigned long long)fileLength;
-
-- (id)initWithData:(NSData *)data;
 
 - (uint32_t)littleUnsignedIntAtOffset:(unsigned long long)offset;
 
