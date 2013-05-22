@@ -39,7 +39,7 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
   [zipDocument setFileBuffer:dataBuffer];
   
   NSError *error;
-  BOOL didRead = [zipDocument readFromURL:_url ofType:@"application/zip" error:&error];
+  BOOL didRead = [zipDocument readFromURL:_url error:&error];
   if ( ! didRead) {
     syslog(LOG_ERR, "Unable to decompress %s: (%li) %s",
            [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);

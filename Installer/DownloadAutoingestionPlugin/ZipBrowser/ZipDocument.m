@@ -166,7 +166,7 @@ static inline uint32_t _crcFromData(NSData *data) {
     return retval;
 }
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName encoding:(NSStringEncoding)encoding error:(NSError **)error {
+- (BOOL)readFromURL:(NSURL *)absoluteURL encoding:(NSStringEncoding)encoding error:(NSError **)error {
     BOOL retval = NO;
     unsigned long long i, length, directoryEntriesEnd = 0;
     uint32_t potentialTag;
@@ -200,8 +200,8 @@ static inline uint32_t _crcFromData(NSData *data) {
     return retval;
 }
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError {
-    return [self readFromURL:absoluteURL ofType:typeName encoding:NSUTF8StringEncoding error:outError];
+- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outError {
+    return [self readFromURL:absoluteURL encoding:NSUTF8StringEncoding error:outError];
 }
 
 - (void)setFileBuffer:(FileBuffer *)theFileBuffer {
