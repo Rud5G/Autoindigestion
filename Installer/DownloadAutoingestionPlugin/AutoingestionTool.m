@@ -76,7 +76,6 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
       NSURL *url = [NSURL fileURLWithPathComponents:@[kAutoingestionTempPath, kAutoingestionFilename]];
       BOOL didWrite = [zipDocument writeEntry:zipEntry
                                     toFileURL:url
-                                 forOperation:nil
                                         error:&error];
       if ( ! didWrite) {
         syslog(LOG_ERR, "Unable to decompress %s: (%li) %s",
