@@ -2,4 +2,22 @@
 
 printf "Autoindigestion postinstall\n"
 
+
+chgrp admin /Library/Autoindigestion/Vendors
+chmod 775 /Library/Autoindigestion/Vendors
+
+chgrp admin /Library/Autoindigestion/Vendors/ExampleVendor.plist
+chmod 664 /Library/Autoindigestion/Vendors/ExampleVendor.plist
+
+
+if ! [ -f /Library/Autoindigestion/Autoingestion.class ]
+then
+  if [ -f /tmp/com.ablepear.autoindigestion.installer/Autoingestion.class ]
+  then
+    cp /tmp/com.ablepear.autoindigestion.installer/Autoingestion.class /Library/Autoindigestion
+    rm -rf /tmp/com.ablepear.autoindigestion.installer
+  fi
+fi
+
+
 launchctl load -wF /Library/LaunchDaemons/Autoindigestion.plist

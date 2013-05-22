@@ -1,6 +1,7 @@
 #!/bin/sh
 
-printf "Autoindigestion postinstall\n"
+printf "Autoindigestion preinstall\n"
+
 
 if [ -e /Library/LaunchDaemons/Autoindigestion.plist ]
 then

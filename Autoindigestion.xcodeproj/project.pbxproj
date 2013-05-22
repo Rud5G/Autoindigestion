@@ -18,9 +18,10 @@
 		D444DF70174B2CAB00F47BC2 /* FileBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6B174B2CAB00F47BC2 /* FileBuffer.m */; };
 		D444DF71174B2CAB00F47BC2 /* ZipDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */; };
 		D444DF72174B2CAB00F47BC2 /* ZipEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */; };
-		D444DF74174B2D4900F47BC2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D444DF73174B2D4900F47BC2 /* libz.dylib */; };
 		D444DF7A174B3C4B00F47BC2 /* DataBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = D444DF79174B3C4B00F47BC2 /* DataBuffer.m */; };
-		D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
+		D444DF85174C47D500F47BC2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D444DF84174C47D500F47BC2 /* libz.dylib */; };
+		D444DF88174C482A00F47BC2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D444DF87174C482A00F47BC2 /* Cocoa.framework */; };
+		D444DF89174C483A00F47BC2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D444DF87174C482A00F47BC2 /* Cocoa.framework */; };
 		D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */; };
 		D44F2C4C17499D4A0005DD9E /* DownloadAutoingestionPluginPane.m in Sources */ = {isa = PBXBuildFile; fileRef = D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */; };
 		D44F2C4D17499D4A0005DD9E /* DownloadAutoingestionPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = D44F2C4417499D4A0005DD9E /* DownloadAutoingestionPlugin.xib */; };
@@ -60,7 +61,6 @@
 		D4BDA3A317F5221000D8FF29 /* NSDate+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717215A380E400CEC757 /* NSDate+Autoindigestion.m */; };
 		D4BDA3A517F5227E00D8FF29 /* ReportDateTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */; };
 		D4EDA1D315DB1D950084B460 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51515894E48000F0173 /* SenTestingKit.framework */; };
-		D4EDA1D415DB1D950084B460 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
 		D4EDA1DD15DB1D950084B460 /* AutoingestionResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */; };
 		D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */; };
 		D4EDA1E615DB1FD00084B460 /* AutoingestionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */; };
@@ -136,9 +136,10 @@
 		D444DF6D174B2CAB00F47BC2 /* ZipDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ZipDocument.m; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF6E174B2CAB00F47BC2 /* ZipEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = ZipEntry.h; sourceTree = "<group>"; tabWidth = 4; };
 		D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ZipEntry.m; sourceTree = "<group>"; tabWidth = 4; };
-		D444DF73174B2D4900F47BC2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D444DF78174B3C4B00F47BC2 /* DataBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBuffer.h; sourceTree = "<group>"; };
 		D444DF79174B3C4B00F47BC2 /* DataBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBuffer.m; sourceTree = "<group>"; };
+		D444DF84174C47D500F47BC2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D444DF87174C482A00F47BC2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D44F2C1F174971F20005DD9E /* ExampleVendor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExampleVendor.plist; sourceTree = "<group>"; };
 		D44F2C2617499D0E0005DD9E /* DownloadAutoingestionPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownloadAutoingestionPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstallerPlugins.framework; path = System/Library/Frameworks/InstallerPlugins.framework; sourceTree = SDKROOT; };
@@ -157,10 +158,6 @@
 		D45492551744AAD300F48F19 /* LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LaunchDaemon.plist; sourceTree = "<group>"; };
 		D45492561744AB0A00F48F19 /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
 		D464C51515894E48000F0173 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D464C51715894E48000F0173 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		D464C51A15894E48000F0173 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		D464C51B15894E48000F0173 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D464C51C15894E48000F0173 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D46A500F157436120092B175 /* Autoindigestion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Autoindigestion; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A5013157436120092B175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D48AE5041748121B00257888 /* Distribution.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Distribution.xml; sourceTree = "<group>"; };
@@ -229,8 +226,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D444DF74174B2D4900F47BC2 /* libz.dylib in Frameworks */,
-				D44F2C2717499D0E0005DD9E /* Cocoa.framework in Frameworks */,
+				D444DF85174C47D500F47BC2 /* libz.dylib in Frameworks */,
+				D444DF88174C482A00F47BC2 /* Cocoa.framework in Frameworks */,
 				D44F2C2917499D0E0005DD9E /* InstallerPlugins.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,8 +244,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D444DF89174C483A00F47BC2 /* Cocoa.framework in Frameworks */,
 				D4EDA1D315DB1D950084B460 /* SenTestingKit.framework in Frameworks */,
-				D4EDA1D415DB1D950084B460 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +263,15 @@
 				D444DF6F174B2CAB00F47BC2 /* ZipEntry.m */,
 			);
 			path = ZipBrowser;
+			sourceTree = "<group>";
+		};
+		D444DF86174C480300F47BC2 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D444DF84174C47D500F47BC2 /* libz.dylib */,
+			);
+			name = Libraries;
+			path = Installer/DownloadAutoingestionPlugin;
 			sourceTree = "<group>";
 		};
 		D44F2C3F17499D4A0005DD9E /* DownloadAutoingestionPlugin */ = {
@@ -301,20 +307,9 @@
 			path = Installer;
 			sourceTree = "<group>";
 		};
-		D464C51915894E48000F0173 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D464C51A15894E48000F0173 /* AppKit.framework */,
-				D464C51B15894E48000F0173 /* CoreData.framework */,
-				D464C51C15894E48000F0173 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
 		D46A5004157436120092B175 = {
 			isa = PBXGroup;
 			children = (
-				D444DF73174B2D4900F47BC2 /* libz.dylib */,
 				D407936915A7F9350018FBBA /* LICENSE */,
 				D407936A15A7F9350018FBBA /* README.md */,
 				D4A7719E15A3816E00CEC757 /* Documentation */,
@@ -322,6 +317,7 @@
 				D4A7716215A380E400CEC757 /* Source */,
 				D4EDA1D515DB1D950084B460 /* UnitTests */,
 				D46A5012157436120092B175 /* Frameworks */,
+				D444DF86174C480300F47BC2 /* Libraries */,
 				D46A5010157436120092B175 /* Products */,
 				D48AE50D17481B7D00257888 /* Autoindigestion.pkg */,
 			);
@@ -341,11 +337,10 @@
 		D46A5012157436120092B175 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D444DF87174C482A00F47BC2 /* Cocoa.framework */,
 				D46A5013157436120092B175 /* Foundation.framework */,
-				D464C51515894E48000F0173 /* SenTestingKit.framework */,
-				D464C51715894E48000F0173 /* Cocoa.framework */,
 				D44F2C2817499D0E0005DD9E /* InstallerPlugins.framework */,
-				D464C51915894E48000F0173 /* Other Frameworks */,
+				D464C51515894E48000F0173 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -782,7 +777,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Autoindigestion.pkg;
 			};
 			name = Debug;
 		};
@@ -795,7 +790,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Autoindigestion.pkg;
 			};
 			name = Release;
 		};

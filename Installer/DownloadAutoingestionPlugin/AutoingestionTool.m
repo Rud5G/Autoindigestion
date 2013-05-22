@@ -9,6 +9,7 @@
 
 static NSString *const kAutoingestionFilename = @"Autoingestion.class";
 static NSString *const kAutoindigestionPath = @"/Library/Autoindigestion";
+static NSString *const kAutoingestionTempPath = @"/tmp/com.ablepear.autoindigestion.installer";
 static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/docs/Autoingestion.class.zip";
 
 
@@ -50,15 +51,29 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
   for (ZipEntry *zipEntry in zipEntries) {
     syslog(LOG_INFO, "Found zip entry: %s", [[zipEntry name] UTF8String]);
     if ([kAutoingestionFilename isEqualToString:[zipEntry name]]) {
-      syslog(LOG_INFO, "Extracting %s", [kAutoingestionFilename UTF8String]);
-      
-      NSArray *tmpDirURLs = [[NSFileManager defaultManager] URLsForDirectory:NSDownloadsDirectory
-                                                                   inDomains:NSAllDomainsMask];
-      if ( ! [tmpDirURLs count]) {
-        syslog(LOG_ERR, "Unable to find downloads directory");
+      if ([[NSFileManager defaultManager] fileExistsAtPath:kAutoingestionTempPath]) {
+        syslog(LOG_INFO, "Removing old %s directory", [kAutoingestionTempPath UTF8String]);
+        BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:kAutoingestionTempPath
+                                                                  error:&error];
+        if ( ! removed) {
+          syslog(LOG_ERR, "Unable to remove directory %s: (%li) %s",
+                 [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
+          return;
+        }
       }
-      NSURL *tmpDirURL = tmpDirURLs[0];
-      NSURL *url = [tmpDirURL URLByAppendingPathComponent:kAutoingestionFilename];
+      
+      BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:kAutoingestionTempPath
+                                               withIntermediateDirectories:YES
+                                                                attributes:nil
+                                                                     error:&error];
+      if ( ! created) {
+        syslog(LOG_ERR, "Unable to create directory %s: (%li) %s",
+               [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
+        return;
+      }
+      
+      syslog(LOG_INFO, "Decompressing %s", [kAutoingestionFilename UTF8String]);
+      NSURL *url = [NSURL fileURLWithPathComponents:@[kAutoingestionTempPath, kAutoingestionFilename]];
       BOOL didWrite = [zipDocument writeEntry:zipEntry
                                     toFileURL:url
                                  forOperation:nil
@@ -68,6 +83,7 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
                [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);
         return;
       }
+      break;
     }
   }
   
