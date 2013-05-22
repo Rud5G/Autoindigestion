@@ -53,29 +53,19 @@
 
 @class ZipEntry, FileBuffer;
 
-@interface ZipDocument : NSDocument {
+@interface ZipDocument : NSObject {
     ZipEntry *rootEntry;
-    NSOperationQueue *operationQueue;
-    NSViewController *previewViewController;
-    IBOutlet NSBrowser *zipDocumentBrowser;
     FileBuffer *fileBuffer;
     NSStringEncoding documentEncoding;
-    NSURL *documentURL;
-    NSString *documentType;
-    NSUInteger draggedRow;
-    NSUInteger draggedColumn;
     uint32_t directoryEntriesStart;
     uint16_t numberOfDirectoryEntries;
 }
 
-- (void)reopenWithEncoding:(id)sender;
-- (void)reloadBrowser:(id)sender;
 - (void)addEntries:(NSArray *)array;
 - (void)readEntriesForOperation:(NSOperation *)operation;
 - (BOOL)writeEntry:(ZipEntry *)zipEntry toFileURL:(NSURL *)fileURL forOperation:(NSOperation *)operation error:(NSError **)error;
-- (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pboard;
-+ (void)registerServices;
 - (void)setFileBuffer:(FileBuffer *)theFileBuffer;
 - (ZipEntry *)rootEntry;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 
 @end
