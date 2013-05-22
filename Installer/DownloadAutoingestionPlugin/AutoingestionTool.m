@@ -34,12 +34,10 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
   [_delegate autoingestionToolDidFinishDownloading:self];
   
   DataBuffer *dataBuffer = [[DataBuffer alloc] initWithData:_zipData];
-  
   ZipDocument *zipDocument = [[ZipDocument alloc] init];
-  [zipDocument setFileBuffer:dataBuffer];
-  
+
   NSError *error;
-  BOOL didRead = [zipDocument readFromURL:_url error:&error];
+  BOOL didRead = [zipDocument readFromFileBuffer:dataBuffer error:&error];
   if ( ! didRead) {
     syslog(LOG_ERR, "Unable to decompress %s: (%li) %s",
            [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);
