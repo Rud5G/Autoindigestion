@@ -13,6 +13,7 @@
 
 @interface Vendor : NSObject
 
+@property (readonly) NSString *credentialsFilePath;
 @property (readonly) BOOL disabled;
 @property (readonly) NSNumber *fileMode;
 @property (readonly) Group *group;

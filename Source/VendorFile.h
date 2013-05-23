@@ -13,6 +13,7 @@
 @property (readonly) User *owner;
 @property (readonly) NSNumber *optInReportsEnabled;
 @property (readonly) NSString *password;
+@property (readonly) NSString *path;
 @property (readonly) NSNumber *preOrderReportsEnabled;
 @property (readonly) NSString *reportDir;
 @property (readonly) NSNumber *salesReportsDisabled;

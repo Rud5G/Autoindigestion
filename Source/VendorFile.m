@@ -15,10 +15,13 @@
   self = [super init];
   if ( ! self) return nil;
 
-  NSDictionary *configuration = [NSDictionary dictionaryWithContentsOfFile:vendorFile];
+  _path = [vendorFile copy];
+  
+  // TODO: use NSPropertyListSerialization to enable better error messages
+  NSDictionary *configuration = [NSDictionary dictionaryWithContentsOfFile:_path];
   if ( ! configuration) {
     [monitor exitOnFailureWithFormat:@"Unable to read vendor configuration file \"%@\"",
-             vendorFile];
+             _path];
     return nil;
   }
 
@@ -33,10 +36,10 @@
   _vendorName = configuration[kVendorNameKey];
 
   NSString *format = @"Configuration file \"%@\" is missing required key %@";
-  if ( ! _password) [monitor warningWithFormat:format, vendorFile, kPasswordKey];
-  if ( ! _username) [monitor warningWithFormat:format, vendorFile, kUsernameKey];
-  if ( ! _vendorID) [monitor warningWithFormat:format, vendorFile, kVendorIDKey];
-  if ( ! _vendorName) [monitor warningWithFormat:format, vendorFile, kVendorNameKey];
+  if ( ! _password) [monitor warningWithFormat:format, _path, kPasswordKey];
+  if ( ! _username) [monitor warningWithFormat:format, _path, kUsernameKey];
+  if ( ! _vendorID) [monitor warningWithFormat:format, _path, kVendorIDKey];
+  if ( ! _vendorName) [monitor warningWithFormat:format, _path, kVendorNameKey];
 
   NSString *groupName = configuration[kGroupKey];
   if (groupName) {

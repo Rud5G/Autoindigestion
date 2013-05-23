@@ -73,6 +73,7 @@
 		D407937515A800AA0018FBBA /* Autoindigestion.5 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.5; sourceTree = "<group>"; };
 		D407937A15A82B2B0018FBBA /* Autoindigestion.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.1.txt; sourceTree = "<group>"; };
 		D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Autoindigestion.5.txt; sourceTree = "<group>"; };
+		D4197D6E174DEC4D009FAE8E /* Object Relationship Diagram.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Object Relationship Diagram.txt"; sourceTree = "<group>"; };
 		D41D101A15A799A400E3C972 /* Sample Vendor.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Sample Vendor.plist"; sourceTree = "<group>"; };
 		D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Autoindigestion LaunchDaemon.plist"; sourceTree = "<group>"; };
 		D425F5FC165DEFB00035DF8D /* GroupTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTest.m; sourceTree = "<group>"; };
@@ -258,6 +259,7 @@
 				D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */,
 				D41D101C15A79A0100E3C972 /* Autoindigestion LaunchDaemon.plist */,
 				D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */,
+				D4197D6E174DEC4D009FAE8E /* Object Relationship Diagram.txt */,
 				D41D101A15A799A400E3C972 /* Sample Vendor.plist */,
 			);
 			path = Documentation;
