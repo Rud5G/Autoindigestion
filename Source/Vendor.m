@@ -42,7 +42,7 @@
   }
   
   _credentialsFilePath = [[[vendorFile path] stringByDeletingPathExtension]
-                              stringByAppendingPathExtension:@".properties"];
+                              stringByAppendingPathExtension:@"properties"];
   
   _group = [NSObject firstValueForKey:kGroupKey
                           fromObjects:vendorFile, configurationFile, defaults, nil];
@@ -140,26 +140,24 @@
 
 - (void)prepare;
 {
-  if ( ! [[NSFileManager defaultManager] fileExistsAtPath:_credentialsFilePath]) {
-    NSString *credentials = [NSString stringWithFormat:
-                             @"userID = %@\npassword = %@\n",
-                             _username, _password];
-    NSError *error;
-    BOOL written = [credentials writeToFile:_credentialsFilePath
-                                 atomically:YES
-                                   encoding:NSUTF8StringEncoding
-                                      error:&error];
-    if ( ! written) {
-      [_monitor exitOnFailureWithError:error];
-    }
-    
-    NSDictionary *attributes = @{ NSFilePosixPermissions : @0600 };
-    BOOL wasSet = [[NSFileManager defaultManager] setAttributes:attributes
-                                                   ofItemAtPath:_credentialsFilePath
-                                                          error:&error];
-    if ( ! wasSet) {
-      [_monitor exitOnFailureWithError:error];
-    }
+  NSString *credentials = [NSString stringWithFormat:
+                           @"userID = %@\npassword = %@\n",
+                           _username, _password];
+  NSError *error;
+  BOOL written = [credentials writeToFile:_credentialsFilePath
+                               atomically:YES
+                                 encoding:NSUTF8StringEncoding
+                                    error:&error];
+  if ( ! written) {
+    [_monitor exitOnFailureWithError:error];
+  }
+  
+  NSDictionary *attributes = @{ NSFilePosixPermissions : @0600 };
+  BOOL wasSet = [[NSFileManager defaultManager] setAttributes:attributes
+                                                 ofItemAtPath:_credentialsFilePath
+                                                        error:&error];
+  if ( ! wasSet) {
+    [_monitor exitOnFailureWithError:error];
   }
   
   if ( ! [[NSFileManager defaultManager] fileExistsAtPath:_reportDir]) {
