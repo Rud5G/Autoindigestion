@@ -77,7 +77,7 @@
  - (void)readEntries;
 {
     NSString *path = nil;
-    unsigned long long length = [data fileLength];
+    unsigned long long length = [data length] ;
     uint32_t i, directoryIndex;
 
     for (i = 0, directoryIndex = directoryEntriesStart; i < numberOfDirectoryEntries; i++) {
@@ -121,7 +121,7 @@ static inline uint32_t _crcFromData(NSData *data) {
 }
 
 - (NSData *)unzipEntry:(ZipEntry *)zipEntry {
-    unsigned long long length = [data fileLength];
+    unsigned long long length = [data length];
     uint16_t compression = [zipEntry compressionType], namelen, extralen;
     uint32_t crcval = [zipEntry CRC], csize = [zipEntry compressedSize], usize = [zipEntry uncompressedSize], headeridx = [zipEntry headerOffset], dataidx;
     z_stream stream;
@@ -160,7 +160,7 @@ static inline uint32_t _crcFromData(NSData *data) {
     data = [theData copy];
     if (data) {
         unsigned long long directoryEntriesEnd = 0;
-        unsigned long long length = [data fileLength];
+        unsigned long long length = [data length];
 
         for (unsigned long long i = MIN_DIRECTORY_END_OFFSET; directoryEntriesEnd == 0 && i < MAX_DIRECTORY_END_OFFSET && i < length; i++) {
             uint32_t potentialTag = [data littleUnsignedIntAtOffset:length - i];

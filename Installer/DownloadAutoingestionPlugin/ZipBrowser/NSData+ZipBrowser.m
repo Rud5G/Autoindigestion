@@ -11,12 +11,6 @@
 }
 
 
-- (unsigned long long)fileLength;
-{
-  return [self length];
-}
-
-
 - (uint16_t)littleUnsignedShortAtOffset:(unsigned long long)offset;
 {
   uint16_t const *unsignedShort = [self bytes] + offset;
