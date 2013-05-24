@@ -43,17 +43,31 @@
                                             [_reportCategory dateType],
                                             [_reportCategory reportType],
                                             [vendor vendorName]];
-
+  
+  NSArray *reportDirPathComponents = [[_reportCategory reportDir] pathComponents];
+  NSUInteger dirCount = [reportDirPathComponents count];
+  if ([@"/" isEqualToString:reportDirPathComponents[0]]) dirCount -= 1;
+  
+  NSMutableArray *credentialsFilePathComponents = [[[vendor credentialsFilePath] pathComponents] mutableCopy];
+  if ([@"/" isEqualToString:credentialsFilePathComponents[0]]) {
+    [credentialsFilePathComponents removeObjectAtIndex:0];
+  }
+  for (NSUInteger i = 0; i < dirCount; ++i) {
+    [credentialsFilePathComponents insertObject:@".." atIndex:0];
+  }
+  NSString *credentialsFilePath = [NSString pathWithComponents:credentialsFilePathComponents];
+  
   Autoingestion *autoingestion = [_reportCategory autoingestion];
   [dateFormatter setDateFormat:@"yyyyMMdd"];
   NSString *argumentDateString = [dateFormatter stringFromDate:_reportDate];
+  
   _arguments = @[
       @"--exec",
       @"java",
       @"-classpath",
       [autoingestion classPath],
       [autoingestion className],
-      [vendor credentialsFilePath],
+      credentialsFilePath,
       [vendor vendorID],
       [_reportCategory reportType],
       [_reportCategory dateType],
