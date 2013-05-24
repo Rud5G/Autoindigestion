@@ -90,10 +90,10 @@ CONFIGURATION
      can be used to set the location of Autoingestion.class and the vendors
      directory.  See Autoindigestion(5) for details.
 
-     Autoindigestion is intended to be run daily using launchd.  A launchd
-     configuration plist called Autoindigestion.plist is normally placed in
+     Autoindigestion is intended to be run daily using launchd(8).  A
+     launchd.plist(5) called Autoindigestion.plist is normally placed in
      "/Library/LaunchDaemons".	See Autoindigestion(5) for a sample launchd
-     file.
+     configuration file.
 
 SECURITY CONSIDERATIONS
      Because vendor files contain sensitive iTunes Connect user credentials,
@@ -101,13 +101,23 @@ SECURITY CONSIDERATIONS
      appropriately.  At a minimum, you should chmod 660 VENDORFILE to each
      vendor file so that it is only readable by its owner and group.
 
-     The iTunes Connect user credentials are also exposed through the command
-     line of the Auto-Ingest tool process, which can be viewed by any logged
-     in user with the process viewing utility like ps.	Unfortunately, there
-     is not currently another way to pass iTunes Connect login credentials to
-     Auto-Ingest.  To mitigate this, it is recommended that each vendor create
-     a separate iTunes Connect users dedicated to reporting.  This user should
-     be assigned the Sales role in iTunes Connect.
+     The Auto-Ingest tool reads the iTunes Connect credentials from a .proper-
+     ties file.  Autoindigestion creates the required .properties file before
+     it launches the Auto-Ingest tool, and removes it when the Auto-Ingest job
+     is done.  While running, the .properties file is only readable by the
+     Autoindigestion process user, typically root if Autoindigestion is run by
+     launchd(8).
+
+     Following the principle of least privilege, it is recommended that each
+     vendor create a separate iTunes Connect user for use with
+     Autoindigestion, dedicated to reporting.  The user should be assigned the
+     Sales role in iTunes Connect.
+
+     (Note that older versions of the Auto-Ingest tool exposed the iTunes Con-
+     nect user credentials through the command line of the Auto-Ingest tool
+     process, which could be viewed by any logged in user with the process
+     viewing utility like ps.  The Auto-Ingest tool no longer accepts creden-
+     tials from the command line.)
 
 OPTIONS
      The following command line options are available:
