@@ -18,6 +18,14 @@
 @implementation Tool
 
 
+- (void)cleanUp;
+{
+  for (Vendor *vendor in _vendors) {
+    [vendor cleanUp];
+  }
+}
+
+
 - (id)initWithMonitor:(id <Monitor>)theMonitor
              defaults:(Defaults *)defaults
     configurationFile:(ConfigurationFile *)configurationFile

@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
                                     andOptions:options];
     [tool prepare];
     [tool downloadReports];
+    [tool cleanUp];
   }
   return 0;
 }

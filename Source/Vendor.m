@@ -24,6 +24,17 @@
 }
 
 
+- (void)cleanUp;
+{
+  NSError *error;
+  BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:_credentialsFilePath
+                                                            error:&error];
+  if ( ! removed) {
+    [_monitor warningWithError:error];
+  }
+}
+
+
 - (id)initWithMonitor:(id<Monitor>)theMonitor
              defaults:(Defaults *)defaults
     configurationFile:(ConfigurationFile *)configurationFile

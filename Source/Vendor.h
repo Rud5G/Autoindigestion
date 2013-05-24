@@ -31,6 +31,8 @@
 
 - (NSArray *)autoingestionJobs;
 
+- (void)cleanUp;
+
 - (id)initWithMonitor:(id<Monitor>)theMonitor
              defaults:(Defaults *)defaults
     configurationFile:(ConfigurationFile *)configurationFile

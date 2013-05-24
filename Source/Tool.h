@@ -21,6 +21,8 @@
 @property (readonly) NSString *reportRoot;
 @property (readonly) NSMutableArray *vendors;
 
+- (void)cleanUp;
+
 - (id)initWithMonitor:(id <Monitor>)theMonitor
              defaults:(Defaults *)defaults
     configurationFile:(ConfigurationFile *)configurationFile
