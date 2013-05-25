@@ -38,47 +38,49 @@ static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/doc
     return;
   }
   
-  for (ZipEntry *zipEntry in [zipDocument allEntries]) {
-    if ([kAutoingestionFilename isEqualToString:[zipEntry name]]) {
-      syslog(LOG_INFO, "Extracting %s", [kAutoingestionFilename UTF8String]);
-      NSData *autoingestionClass = [zipDocument unzipEntry:zipEntry];
-      if ( ! autoingestionClass) {
-        syslog(LOG_ERR, "Unable to unzip %s", [kAutoingestionFilename UTF8String]);
-        return;
-      }
+  ZipEntry *zipEntry = [zipDocument entryWithName:kAutoingestionFilename];
+  if ( ! zipEntry) {
+    syslog(LOG_ERR, "No entry named \"%s\" found in %s",
+           [kAutoingestionFilename UTF8String], [kAutoingestionURL UTF8String]);
+    return;
+  }
+  
+  syslog(LOG_INFO, "Extracting %s", [kAutoingestionFilename UTF8String]);
+  NSData *autoingestionClass = [zipDocument unzipEntry:zipEntry];
+  if ( ! autoingestionClass) {
+    syslog(LOG_ERR, "Unable to unzip %s", [kAutoingestionFilename UTF8String]);
+    return;
+  }
 
-      if ([[NSFileManager defaultManager] fileExistsAtPath:kAutoingestionTempPath]) {
-        syslog(LOG_INFO, "Removing old %s directory", [kAutoingestionTempPath UTF8String]);
-        BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:kAutoingestionTempPath
-                                                                  error:&error];
-        if ( ! removed) {
-          syslog(LOG_ERR, "Unable to remove directory %s: (%li) %s",
-                 [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
-          return;
-        }
-      }
-      
-      BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:kAutoingestionTempPath
-                                               withIntermediateDirectories:YES
-                                                                attributes:nil
-                                                                     error:&error];
-      if ( ! created) {
-        syslog(LOG_ERR, "Unable to create directory %s: (%li) %s",
-               [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
-        return;
-      }
-
-      NSString *path = [kAutoingestionTempPath stringByAppendingPathComponent:kAutoingestionFilename];
-      BOOL didWrite = [autoingestionClass writeToFile:path
-                                              options:NSAtomicWrite
-                                                error:&error];
-      if ( ! didWrite) {
-        syslog(LOG_ERR, "Unable to write %s: (%li) %s",
-            [path UTF8String], [error code], [[error localizedDescription] UTF8String]);
-        return;
-      }
-      break;
+  if ([[NSFileManager defaultManager] fileExistsAtPath:kAutoingestionTempPath]) {
+    syslog(LOG_INFO, "Removing old %s directory", [kAutoingestionTempPath UTF8String]);
+    BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:kAutoingestionTempPath
+                                                              error:&error];
+    if ( ! removed) {
+      syslog(LOG_ERR, "Unable to remove directory %s: (%li) %s",
+             [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
+      return;
     }
+  }
+  
+  BOOL created = [[NSFileManager defaultManager] createDirectoryAtPath:kAutoingestionTempPath
+                                           withIntermediateDirectories:YES
+                                                            attributes:nil
+                                                                 error:&error];
+  if ( ! created) {
+    syslog(LOG_ERR, "Unable to create directory %s: (%li) %s",
+           [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
+    return;
+  }
+
+  NSString *path = [kAutoingestionTempPath stringByAppendingPathComponent:kAutoingestionFilename];
+  BOOL didWrite = [autoingestionClass writeToFile:path
+                                          options:NSAtomicWrite
+                                            error:&error];
+  if ( ! didWrite) {
+    syslog(LOG_ERR, "Unable to write %s: (%li) %s",
+        [path UTF8String], [error code], [[error localizedDescription] UTF8String]);
+    return;
   }
   
   _downloaded = YES;

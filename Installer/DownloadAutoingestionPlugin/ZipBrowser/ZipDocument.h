@@ -63,5 +63,6 @@
 - (ZipEntry *)rootEntry;
 - (BOOL)readFromData:(NSData *)theData error:(NSError **)error;
 - (NSArray *)allEntries;
+- (ZipEntry *)entryWithName:(NSString *)name;
 
 @end
