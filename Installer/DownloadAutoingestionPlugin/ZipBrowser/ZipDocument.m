@@ -98,7 +98,7 @@
         if (directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen > length) break;
 
         if (namelen > 0 && headeridx < directoryEntriesStart) {
-            NSData *nameData = [data dataAtOffset:directoryIndex + DIRECTORY_ENTRY_LENGTH length:namelen];
+          NSData *nameData = [data subdataWithRange:NSMakeRange(directoryIndex + DIRECTORY_ENTRY_LENGTH, namelen)];
             if (nameData && [nameData length] == namelen) {
                 path = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
                 if (!path) path = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:[nameData bytes] length:[nameData length]];
@@ -132,7 +132,7 @@ static inline uint32_t _crcFromData(NSData *data) {
         dataidx = headeridx + FILE_HEADER_LENGTH + namelen + extralen;
 
         if (dataidx < length && dataidx + csize > dataidx && dataidx + csize > headeridx && dataidx + csize < length) {
-            NSData *compressedData = [data dataAtOffset:dataidx length:csize];
+          NSData *compressedData = [data subdataWithRange:NSMakeRange(dataidx, csize)];
             if (0 == compression && compressedData && [compressedData length] == csize && usize == csize && _crcFromData(compressedData) == crcval) {
                 return compressedData;
             } else if (8 == compression && compressedData && [compressedData length] == csize && usize / 64 < csize) {

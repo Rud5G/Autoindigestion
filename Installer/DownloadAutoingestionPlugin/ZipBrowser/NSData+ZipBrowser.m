@@ -4,13 +4,6 @@
 @implementation NSData (ZipBrowser)
 
 
-- (NSData *)dataAtOffset:(unsigned long long)offset
-                  length:(NSUInteger)length;
-{
-  return [self subdataWithRange:NSMakeRange(offset, length)];
-}
-
-
 - (uint16_t)littleUnsignedShortAtOffset:(unsigned long long)offset;
 {
   uint16_t const *unsignedShort = [self bytes] + offset;
