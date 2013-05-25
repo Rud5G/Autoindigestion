@@ -74,46 +74,47 @@
     return self;
 }
 
- - (void)readEntries;
-{
-    NSString *path = nil;
-    unsigned long long length = [data length] ;
-    uint32_t i, directoryIndex;
 
-    for (i = 0, directoryIndex = directoryEntriesStart; i < numberOfDirectoryEntries; i++) {
-        uint16_t compression, namelen, extralen, commentlen;
-        uint32_t crcval, csize, usize, headeridx;
+ - (void)readEntriesWithDirectoryEntriesStart:(uint32_t)directoryEntriesStart andCount:(uint16_t)numberOfDirectoryEntries;
+ {
+     NSString *path = nil;
+     unsigned long long length = [data length] ;
+     uint32_t i, directoryIndex;
 
-        if (directoryIndex < directoryEntriesStart || directoryIndex >= length || directoryIndex + DIRECTORY_ENTRY_LENGTH <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH > length || [data littleUnsignedIntAtOffset:directoryIndex] != DIRECTORY_ENTRY_TAG) break;
+     for (i = 0, directoryIndex = directoryEntriesStart; i < numberOfDirectoryEntries; i++) {
+         uint16_t compression, namelen, extralen, commentlen;
+         uint32_t crcval, csize, usize, headeridx;
 
-        compression = [data littleUnsignedShortAtOffset:directoryIndex + 10];
-        crcval = [data littleUnsignedIntAtOffset:directoryIndex + 16];
-        csize = [data littleUnsignedIntAtOffset:directoryIndex + 20];
-        usize = [data littleUnsignedIntAtOffset:directoryIndex + 24];
-        namelen = [data littleUnsignedShortAtOffset:directoryIndex + 28];
-        extralen = [data littleUnsignedShortAtOffset:directoryIndex + 30];
-        commentlen = [data littleUnsignedShortAtOffset:directoryIndex + 32];
-        headeridx = [data littleUnsignedIntAtOffset:directoryIndex + 42];
+         if (directoryIndex < directoryEntriesStart || directoryIndex >= length || directoryIndex + DIRECTORY_ENTRY_LENGTH <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH > length || [data littleUnsignedIntAtOffset:directoryIndex] != DIRECTORY_ENTRY_TAG) break;
 
-        if (directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen > length) break;
+         compression = [data littleUnsignedShortAtOffset:directoryIndex + 10];
+         crcval = [data littleUnsignedIntAtOffset:directoryIndex + 16];
+         csize = [data littleUnsignedIntAtOffset:directoryIndex + 20];
+         usize = [data littleUnsignedIntAtOffset:directoryIndex + 24];
+         namelen = [data littleUnsignedShortAtOffset:directoryIndex + 28];
+         extralen = [data littleUnsignedShortAtOffset:directoryIndex + 30];
+         commentlen = [data littleUnsignedShortAtOffset:directoryIndex + 32];
+         headeridx = [data littleUnsignedIntAtOffset:directoryIndex + 42];
 
-        if (namelen > 0 && headeridx < directoryEntriesStart) {
-          NSData *nameData = [data subdataWithRange:NSMakeRange(directoryIndex + DIRECTORY_ENTRY_LENGTH, namelen)];
-            if (nameData && [nameData length] == namelen) {
-                path = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
-                if (!path) path = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:[nameData bytes] length:[nameData length]];
-                if (!path) path = [[NSString alloc] initWithData:nameData encoding:NSWindowsCP1252StringEncoding];
-                if (!path) path = [[NSString alloc] initWithData:nameData encoding:NSMacOSRomanStringEncoding];
-            }
-        }
+         if (directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen <= directoryEntriesStart || directoryIndex + DIRECTORY_ENTRY_LENGTH + namelen > length) break;
 
-        if (path) {
-            ZipEntry *entry = [[ZipEntry alloc] initWithPath:path headerOffset:headeridx CRC:crcval compressedSize:csize uncompressedSize:usize compressionType:compression];
-            [entry addToRootEntry:rootEntry];
-        }
-        directoryIndex += DIRECTORY_ENTRY_LENGTH + namelen + extralen + commentlen;
-    }
-}
+         if (namelen > 0 && headeridx < directoryEntriesStart) {
+           NSData *nameData = [data subdataWithRange:NSMakeRange(directoryIndex + DIRECTORY_ENTRY_LENGTH, namelen)];
+             if (nameData && [nameData length] == namelen) {
+                 path = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
+                 if (!path) path = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:[nameData bytes] length:[nameData length]];
+                 if (!path) path = [[NSString alloc] initWithData:nameData encoding:NSWindowsCP1252StringEncoding];
+                 if (!path) path = [[NSString alloc] initWithData:nameData encoding:NSMacOSRomanStringEncoding];
+             }
+         }
+
+         if (path) {
+             ZipEntry *entry = [[ZipEntry alloc] initWithPath:path headerOffset:headeridx CRC:crcval compressedSize:csize uncompressedSize:usize compressionType:compression];
+             [entry addToRootEntry:rootEntry];
+         }
+         directoryIndex += DIRECTORY_ENTRY_LENGTH + namelen + extralen + commentlen;
+     }
+ }
 
 static inline uint32_t _crcFromData(NSData *data) {
     uint32_t crc = (uint32_t) crc32(0, NULL, 0);
@@ -159,7 +160,9 @@ static inline uint32_t _crcFromData(NSData *data) {
  - (BOOL)readFromData:(NSData *)theData error:(NSError **)error {
     data = [theData copy];
     if (data) {
+        uint32_t directoryEntriesStart = 0;
         unsigned long long directoryEntriesEnd = 0;
+        uint16_t numberOfDirectoryEntries = 0;
         unsigned long long length = [data length];
 
         for (unsigned long long i = MIN_DIRECTORY_END_OFFSET; directoryEntriesEnd == 0 && i < MAX_DIRECTORY_END_OFFSET && i < length; i++) {
@@ -172,7 +175,7 @@ static inline uint32_t _crcFromData(NSData *data) {
         }
 
         if (numberOfDirectoryEntries > 0 && directoryEntriesEnd > 0 && directoryEntriesStart > 0 && directoryEntriesStart < length) {
-            [self readEntries];
+            [self readEntriesWithDirectoryEntriesStart:directoryEntriesStart andCount:numberOfDirectoryEntries];
             return YES;
         } else {
             data = nil;

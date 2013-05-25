@@ -56,11 +56,9 @@
 @interface ZipDocument : NSObject {
     ZipEntry *rootEntry;
     NSData *data;
-    uint32_t directoryEntriesStart;
-    uint16_t numberOfDirectoryEntries;
 }
 
-- (void)readEntries;
+- (void)readEntriesWithDirectoryEntriesStart:(uint32_t)directoryEntriesStart andCount:(uint16_t)numberOfDirectoryEntries;
 - (NSData *)unzipEntry:(ZipEntry *)zipEntry;
 - (ZipEntry *)rootEntry;
 - (BOOL)readFromData:(NSData *)theData error:(NSError **)error;
