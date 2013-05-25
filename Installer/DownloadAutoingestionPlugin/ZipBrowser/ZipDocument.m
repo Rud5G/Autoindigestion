@@ -64,7 +64,7 @@
 #define FILE_ENTRY_TAG              0x04034b50
 
 
- @implementation ZipDocument
+@implementation ZipDocument
 
 - (id)init {
     self = [super init];
@@ -187,6 +187,20 @@ static inline uint32_t _crcFromData(NSData *data) {
 
  - (ZipEntry *)rootEntry {
     return rootEntry;
+}
+
+static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries)
+{
+  [zipEntries addObject:zipEntry];
+  for (ZipEntry *childEntry in [zipEntry childEntries]) {
+    collectZipEntries(childEntry, zipEntries);
+  }
+}
+
+- (NSArray *)allEntries {
+  NSMutableArray *zipEntries = [NSMutableArray array];
+  collectZipEntries(rootEntry, zipEntries);
+  return zipEntries;
 }
 
 @end

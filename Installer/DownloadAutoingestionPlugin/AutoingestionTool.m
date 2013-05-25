@@ -2,18 +2,13 @@
 
 #import <syslog.h>
 #import "AutoingestionToolDelegate.h"
-#import "ZipBrowser/NSData+ZipBrowser.h"
 #import "ZipBrowser/ZipDocument.h"
 #import "ZipBrowser/ZipEntry.h"
 
 
 static NSString *const kAutoingestionFilename = @"Autoingestion.class";
-static NSString *const kAutoindigestionPath = @"/Library/Autoindigestion";
 static NSString *const kAutoingestionTempPath = @"/tmp/com.ablepear.autoindigestion.installer";
 static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/docs/Autoingestion.class.zip";
-
-
-static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
 
 
 @implementation AutoingestionTool
@@ -43,9 +38,7 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
     return;
   }
   
-  NSMutableArray *zipEntries = [NSMutableArray array];
-  collectZipEntries([zipDocument rootEntry], zipEntries);
-  for (ZipEntry *zipEntry in zipEntries) {
+  for (ZipEntry *zipEntry in [zipDocument allEntries]) {
     if ([kAutoingestionFilename isEqualToString:[zipEntry name]]) {
       syslog(LOG_INFO, "Extracting %s", [kAutoingestionFilename UTF8String]);
       NSData *autoingestionClass = [zipDocument unzipEntry:zipEntry];
@@ -148,12 +141,3 @@ didReceiveResponse:(NSURLResponse *)response;
 
 
 @end
-
-
-static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries)
-{
-  [zipEntries addObject:zipEntry];
-  for (ZipEntry *childEntry in [zipEntry childEntries]) {
-    collectZipEntries(childEntry, zipEntries);
-  }
-}
