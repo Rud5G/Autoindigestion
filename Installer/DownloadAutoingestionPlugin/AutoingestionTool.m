@@ -46,9 +46,8 @@ static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries);
   NSMutableArray *zipEntries = [NSMutableArray array];
   collectZipEntries([zipDocument rootEntry], zipEntries);
   for (ZipEntry *zipEntry in zipEntries) {
-    syslog(LOG_INFO, "Found zip entry: %s", [[zipEntry name] UTF8String]);
     if ([kAutoingestionFilename isEqualToString:[zipEntry name]]) {
-      syslog(LOG_INFO, "Unzipping %s", [kAutoingestionFilename UTF8String]);
+      syslog(LOG_INFO, "Extracting %s", [kAutoingestionFilename UTF8String]);
       NSData *autoingestionClass = [zipDocument unzipEntry:zipEntry];
       if ( ! autoingestionClass) {
         syslog(LOG_ERR, "Unable to unzip %s", [kAutoingestionFilename UTF8String]);
@@ -142,9 +141,6 @@ didReceiveResponse:(NSURLResponse *)response;
   self = [super init];
   if ( ! self) return nil;
   
-  NSString *path = [kAutoindigestionPath stringByAppendingPathComponent:kAutoingestionFilename];
-  
-  _downloaded = [[NSFileManager defaultManager] fileExistsAtPath:path];
   _url = [NSURL URLWithString:kAutoingestionURL];
   
   return self;
