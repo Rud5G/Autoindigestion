@@ -191,16 +191,23 @@ static inline uint32_t _crcFromData(NSData *data) {
 
 static void collectZipEntries(ZipEntry *zipEntry, NSMutableArray *zipEntries)
 {
-  [zipEntries addObject:zipEntry];
-  for (ZipEntry *childEntry in [zipEntry childEntries]) {
-    collectZipEntries(childEntry, zipEntries);
-  }
+    [zipEntries addObject:zipEntry];
+    for (ZipEntry *childEntry in [zipEntry childEntries]) {
+        collectZipEntries(childEntry, zipEntries);
+    }
 }
 
 - (NSArray *)allEntries {
-  NSMutableArray *zipEntries = [NSMutableArray array];
-  collectZipEntries(rootEntry, zipEntries);
-  return zipEntries;
+    NSMutableArray *zipEntries = [NSMutableArray array];
+    collectZipEntries(rootEntry, zipEntries);
+    return zipEntries;
+}
+
+- (ZipEntry *)entryWithName:(NSString *)name {
+    for (ZipEntry *zipEntry in [self allEntries]) {
+        if ([name isEqualToString:[zipEntry name]]) return zipEntry;
+    }
+    return nil;
 }
 
 @end
