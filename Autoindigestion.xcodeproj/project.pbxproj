@@ -139,8 +139,6 @@
 		D46A500F157436120092B175 /* Autoindigestion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Autoindigestion; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A5013157436120092B175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D48AE5041748121B00257888 /* Distribution.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Distribution.xml; sourceTree = "<group>"; };
-		D48AE5071748161B00257888 /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
-		D48AE50B174816AB00257888 /* license.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = license.html; sourceTree = "<group>"; };
 		D48AE50D17481B7D00257888 /* Autoindigestion.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; path = Autoindigestion.pkg; sourceTree = BUILT_PRODUCTS_DIR; };
 		D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iTunes Connect- New File Names for Sales and Trends Reports.txt"; sourceTree = "<group>"; };
 		D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Autoindigestion-Prefix.pch"; sourceTree = "<group>"; };
@@ -183,6 +181,10 @@
 		D4B2473F1752F3D20027339C /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
 		D4B247401752F3D20027339C /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
 		D4B247411752F4860027339C /* download_autoingest_tool */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = download_autoingest_tool; sourceTree = "<group>"; };
+		D4B2474B175302740027339C /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		D4B2474C175302740027339C /* license.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = license.html; sourceTree = "<group>"; };
+		D4B2474D175302740027339C /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
+		D4B24757175302F10027339C /* InstallerSplashScreen01a.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = InstallerSplashScreen01a.psd; sourceTree = "<group>"; };
 		D4EDA1D215DB1D950084B460 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponseTest.m; sourceTree = "<group>"; };
@@ -316,8 +318,9 @@
 		D48AE5051748161B00257888 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D48AE50B174816AB00257888 /* license.html */,
-				D48AE5071748161B00257888 /* welcome.html */,
+				D4B2474B175302740027339C /* background.png */,
+				D4B2474C175302740027339C /* license.html */,
+				D4B2474D175302740027339C /* welcome.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				D407937515A800AA0018FBBA /* Autoindigestion.5 */,
 				D407937B15A82B2B0018FBBA /* Autoindigestion.5.txt */,
 				D44F2C1F174971F20005DD9E /* ExampleVendor.plist */,
+				D4B24757175302F10027339C /* InstallerSplashScreen01a.psd */,
 				D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */,
 				D45492551744AAD300F48F19 /* LaunchDaemon.plist */,
 				D45492561744AB0A00F48F19 /* Object Relationship Diagram.txt */,
