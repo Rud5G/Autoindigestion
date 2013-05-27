@@ -1,0 +1,23 @@
+#!/bin/sh
+
+printf "Autoindigestion %s\n" `basename $0`
+
+URL=http://www.apple.com/itunesnews/docs/Autoingestion.class.zip
+DIR=/tmp/com.ablepear.autoindigestion.installer
+
+if ! [ -f $DIR/Autoingestion.class ]
+then
+  printf "Downloading %s\n" $URL
+  curl --fail --silent --show-error --create-dirs --output $DIR/Autoingestion.class.zip $URL
+  if [ "$?" != "0" ]
+  then
+    exit 1
+  fi
+  
+  printf "Extracting Autoingestion.class\n"
+  unzip -pq $DIR/Autoingestion.class.zip Autoingestion/Autoingestion.class > $DIR/Autoingestion.class
+  if [ "$?" != "0" ]
+  then
+    exit 1
+  fi
+fi
