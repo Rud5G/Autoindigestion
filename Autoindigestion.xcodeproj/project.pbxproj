@@ -211,6 +211,7 @@
 		D4B2474C175302740027339C /* license.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = license.html; sourceTree = "<group>"; };
 		D4B2474D175302740027339C /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
 		D4B24757175302F10027339C /* InstallerSplashScreen01a.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = InstallerSplashScreen01a.psd; sourceTree = "<group>"; };
+		D4B2475B1755C19F0027339C /* conclusion.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = conclusion.html; sourceTree = "<group>"; };
 		D4EDA1D215DB1D950084B460 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponseTest.m; sourceTree = "<group>"; };
@@ -345,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				D4B2474B175302740027339C /* background.png */,
+				D4B2475B1755C19F0027339C /* conclusion.html */,
 				D4B2474C175302740027339C /* license.html */,
 				D4B2474D175302740027339C /* welcome.html */,
 			);

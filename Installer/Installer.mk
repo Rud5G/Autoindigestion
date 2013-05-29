@@ -9,6 +9,8 @@ PKG_FILES := \
 	$(DERIVED_SOURCES_DIR)/Root/usr/local/share/man/man5/Autoindigestion.5
 
 RESOURCES := \
+	$(SRCROOT)/Installer/Resources/background.png \
+	$(SRCROOT)/Installer/Resources/conclusion.html \
 	$(SRCROOT)/Installer/Resources/license.html \
 	$(SRCROOT)/Installer/Resources/welcome.html
 
