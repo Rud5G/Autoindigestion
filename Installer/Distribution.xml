@@ -5,6 +5,7 @@
   <background alignment="center" file="background.png" mime-type="image/png" scaling="tofit" />
   <welcome file="welcome.html" mime-type="text/html" />
   <license file="license.html" mime-type="text/html" />
+  <conclusion file="conclusion.html" mime-type="text/html" />
   
   <pkg-ref id="com.ablepear.autoindigestion"/>
   

@@ -38,37 +38,27 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="NSProgressIndicator" id="588976945">
+					<object class="NSTextField" id="95922778">
 						<reference key="NSNextResponder" ref="878039515"/>
-						<int key="NSvFlags">-2147483382</int>
-						<string key="NSFrame">{{32, 255}, {366, 20}}</string>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{29, 20}, {372, 77}}</string>
 						<reference key="NSSuperview" ref="878039515"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<string key="NSHuggingPriority">{250, 250}</string>
-						<int key="NSpiFlags">16397</int>
-						<double key="NSMaxValue">1</double>
-					</object>
-					<object class="NSTextField" id="815328396">
-						<reference key="NSNextResponder" ref="878039515"/>
-						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{17, 282}, {384, 28}}</string>
-						<reference key="NSSuperview" ref="878039515"/>
-						<reference key="NSNextKeyView" ref="588976945"/>
-						<string key="NSReuseIdentifierKey">_NS:1535</string>
+						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSTextFieldCell" key="NSCell" id="412219209">
-							<int key="NSCellFlags">68157504</int>
-							<int key="NSCellFlags2">138413056</int>
-							<string key="NSContents">Downloading Auto-Ingest tool.</string>
+						<object class="NSTextFieldCell" key="NSCell" id="993147884">
+							<int key="NSCellFlags">67108864</int>
+							<int key="NSCellFlags2">272629760</int>
+							<string key="NSContents">The auto-ingest tool is provided by and supported by Apple. You must not alter or disseminate the auto-ingest tool for any reason. Apple reserves the right to revoke access for usage or distribution beyond its intended use.</string>
 							<object class="NSFont" key="NSSupport">
-								<string key="NSName">LucidaGrande-Bold</string>
-								<double key="NSSize">18</double>
+								<string key="NSName">LucidaGrande</string>
+								<double key="NSSize">13</double>
 								<int key="NSfFlags">16</int>
 							</object>
-							<string key="NSCellIdentifier">_NS:1535</string>
-							<reference key="NSControlView" ref="815328396"/>
-							<object class="NSColor" key="NSBackgroundColor">
+							<string key="NSCellIdentifier">_NS:9</string>
+							<reference key="NSControlView" ref="95922778"/>
+							<object class="NSColor" key="NSBackgroundColor" id="356093516">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">controlColor</string>
@@ -77,7 +67,7 @@
 									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 								</object>
 							</object>
-							<object class="NSColor" key="NSTextColor">
+							<object class="NSColor" key="NSTextColor" id="1022529981">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">controlTextColor</string>
@@ -88,10 +78,74 @@
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<bool key="NSControlAutosetMaxLayoutWidth">YES</bool>
+					</object>
+					<object class="NSTextField" id="30238572">
+						<reference key="NSNextResponder" ref="878039515"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{29, 231}, {372, 17}}</string>
+						<reference key="NSSuperview" ref="878039515"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="95922778"/>
+						<string key="NSReuseIdentifierKey">_NS:1535</string>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="843907154">
+							<int key="NSCellFlags">68157504</int>
+							<int key="NSCellFlags2">138413056</int>
+							<string key="NSContents">apple.com/itunesnews/docs/Autoingestion.class.zip</string>
+							<object class="NSFont" key="NSSupport">
+								<string key="NSName">LucidaGrande</string>
+								<double key="NSSize">13</double>
+								<int key="NSfFlags">1044</int>
+							</object>
+							<string key="NSCellIdentifier">_NS:1535</string>
+							<reference key="NSControlView" ref="30238572"/>
+							<reference key="NSBackgroundColor" ref="356093516"/>
+							<reference key="NSTextColor" ref="1022529981"/>
+						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+					</object>
+					<object class="NSProgressIndicator" id="588976945">
+						<reference key="NSNextResponder" ref="878039515"/>
+						<int key="NSvFlags">-2147483382</int>
+						<string key="NSFrame">{{32, 255}, {366, 20}}</string>
+						<reference key="NSSuperview" ref="878039515"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="30238572"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<string key="NSHuggingPriority">{250, 250}</string>
+						<int key="NSpiFlags">16397</int>
+						<double key="NSMaxValue">1</double>
+					</object>
+					<object class="NSTextField" id="815328396">
+						<reference key="NSNextResponder" ref="878039515"/>
+						<int key="NSvFlags">266</int>
+						<string key="NSFrame">{{17, 282}, {384, 28}}</string>
+						<reference key="NSSuperview" ref="878039515"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="588976945"/>
+						<string key="NSReuseIdentifierKey">_NS:1535</string>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="412219209">
+							<int key="NSCellFlags">68157504</int>
+							<int key="NSCellFlags2">138413056</int>
+							<string key="NSContents">Downloading auto-ingest tool.</string>
+							<object class="NSFont" key="NSSupport">
+								<string key="NSName">LucidaGrande-Bold</string>
+								<double key="NSSize">18</double>
+								<int key="NSfFlags">16</int>
+							</object>
+							<string key="NSCellIdentifier">_NS:1535</string>
+							<reference key="NSControlView" ref="815328396"/>
+							<reference key="NSBackgroundColor" ref="356093516"/>
+							<reference key="NSTextColor" ref="1022529981"/>
+						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 				</array>
 				<string key="NSFrameSize">{418, 330}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="815328396"/>
 				<object class="NSMutableString" key="NSClassName">
 					<characters key="NS.bytes">NSView</characters>
@@ -175,8 +229,10 @@
 						<int key="objectID">8</int>
 						<reference key="object" ref="878039515"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="815328396"/>
 							<reference ref="588976945"/>
+							<reference ref="815328396"/>
+							<reference ref="95922778"/>
+							<reference ref="30238572"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">View</string>
@@ -205,6 +261,32 @@
 						<reference key="object" ref="588976945"/>
 						<reference key="parent" ref="878039515"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">26</int>
+						<reference key="object" ref="95922778"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="993147884"/>
+						</array>
+						<reference key="parent" ref="878039515"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">27</int>
+						<reference key="object" ref="993147884"/>
+						<reference key="parent" ref="95922778"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">28</int>
+						<reference key="object" ref="30238572"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="843907154"/>
+						</array>
+						<reference key="parent" ref="878039515"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">29</int>
+						<reference key="object" ref="843907154"/>
+						<reference key="parent" ref="30238572"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -214,6 +296,10 @@
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
@@ -221,9 +307,95 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">31</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">DownloadAutoingestionPluginPane</string>
+					<string key="superclassName">InstallerPane</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="progressIndicator">NSProgressIndicator</string>
+						<string key="statusLabel">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="progressIndicator">
+							<string key="name">progressIndicator</string>
+							<string key="candidateClassName">NSProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="statusLabel">
+							<string key="name">statusLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DownloadAutoingestionPluginPane.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">InstallerPane</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="contentView">NSView</string>
+						<string key="firstKeyView">NSView</string>
+						<string key="initialKeyView">NSView</string>
+						<string key="lastKeyView">NSView</string>
+						<string key="nextPane">InstallerPane</string>
+						<string key="parentSection">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="contentView">
+							<string key="name">contentView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="firstKeyView">
+							<string key="name">firstKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="initialKeyView">
+							<string key="name">initialKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lastKeyView">
+							<string key="name">lastKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="nextPane">
+							<string key="name">nextPane</string>
+							<string key="candidateClassName">InstallerPane</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="parentSection">
+							<string key="name">parentSection</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/InstallerPane.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">InstallerSection</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">firstPane</string>
+						<string key="NS.object.0">InstallerPane</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">firstPane</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">firstPane</string>
+							<string key="candidateClassName">InstallerPane</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/InstallerSection.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

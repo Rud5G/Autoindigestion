@@ -50,7 +50,7 @@
 
 - (void)setStateDownloadComplete;
 {
-  [_statusLabel setStringValue:LocalizedString(@"Auto-Ingest tool downloaded.")];
+  [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
   [_progressIndicator setDoubleValue:1.0];
   [self setNextEnabled:YES];
 }
@@ -58,14 +58,14 @@
 
 - (void)setStatedownloadFailed:(NSError *)error;
 {
-  [_statusLabel setStringValue:LocalizedString(@"Error downloading Auto-Ingest tool.")];
+  [_statusLabel setStringValue:LocalizedString(@"Error downloading auto-ingest tool.")];
   // TODO: display error info, retry and skip buttons
 }
 
 
 - (void)setStateDownloadedPreviously;
 {
-  [_statusLabel setStringValue:LocalizedString(@"Auto-Ingest tool downloaded.")];
+  [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
   [_progressIndicator setHidden:YES];
   [self setNextEnabled:YES];
 }
@@ -73,7 +73,7 @@
 
 - (void)setStateNotDownloaded;
 {
-  [_statusLabel setStringValue:LocalizedString(@"Downloading Auto-Ingest tool.")];
+  [_statusLabel setStringValue:LocalizedString(@"Downloading auto-ingest tool.")];
   [_progressIndicator setDoubleValue:0.0];
   [_progressIndicator setHidden:NO];
   [self setNextEnabled:NO];
