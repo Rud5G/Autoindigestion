@@ -127,9 +127,9 @@
 
   NSUInteger jobCount = 0;
   NSUInteger retryCount = 0;
-  BOOL tryAgain;
+  BOOL tryAgainNow;
   do {
-    tryAgain = NO;
+    tryAgainNow = NO;
     for (AutoingestionJob *autoingestionJob in autoingestionJobs) {
       [autoingestionJob run];
       ++jobCount;
@@ -139,7 +139,7 @@
           && 0 == retryCount)
       {
         ++retryCount;
-        tryAgain = YES;
+        tryAgainNow = YES;
         double waitForNetworkTimeout = 60.0;
         [_monitor warningWithFormat:@"Can't reach iTunes Connect server: "
                                     @"sleeping for %.0f seconds and trying again",
@@ -147,8 +147,13 @@
         [NSThread sleepForTimeInterval:waitForNetworkTimeout];
         break;
       }
+      if ([[autoingestionJob response] isTryAgainLater]) {
+        [_monitor warningWithFormat:@"Download stopped: iTunes Connect reports not available yet"];
+        tryAgainNow = NO;
+        break;
+      }
     }
-  } while (tryAgain);
+  } while (tryAgainNow);
 }
 
 

@@ -6,7 +6,7 @@ enum AutoingestionResponseCode {
   AutoingestionResponseCodeSuccess,
   AutoingestionResponseCodeNotAvailable,
   AutoingestionResponseCodeNoReportsAvailable,
-  AutoingestionResponseCodeTryAgain,
+  AutoingestionResponseCodeTryAgainLater,
   AutoingestionResponseCodeDailyReportDateOutOfRange,
   AutoingestionResponseCodeWeeklyReportDateOutOfRange,
   AutoingestionResponseCodeUnknownHostException,
@@ -26,6 +26,7 @@ enum AutoingestionResponseCode {
 @property (readonly, getter=isSuccess) BOOL success;
 @property (readonly) NSString *summary;
 @property (readonly) NSString *text;
+@property (readonly, getter=isTryAgainLater) BOOL tryAgainLater;
 
 - (id)initWithOutput:(NSData *)output;
 

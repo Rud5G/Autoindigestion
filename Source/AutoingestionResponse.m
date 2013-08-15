@@ -7,7 +7,7 @@ static NSString *const kAutoingestionResponseNotAvailable =
     @"Auto ingestion is not available for this selection.";
 static NSString *const kAutoingestionResponseNoReportsAvailable =
     @"There are no reports available to download for this selection.";
-static NSString *const kAutoingestionResponseTryAgain =
+static NSString *const kAutoingestionResponseTryAgainLater =
     @"The report you requested is not available at this time.  "
     @"Please try again in a few minutes.";
 static NSString *const kAutoingestionResponseSuccess =
@@ -71,7 +71,11 @@ static NSString *responseSummaryFromResponseText(NSString *responseText);
   {
     _networkUnavailable = YES;
   }
-
+  
+  if (AutoingestionResponseCodeTryAgainLater == _code) {
+    _tryAgainLater = YES;
+  }
+  
   return self;
 }
 
@@ -109,8 +113,8 @@ static enum AutoingestionResponseCode responseCodeFromResponseText(NSString *res
     return AutoingestionResponseCodeNotAvailable;
   } else if ([responseText containsString:kAutoingestionResponseNoReportsAvailable]) {
     return AutoingestionResponseCodeNoReportsAvailable;
-  } else if ([responseText containsString:kAutoingestionResponseTryAgain]) {
-    return AutoingestionResponseCodeTryAgain;
+  } else if ([responseText containsString:kAutoingestionResponseTryAgainLater]) {
+    return AutoingestionResponseCodeTryAgainLater;
   } else if ([responseText containsString:kAutoingestionResponseDailyReportDateOutOfRange]) {
     return AutoingestionResponseCodeDailyReportDateOutOfRange;
   } else if ([responseText containsString:kAutoingestionResponseWeeklyReportDateOutOfRange]) {

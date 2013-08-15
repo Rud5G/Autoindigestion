@@ -17,6 +17,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertTrue([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeSuccess, [response code], nil);
 
   NSString *expectedText = [NSString stringWithCString:bytes
@@ -57,6 +59,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertTrue([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeUnknownHostException, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
@@ -98,6 +102,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertTrue([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeConnectException, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
@@ -119,12 +125,35 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeNoReportsAvailable, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
   STAssertEqualObjects(expectedText, [response text], nil);
   STAssertEqualObjects(expectedText, [response summary], nil);
 
+  STAssertNil([response filename], nil);
+}
+
+
+- (void)testTryAgainResponse;
+{
+  char const bytes[] =
+      "The report you requested is not available at this time.  "
+      "Please try again in a few minutes.";
+  NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
+  AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
+  
+  STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertTrue([response isTryAgainLater], nil);
+  STAssertEquals(AutoingestionResponseCodeTryAgainLater, [response code], nil);
+  NSString *expectedText = [NSString stringWithCString:bytes
+                                              encoding:NSUTF8StringEncoding];
+  STAssertEqualObjects(expectedText, [response text], nil);
+  STAssertEqualObjects(expectedText, [response summary], nil);
+  
   STAssertNil([response filename], nil);
 }
 
@@ -157,6 +186,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertTrue([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeNoRouteToHostException, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
@@ -192,6 +223,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
   
   STAssertFalse([response isSuccess], nil);
+  STAssertTrue([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeSocketException, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
@@ -212,6 +245,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeNotAvailable, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
@@ -230,6 +265,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeDailyReportDateOutOfRange, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
@@ -251,6 +288,8 @@
   AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
 
   STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
   STAssertEquals(AutoingestionResponseCodeWeeklyReportDateOutOfRange, [response code], nil);
   NSString *expectedText = [NSString stringWithCString:bytes
                                               encoding:NSUTF8StringEncoding];
