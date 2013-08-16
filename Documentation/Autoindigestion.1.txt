@@ -109,15 +109,15 @@ SECURITY CONSIDERATIONS
      launchd(8).
 
      Following the principle of least privilege, it is recommended that each
-     vendor create a separate iTunes Connect user for use with
-     Autoindigestion, dedicated to reporting.  The user should be assigned the
-     Sales role in iTunes Connect.
+     vendor create a separate user in iTunes Connect for use with
+     Autoindigestion.  The user should be assigned the Sales role in iTunes
+     Connect.
 
      (Note that older versions of the Auto-Ingest tool exposed the iTunes Con-
      nect user credentials through the command line of the Auto-Ingest tool
-     process, which could be viewed by any logged in user with the process
-     viewing utility like ps.  The Auto-Ingest tool no longer accepts creden-
-     tials from the command line.)
+     process, which could be viewed by any logged in user with a process view-
+     ing utility like ps(1).  The Auto-Ingest tool now reads credentials from
+     a properties file that Autoindigestion manages for you.)
 
 OPTIONS
      The following command line options are available:

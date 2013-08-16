@@ -142,19 +142,20 @@ if
 is run by 
 .Xr launchd 8 .
 .Pp
-Following the principle of least privilege, it is recommended that each vendor create 
-a separate iTunes Connect user for use with
-.Nm ,
-dedicated to reporting.
+Following the principle of least privilege, it is recommended that each vendor 
+create a separate user in iTunes Connect for use with
+.Nm .
 The user should be assigned the 
 .Sy Sales
 role in iTunes Connect.
 .Pp
 (Note that older versions of the Auto-Ingest tool exposed the iTunes Connect user credentials 
 through the command line of the Auto-Ingest tool process, 
-which could be viewed by any logged in user with the process viewing utility like
-.Sy ps . 
-The Auto-Ingest tool no longer accepts credentials from the command line.)
+which could be viewed by any logged in user with a process viewing utility like
+.Xr ps 1 .
+The Auto-Ingest tool now reads credentials from a properties file that
+.Nm
+manages for you.)
 .Sh OPTIONS
 The following command line options are available:
 .Bl -tag -width -indent
