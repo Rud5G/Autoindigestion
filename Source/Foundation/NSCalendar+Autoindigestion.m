@@ -19,6 +19,12 @@
 }
 
 
+- (NSDate *)fiveNewYearsAgoForDate:(NSDate *)date;
+{
+  return nil;
+}
+
+
 - (NSDate *)nextDayForDate:(NSDate *)date;
 {
   NSDateComponents *tomorrow = [[NSDateComponents alloc] init];
@@ -36,6 +42,12 @@
   return [self dateByAddingComponents:nextWeek
                                toDate:date
                               options:0];
+}
+
+
+- (NSDate *)nextYearForDate:(NSDate *)date;
+{
+  return nil;
 }
 
 

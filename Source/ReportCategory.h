@@ -12,6 +12,7 @@
 
 extern NSString *const kDateTypeDaily;
 extern NSString *const kDateTypeWeekly;
+extern NSString *const KDateTypeYearly;
 extern NSString *const kReportSubtypeOptIn;
 extern NSString *const kReportSubtypeSummary;
 extern NSString *const kReportTypePreOrder;
@@ -45,6 +46,8 @@ extern NSString *const kReportTypeSales;
 - (BOOL)isDaily;
 
 - (BOOL)isWeekly;
+
+- (BOOL)isYearly;
 
 - (void)prepare;
 

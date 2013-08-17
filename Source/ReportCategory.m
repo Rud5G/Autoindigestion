@@ -13,6 +13,7 @@
 
 NSString *const kDateTypeDaily = @"Daily";
 NSString *const kDateTypeWeekly = @"Weekly";
+NSString *const KDateTypeYearly = @"Yearly";
 NSString *const kReportSubtypeOptIn = @"Opt-In";
 NSString *const kReportSubtypeSummary = @"Summary";
 NSString *const kReportTypePreOrder = @"Pre-Order";
@@ -56,15 +57,15 @@ NSString *const kReportTypeSales = @"Sales";
   NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
   NSCalendar *calendar = [locale objectForKey:NSLocaleCalendar];
   NSDate *today = [calendar zeroOutTimeForDate:[NSDate date]];
-
-
+  
   NSDate *startingReportDate = nil;
+  // TODO: works for Sales Summary reports but is a guess for Opt-In and Pre-Order
   if ([self isDaily]) {
-    // TODO: works for Sales Summary reports but is a guess for Pre-Order
     startingReportDate = [calendar twoWeeksAgoForDate:today];
-  } else {
-    // TODO: works for Sales Summary reports but is a guess for Opt-In and Pre-Order
+  } else if ([self isWeekly]) {
     startingReportDate = [calendar thirteenSundaysAgoForDate:today];
+  } else {
+    startingReportDate = [calendar fiveNewYearsAgoForDate:today];
   }
 
   if ([reportFilenames count]) {
@@ -91,8 +92,10 @@ NSString *const kReportTypeSales = @"Sales";
     if ([latestExistingReportDate isLaterThanDate:startingReportDate]) {
       if ([self isDaily]) {
         startingReportDate = [calendar nextDayForDate:latestExistingReportDate];
-      } else {
+      } else if ([self isWeekly]) {
         startingReportDate = [calendar nextWeekForDate:latestExistingReportDate];
+      } else {
+        startingReportDate = [calendar nextYearForDate:latestExistingReportDate];
       }
     }
   }
@@ -108,8 +111,10 @@ NSString *const kReportTypeSales = @"Sales";
 
     if ([self isDaily]) {
       reportDate = [calendar nextDayForDate:reportDate];
-    } else {
+    } else if ([self isWeekly]) {
       reportDate = [calendar nextWeekForDate:reportDate];
+    } else {
+      reportDate = [calendar nextYearForDate:reportDate];
     }
   }
 
@@ -162,6 +167,12 @@ NSString *const kReportTypeSales = @"Sales";
 - (BOOL)isWeekly;
 {
   return [kDateTypeWeekly isEqualToString:_dateType];
+}
+
+
+- (BOOL)isYearly;
+{
+  return [KDateTypeYearly isEqualToString:_dateType];
 }
 
 
