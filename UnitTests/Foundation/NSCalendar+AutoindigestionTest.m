@@ -3,6 +3,9 @@
 
 
 @interface NSCalendar_AutoindigestionTest : SenTestCase
+
+- (NSDate *)date:(NSString *)expectedDateString;
+
 @end
 
 
@@ -10,126 +13,108 @@
 {
   NSLocale *_locale;
   NSCalendar *_calendar;
-  NSDate *_today;
 }
+
 
 - (void)setUp;
 {
   _locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
   _calendar = [_locale objectForKey:NSLocaleCalendar];
-  _today = [NSDate dateWithNaturalLanguageString:@"5/22/2012 08:30:12"
-                                          locale:_locale];
 }
 
 
 - (void)testDateFromReportDate;
 {
-  NSString *reportDate = @"20120522";
-  NSDate *date = [_calendar dateFromReportDate:reportDate];
+  NSDate *date = [_calendar dateFromReportDate:@"20120522"];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/22/2012 00:00:00"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, date, nil);
+  STAssertEqualObjects([self date:@"5/22/2012 00:00:00"], date, nil);
 }
 
 
 - (void)testFiveNewYearsAgoForDate;
 {
-  NSDate *fiveNewYearsAgo = [_calendar fiveNewYearsDaysAgoForDate:_today];
+  NSDate *fiveNewYearsAgo = [_calendar fiveNewYearsDaysAgoForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"1/1/2008 00:00:00"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, fiveNewYearsAgo, nil);
+  STAssertEqualObjects([self date:@"1/1/2008 00:00:00"], fiveNewYearsAgo, nil);
 }
 
 
 - (void)testNextDayForDate;
 {
-  NSDate *nextDay = [_calendar nextDayForDate:_today];
+  NSDate *nextDay = [_calendar nextDayForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/23/2012 08:30:12"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, nextDay, nil);
+  STAssertEqualObjects([self date:@"5/23/2012 08:30:12"], nextDay, nil);
 }
 
 
 - (void)testNextWeekForDate;
 {
-  NSDate *nextWeek = [_calendar nextWeekForDate:_today];
+  NSDate *nextWeek = [_calendar nextWeekForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/29/2012 08:30:12"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, nextWeek, nil);
+  STAssertEqualObjects([self date:@"5/29/2012 08:30:12"], nextWeek, nil);
 }
 
 
 - (void)testNextYearForDate;
 {
-  NSDate *nextYear = [_calendar nextYearForDate:_today];
+  NSDate *nextYear = [_calendar nextYearForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/22/2013 08:30:12"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, nextYear, nil);
+  STAssertEqualObjects([self date:@"5/22/2013 08:30:12"], nextYear, nil);
 }
 
 
 - (void)testPreviousDayForDate;
 {
-  NSDate *previousDay = [_calendar previousDayForDate:_today];
+  NSDate *previousDay = [_calendar previousDayForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/21/2012 08:30:12"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, previousDay, nil);
+  STAssertEqualObjects([self date:@"5/21/2012 08:30:12"], previousDay, nil);
 }
 
 
 - (void)testPreviousNewYearsDayForDate;
 {
-  NSDate *previousNewYearsDay = [_calendar previousNewYearsDayForDate:_today];
+  NSDate *previousNewYearsDay = [_calendar previousNewYearsDayForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"1/1/2012 00:00:00"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, previousNewYearsDay, nil);
+  STAssertEqualObjects([self date:@"1/1/2012 00:00:00"], previousNewYearsDay, nil);
 }
 
 
 - (void)testPreviousSundayForDate;
 {
-  NSDate *previousSunday = [_calendar previousSundayForDate:_today];
+  NSDate *previousSunday = [_calendar previousSundayForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/20/2012 00:00:00"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, previousSunday, nil);
+  STAssertEqualObjects([self date:@"5/20/2012 00:00:00"], previousSunday, nil);
 }
 
 
 - (void)testThirteenSundaysAgoForDate;
 {
-  NSDate *thirteenSundaysAgo = [_calendar thirteenSundaysAgoForDate:_today];
+  NSDate *thirteenSundaysAgo = [_calendar thirteenSundaysAgoForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"2/26/2012 00:00:00"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, thirteenSundaysAgo, nil);
+  STAssertEqualObjects([self date:@"2/26/2012 00:00:00"], thirteenSundaysAgo, nil);
 }
 
 
 - (void)testTwoWeeksAgoForDate;
 {
-  NSDate *twoWeeksAgo = [_calendar twoWeeksAgoForDate:_today];
+  NSDate *twoWeeksAgo = [_calendar twoWeeksAgoForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/8/2012 08:30:12"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, twoWeeksAgo, nil);
+  STAssertEqualObjects([self date:@"5/8/2012 08:30:12"], twoWeeksAgo, nil);
 }
 
 
 - (void)testZeroOutTimeForDate;
 {
-  NSDate *todayWithZeroTime = [_calendar zeroOutTimeForDate:_today];
+  NSDate *todayWithZeroTime = [_calendar zeroOutTimeForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  NSDate *expected = [NSDate dateWithNaturalLanguageString:@"5/22/2012 00:00:00"
-                                                    locale:_locale];
-  STAssertEqualObjects(expected, todayWithZeroTime, nil);
+  STAssertEqualObjects([self date:@"5/22/2012 00:00:00"], todayWithZeroTime, nil);
+}
+
+
+- (NSDate *)date:(NSString *)expectedDateString;
+{
+  return [NSDate dateWithNaturalLanguageString:expectedDateString
+                                        locale:_locale];
 }
 
 
