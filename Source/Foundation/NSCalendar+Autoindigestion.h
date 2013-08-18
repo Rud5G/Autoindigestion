@@ -5,7 +5,7 @@
 
 - (NSDate *)dateFromReportDate:(NSString *)reportDate;
 
-- (NSDate *)fiveNewYearsAgoForDate:(NSDate *)date;
+- (NSDate *)fiveNewYearsDaysAgoForDate:(NSDate *)date;
 
 - (NSDate *)nextDayForDate:(NSDate *)date;
 
@@ -14,6 +14,8 @@
 - (NSDate *)nextYearForDate:(NSDate *)date;
 
 - (NSDate *)previousDayForDate:(NSDate *)date;
+
+- (NSDate *)previousNewYearsDayForDate:(NSDate *)date;
 
 - (NSDate *)previousSundayForDate:(NSDate *)date;
 

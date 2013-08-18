@@ -19,9 +19,14 @@
 }
 
 
-- (NSDate *)fiveNewYearsAgoForDate:(NSDate *)date;
+- (NSDate *)fiveNewYearsDaysAgoForDate:(NSDate *)date;
 {
-  return nil;
+  NSDate *previousNewYearsDay = [self previousNewYearsDayForDate:date];
+  NSDateComponents *fourYearsAgo = [[NSDateComponents alloc] init];
+  [fourYearsAgo setYear:-4];
+  return [self dateByAddingComponents:fourYearsAgo
+                               toDate:previousNewYearsDay
+                              options:0];
 }
 
 
@@ -47,7 +52,11 @@
 
 - (NSDate *)nextYearForDate:(NSDate *)date;
 {
-  return nil;
+  NSDateComponents *nextYear = [[NSDateComponents alloc] init];
+  [nextYear setYear:1];
+  return [self dateByAddingComponents:nextYear
+                               toDate:date
+                              options:0];
 }
 
 
@@ -58,6 +67,20 @@
   return [self dateByAddingComponents:yesterday
                                toDate:date
                               options:0];
+}
+
+
+- (NSDate *)previousNewYearsDayForDate:(NSDate *)date;
+{
+  NSCalendarUnit yearMonthDayUnits = NSYearCalendarUnit
+                                   | NSMonthCalendarUnit
+                                   | NSDayCalendarUnit;
+  NSDateComponents *dateComponents = [self components:yearMonthDayUnits
+                                             fromDate:date];
+  
+  [dateComponents setMonth:1];
+  [dateComponents setDay:1];
+  return [self dateFromComponents:dateComponents];
 }
 
 

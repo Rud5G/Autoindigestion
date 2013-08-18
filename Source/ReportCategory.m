@@ -65,7 +65,7 @@ NSString *const kReportTypeSales = @"Sales";
   } else if ([self isWeekly]) {
     startingReportDate = [calendar thirteenSundaysAgoForDate:today];
   } else {
-    startingReportDate = [calendar fiveNewYearsAgoForDate:today];
+    startingReportDate = [calendar fiveNewYearsDaysAgoForDate:today];
   }
 
   if ([reportFilenames count]) {
