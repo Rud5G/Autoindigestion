@@ -14,6 +14,9 @@
 		D425F600165DF17A0035DF8D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718715A380E400CEC757 /* User.m */; };
 		D425F60316601D850035DF8D /* UserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D425F60216601D850035DF8D /* UserTest.m */; };
 		D46A5014157436120092B175 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46A5013157436120092B175 /* Foundation.framework */; };
+		D498BF5217C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */; };
+		D498BF5317C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */; };
+		D498BF5617C26DDE007B2B2C /* NSArray+AutoindigestionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5517C26DDE007B2B2C /* NSArray+AutoindigestionTest.m */; };
 		D499B7D217BDC11200665486 /* NSCalendar+AutoindigestionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D499B7D117BDC11200665486 /* NSCalendar+AutoindigestionTest.m */; };
 		D499B7D317BFEC5000665486 /* NSCalendar+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717015A380E400CEC757 /* NSCalendar+Autoindigestion.m */; };
 		D4A7718C15A380E400CEC757 /* Autoingestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716715A380E400CEC757 /* Autoingestion.m */; };
@@ -87,6 +90,9 @@
 		D464C51C15894E48000F0173 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D46A500F157436120092B175 /* Autoindigestion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Autoindigestion; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46A5013157436120092B175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D498BF5017C26D6F007B2B2C /* NSArray+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Autoindigestion.h"; sourceTree = "<group>"; };
+		D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Autoindigestion.m"; sourceTree = "<group>"; };
+		D498BF5517C26DDE007B2B2C /* NSArray+AutoindigestionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AutoindigestionTest.m"; sourceTree = "<group>"; };
 		D499B7D117BDC11200665486 /* NSCalendar+AutoindigestionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+AutoindigestionTest.m"; sourceTree = "<group>"; };
 		D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iTunes Connect- New File Names for Sales and Trends Reports.txt"; sourceTree = "<group>"; };
 		D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Autoindigestion-Prefix.pch"; sourceTree = "<group>"; };
@@ -202,6 +208,7 @@
 		D499B7CF17BDC0E400665486 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				D498BF5517C26DDE007B2B2C /* NSArray+AutoindigestionTest.m */,
 				D499B7D117BDC11200665486 /* NSCalendar+AutoindigestionTest.m */,
 			);
 			path = Foundation;
@@ -247,6 +254,8 @@
 		D4A7716E15A380E400CEC757 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				D498BF5017C26D6F007B2B2C /* NSArray+Autoindigestion.h */,
+				D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */,
 				D4A7716F15A380E400CEC757 /* NSCalendar+Autoindigestion.h */,
 				D4A7717015A380E400CEC757 /* NSCalendar+Autoindigestion.m */,
 				D4A7717115A380E400CEC757 /* NSDate+Autoindigestion.h */,
@@ -407,6 +416,7 @@
 				D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */,
 				D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */,
 				D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */,
+				D498BF5217C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +433,8 @@
 				D425F60316601D850035DF8D /* UserTest.m in Sources */,
 				D499B7D217BDC11200665486 /* NSCalendar+AutoindigestionTest.m in Sources */,
 				D499B7D317BFEC5000665486 /* NSCalendar+Autoindigestion.m in Sources */,
+				D498BF5317C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */,
+				D498BF5617C26DDE007B2B2C /* NSArray+AutoindigestionTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

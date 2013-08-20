@@ -5,6 +5,7 @@
 #import "Defaults.h"
 #import "Group.h"
 #import "Monitor.h"
+#import "NSArray+Autoindigestion.h"
 #import "NSCalendar+Autoindigestion.h"
 #import "NSDate+Autoindigestion.h"
 #import "User.h"
@@ -43,17 +44,8 @@ NSString *const kReportTypeSales = @"Sales";
     [_monitor exitOnFailureWithError:error];
   }
 
-  NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-    NSString *filename = evaluatedObject;
-    NSRange range = NSMakeRange(0, [filename length]);
-    NSTextCheckingResult *textCheckingResult = [reportFilenameExpression firstMatchInString:filename
-                                                                                    options:0
-                                                                                      range:range];
-    return [textCheckingResult numberOfRanges] > 0;
-  }];
-  NSArray *reportFilenames = [filenames filteredArrayUsingPredicate:predicate];
-
-
+  NSArray *reportFilenames = [filenames filteredFilenamesUsingRegularExpression:reportFilenameExpression];
+  
   NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
   NSCalendar *calendar = [locale objectForKey:NSLocaleCalendar];
   NSDate *today = [calendar zeroOutTimeForDate:[NSDate date]];
