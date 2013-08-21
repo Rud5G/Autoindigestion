@@ -8,6 +8,7 @@
 #import "NSArray+Autoindigestion.h"
 #import "NSCalendar+Autoindigestion.h"
 #import "NSDate+Autoindigestion.h"
+#import "ReportFilenamePattern.h"
 #import "User.h"
 #import "Vendor.h"
 
@@ -35,16 +36,11 @@ NSString *const kReportTypeSales = @"Sales";
   }
 
   // TODO: works for Sales Summary reports but is a guess for Opt-In and Pre-Order
-  NSString *reportFilenamePattern = [NSString stringWithFormat:@"%@_(\\d{8})",
-                                              [_vendor vendorID]];
-  NSRegularExpression *reportFilenameExpression = [NSRegularExpression regularExpressionWithPattern:reportFilenamePattern
-                                                                                            options:0
-                                                                                              error:&error];
-  if ( ! reportFilenameExpression) {
-    [_monitor exitOnFailureWithError:error];
-  }
-
-  NSArray *reportFilenames = [filenames filteredFilenamesUsingRegularExpression:reportFilenameExpression];
+  ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
+                                                                                      reportType:_reportType
+                                                                                   reportSubType:_reportSubtype
+                                                                                     andDateType:_dateType];
+  NSArray *reportFilenames = [filenames filteredFilenamesUsingRegularExpression:[reportFilenamePattern regularExpression]];
   
   NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
   NSCalendar *calendar = [locale objectForKey:NSLocaleCalendar];
@@ -64,9 +60,9 @@ NSString *const kReportTypeSales = @"Sales";
     NSMutableArray *existingReportDates = [NSMutableArray array];
     for (NSString *reportFilename in reportFilenames) {
       NSRange range = NSMakeRange(0, [reportFilename length]);
-      NSTextCheckingResult *textCheckingResult = [reportFilenameExpression firstMatchInString:reportFilename
-                                                                                      options:0
-                                                                                        range:range];
+      NSTextCheckingResult *textCheckingResult = [[reportFilenamePattern regularExpression] firstMatchInString:reportFilename
+                                                                                                options:0
+                                                                                                  range:range];
       if (NSNotFound == [textCheckingResult range].location) {
         [_monitor warningWithFormat:@"Filename \"%@\" in \"%@\" didn't match",
                   reportFilename, _reportDir];

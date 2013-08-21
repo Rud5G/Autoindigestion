@@ -17,6 +17,11 @@
 		D498BF5217C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */; };
 		D498BF5317C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */; };
 		D498BF5617C26DDE007B2B2C /* NSArray+AutoindigestionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5517C26DDE007B2B2C /* NSArray+AutoindigestionTest.m */; };
+		D498BF5917C3BF6A007B2B2C /* ReportFilenamePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5817C3BF6A007B2B2C /* ReportFilenamePattern.m */; };
+		D498BF5A17C3BF6A007B2B2C /* ReportFilenamePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5817C3BF6A007B2B2C /* ReportFilenamePattern.m */; };
+		D498BF5D17C3BF88007B2B2C /* ReportFilenamePatternTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D498BF5C17C3BF88007B2B2C /* ReportFilenamePatternTest.m */; };
+		D498BF5E17C3C3D0007B2B2C /* ReportCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718015A380E400CEC757 /* ReportCategory.m */; };
+		D498BF5F17C3C3DF007B2B2C /* AutoingestionJob.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716915A380E400CEC757 /* AutoingestionJob.m */; };
 		D499B7D217BDC11200665486 /* NSCalendar+AutoindigestionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D499B7D117BDC11200665486 /* NSCalendar+AutoindigestionTest.m */; };
 		D499B7D317BFEC5000665486 /* NSCalendar+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717015A380E400CEC757 /* NSCalendar+Autoindigestion.m */; };
 		D4A7718C15A380E400CEC757 /* Autoingestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7716715A380E400CEC757 /* Autoingestion.m */; };
@@ -93,6 +98,9 @@
 		D498BF5017C26D6F007B2B2C /* NSArray+Autoindigestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Autoindigestion.h"; sourceTree = "<group>"; };
 		D498BF5117C26D6F007B2B2C /* NSArray+Autoindigestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Autoindigestion.m"; sourceTree = "<group>"; };
 		D498BF5517C26DDE007B2B2C /* NSArray+AutoindigestionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AutoindigestionTest.m"; sourceTree = "<group>"; };
+		D498BF5717C3BF6A007B2B2C /* ReportFilenamePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportFilenamePattern.h; sourceTree = "<group>"; };
+		D498BF5817C3BF6A007B2B2C /* ReportFilenamePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportFilenamePattern.m; sourceTree = "<group>"; };
+		D498BF5C17C3BF88007B2B2C /* ReportFilenamePatternTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportFilenamePatternTest.m; sourceTree = "<group>"; };
 		D499B7D117BDC11200665486 /* NSCalendar+AutoindigestionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+AutoindigestionTest.m"; sourceTree = "<group>"; };
 		D49A07DB15CF742400F0F365 /* iTunes Connect- New File Names for Sales and Trends Reports.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iTunes Connect- New File Names for Sales and Trends Reports.txt"; sourceTree = "<group>"; };
 		D4A7716315A380E400CEC757 /* Autoindigestion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Autoindigestion-Prefix.pch"; sourceTree = "<group>"; };
@@ -237,6 +245,8 @@
 				D4A7717E15A380E400CEC757 /* Options.m */,
 				D4A7717F15A380E400CEC757 /* ReportCategory.h */,
 				D4A7718015A380E400CEC757 /* ReportCategory.m */,
+				D498BF5717C3BF6A007B2B2C /* ReportFilenamePattern.h */,
+				D498BF5817C3BF6A007B2B2C /* ReportFilenamePattern.m */,
 				D4A7718215A380E400CEC757 /* StandardMonitor.h */,
 				D4A7718315A380E400CEC757 /* StandardMonitor.m */,
 				D4A7718415A380E400CEC757 /* Tool.h */,
@@ -291,6 +301,7 @@
 				D499B7CF17BDC0E400665486 /* Foundation */,
 				D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */,
 				D425F5FC165DEFB00035DF8D /* GroupTest.m */,
+				D498BF5C17C3BF88007B2B2C /* ReportFilenamePatternTest.m */,
 				D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */,
 				D4EDA1DE15DB1D950084B460 /* UnitTests-Prefix.pch */,
 				D425F60216601D850035DF8D /* UserTest.m */,
@@ -417,6 +428,7 @@
 				D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */,
 				D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */,
 				D498BF5217C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */,
+				D498BF5917C3BF6A007B2B2C /* ReportFilenamePattern.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +447,10 @@
 				D499B7D317BFEC5000665486 /* NSCalendar+Autoindigestion.m in Sources */,
 				D498BF5317C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */,
 				D498BF5617C26DDE007B2B2C /* NSArray+AutoindigestionTest.m in Sources */,
+				D498BF5A17C3BF6A007B2B2C /* ReportFilenamePattern.m in Sources */,
+				D498BF5D17C3BF88007B2B2C /* ReportFilenamePatternTest.m in Sources */,
+				D498BF5E17C3C3D0007B2B2C /* ReportCategory.m in Sources */,
+				D498BF5F17C3C3DF007B2B2C /* AutoingestionJob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
