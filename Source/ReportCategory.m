@@ -27,6 +27,19 @@ NSString *const kReportTypeSales = @"Sales";
 
 - (NSArray *)autoingestionJobs;
 {
+  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+  NSCalendar *calendar = [locale objectForKey:NSLocaleCalendar];
+  NSDate *today = [calendar zeroOutTimeForDate:[NSDate date]];
+  
+  NSDate *startingReportDate = nil;
+  if ([self isDaily]) {
+    startingReportDate = [calendar twoWeeksAgoForDate:today];
+  } else if ([self isWeekly]) {
+    startingReportDate = [calendar thirteenSundaysAgoForDate:today];
+  } else {
+    startingReportDate = [calendar fiveNewYearsDaysAgoForDate:today];
+  }
+  
   NSError *error;
   NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_reportDir
                                                                            error:&error];
@@ -35,47 +48,12 @@ NSString *const kReportTypeSales = @"Sales";
     return [NSArray array];
   }
 
-  // TODO: works for Sales Summary reports but is a guess for Opt-In and Pre-Order
   ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
                                                                                       reportType:_reportType
                                                                                    reportSubType:_reportSubtype
                                                                                      andDateType:_dateType];
-  NSArray *reportFilenames = [filenames filteredFilenamesUsingRegularExpression:[reportFilenamePattern regularExpression]];
-  
-  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-  NSCalendar *calendar = [locale objectForKey:NSLocaleCalendar];
-  NSDate *today = [calendar zeroOutTimeForDate:[NSDate date]];
-  
-  NSDate *startingReportDate = nil;
-  // TODO: works for Sales Summary reports but is a guess for Opt-In and Pre-Order
-  if ([self isDaily]) {
-    startingReportDate = [calendar twoWeeksAgoForDate:today];
-  } else if ([self isWeekly]) {
-    startingReportDate = [calendar thirteenSundaysAgoForDate:today];
-  } else {
-    startingReportDate = [calendar fiveNewYearsDaysAgoForDate:today];
-  }
-
-  if ([reportFilenames count]) {
-    NSMutableArray *existingReportDates = [NSMutableArray array];
-    for (NSString *reportFilename in reportFilenames) {
-      NSRange range = NSMakeRange(0, [reportFilename length]);
-      NSTextCheckingResult *textCheckingResult = [[reportFilenamePattern regularExpression] firstMatchInString:reportFilename
-                                                                                                options:0
-                                                                                                  range:range];
-      if (NSNotFound == [textCheckingResult range].location) {
-        [_monitor warningWithFormat:@"Filename \"%@\" in \"%@\" didn't match",
-                  reportFilename, _reportDir];
-      } else if ([textCheckingResult numberOfRanges] < 2) {
-        [_monitor warningWithFormat:@"Date part not found in filename \"%@\" in \"%@\"",
-                  reportFilename, _reportDir];
-      } else {
-        NSString *existingReportDate = [reportFilename substringWithRange:[textCheckingResult rangeAtIndex:1]];
-        [existingReportDates addObject:existingReportDate];
-      }
-    }
-    [existingReportDates sortUsingSelector:@selector(compare:)];
-
+  NSArray *existingReportDates = [reportFilenamePattern reportDateStringsFromFilenames:filenames];
+  if ([existingReportDates count]) {
     NSDate *latestExistingReportDate = [calendar dateFromReportDate:[existingReportDates lastObject]];
     if ([latestExistingReportDate isLaterThanDate:startingReportDate]) {
       if ([self isDaily]) {
