@@ -44,6 +44,13 @@ NSString *const kRegularExpressionError = @"Regular Expression Error";
 }
 
 
+- (NSString *)mostRecentReportDateStringFromFilenames:(NSArray *)filenames;
+{
+  NSArray *reportDateStrings = [self reportDateStringsFromFilenames:filenames];
+  return [reportDateStrings count] ? [reportDateStrings lastObject] : nil;
+}
+
+
 - (NSArray *)reportDateStringsFromFilenames:(NSArray *)filenames;
 {
   NSMutableArray *reportDateStrings = [NSMutableArray array];

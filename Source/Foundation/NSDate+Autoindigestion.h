@@ -3,8 +3,8 @@
 
 @interface NSDate (Autoindigestion)
 
-- (BOOL)isEarlierThanDate:(NSDate *)date;
+- (BOOL)isLessRecentThanDate:(NSDate *)date;
 
-- (BOOL)isLaterThanDate:(NSDate *)date;
+- (BOOL)isMoreRecentThanDate:(NSDate *)date;
 
 @end

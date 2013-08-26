@@ -30,8 +30,6 @@ static NSLocale *locale;
 
 - (NSArray *)autoingestionJobs;
 {
-  NSDate *startingReportDate = [self startingReportDate];
-
   NSError *error;
   NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_reportDir
                                                                            error:&error];
@@ -40,39 +38,27 @@ static NSLocale *locale;
     return [NSArray array];
   }
 
+  NSDate *startingReportDate = [self startingReportDate];
   ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
                                                                                       reportType:_reportType
                                                                                    reportSubType:_reportSubtype
                                                                                      andDateType:_dateType];
-  NSArray *existingReportDates = [reportFilenamePattern reportDateStringsFromFilenames:filenames];
-  if ([existingReportDates count]) {
-    NSDate *latestExistingReportDate = [calendar dateFromReportDateString:[existingReportDates lastObject]];
-    if ([latestExistingReportDate isLaterThanDate:startingReportDate]) {
-      if ([self isDaily]) {
-        startingReportDate = [calendar nextDayForDate:latestExistingReportDate];
-      } else if ([self isWeekly]) {
-        startingReportDate = [calendar nextWeekForDate:latestExistingReportDate];
-      } else {
-        startingReportDate = [calendar nextYearForDate:latestExistingReportDate];
-      }
+  NSString *mostRecentExistingReportDateString = [reportFilenamePattern mostRecentReportDateStringFromFilenames:filenames];
+  if (mostRecentExistingReportDateString) {
+    NSDate *mostRecentExistingReportDate = [calendar dateFromReportDateString:mostRecentExistingReportDateString];
+    if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {
+      startingReportDate = [self nextReportDateAfterReportDate:mostRecentExistingReportDate];
     }
   }
 
   NSMutableArray *autoingestionJobs = [NSMutableArray array];
   NSDate *reportDate = startingReportDate;
-  while ([reportDate isEarlierThanDate:_today]) {
+  while ([reportDate isLessRecentThanDate:_today]) {
     AutoingestionJob *autoingestionJob = [[AutoingestionJob alloc] initWithMonitor:_monitor
                                                                     reportCategory:self
                                                                      andReportDate:reportDate];
     [autoingestionJobs addObject:autoingestionJob];
-
-    if ([self isDaily]) {
-      reportDate = [calendar nextDayForDate:reportDate];
-    } else if ([self isWeekly]) {
-      reportDate = [calendar nextWeekForDate:reportDate];
-    } else {
-      reportDate = [calendar nextYearForDate:reportDate];
-    }
+    reportDate = [self nextReportDateAfterReportDate:reportDate];
   }
 
   return autoingestionJobs;
@@ -140,6 +126,18 @@ static NSLocale *locale;
 - (BOOL)isYearly;
 {
   return [KDateTypeYearly isEqualToString:_dateType];
+}
+
+
+- (NSDate *)nextReportDateAfterReportDate:(NSDate *)reportDate;
+{
+  if ([self isDaily]) {
+    return [calendar nextDayForDate:reportDate];
+  } else if ([self isWeekly]) {
+    return [calendar nextWeekForDate:reportDate];
+  } else {
+    return [calendar nextYearForDate:reportDate];
+  }
 }
 
 

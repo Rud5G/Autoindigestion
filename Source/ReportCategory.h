@@ -50,6 +50,8 @@ extern NSString *const kReportTypeSales;
 
 - (BOOL)isYearly;
 
+- (NSDate *)nextReportDateAfterReportDate:(NSDate *)reportDate;
+
 - (void)prepare;
 
 - (NSDate *)startingReportDate;

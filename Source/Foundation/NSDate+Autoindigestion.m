@@ -4,13 +4,13 @@
 @implementation NSDate (Autoindigestion)
 
 
-- (BOOL)isEarlierThanDate:(NSDate *)date;
+- (BOOL)isLessRecentThanDate:(NSDate *)date;
 {
   return NSOrderedAscending == [self compare:date];
 }
 
 
-- (BOOL)isLaterThanDate:(NSDate *)date;
+- (BOOL)isMoreRecentThanDate:(NSDate *)date;
 {
   return NSOrderedDescending == [self compare:date];
 }
