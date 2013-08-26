@@ -136,8 +136,6 @@
                                                                  dateType:kDateTypeWeekly
                                                          andReportSubtype:kReportSubtypeSummary];
     [_reportCategories addObject:weeklySales];
-
-
   }
 
   if ( ! [_reportCategories count]) {

@@ -21,25 +21,17 @@ NSString *const kReportSubtypeSummary = @"Summary";
 NSString *const kReportTypePreOrder = @"Pre-Order";
 NSString *const kReportTypeSales = @"Sales";
 
+static NSCalendar *calendar;
+static NSLocale *locale;
+
 
 @implementation ReportCategory
 
 
 - (NSArray *)autoingestionJobs;
 {
-  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-  NSCalendar *calendar = [locale objectForKey:NSLocaleCalendar];
-  NSDate *today = [calendar zeroOutTimeForDate:[NSDate date]];
-  
-  NSDate *startingReportDate = nil;
-  if ([self isDaily]) {
-    startingReportDate = [calendar twoWeeksAgoForDate:today];
-  } else if ([self isWeekly]) {
-    startingReportDate = [calendar thirteenSundaysAgoForDate:today];
-  } else {
-    startingReportDate = [calendar fiveNewYearsDaysAgoForDate:today];
-  }
-  
+  NSDate *startingReportDate = [self startingReportDate];
+
   NSError *error;
   NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_reportDir
                                                                            error:&error];
@@ -66,10 +58,9 @@ NSString *const kReportTypeSales = @"Sales";
     }
   }
 
-
   NSMutableArray *autoingestionJobs = [NSMutableArray array];
   NSDate *reportDate = startingReportDate;
-  while ([reportDate isEarlierThanDate:today]) {
+  while ([reportDate isEarlierThanDate:_today]) {
     AutoingestionJob *autoingestionJob = [[AutoingestionJob alloc] initWithMonitor:_monitor
                                                                     reportCategory:self
                                                                      andReportDate:reportDate];
@@ -85,6 +76,15 @@ NSString *const kReportTypeSales = @"Sales";
   }
 
   return autoingestionJobs;
+}
+
+
++ (void)initialize;
+{
+  if ([ReportCategory class] == self) {
+    locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    calendar = [locale objectForKey:NSLocaleCalendar];
+  }
 }
 
 
@@ -105,6 +105,7 @@ NSString *const kReportTypeSales = @"Sales";
   _monitor = theMonitor;
   _reportSubtype = theReportSubtype;
   _reportType = theReportType;
+  _today = [calendar zeroOutTimeForDate:[NSDate date]];
   _vendor = theVendor;
 
   _fileMode = [_defaults fileMode];
@@ -158,6 +159,18 @@ NSString *const kReportTypeSales = @"Sales";
     if ( ! created) {
       [_monitor exitOnFailureWithError:error];
     }
+  }
+}
+
+
+- (NSDate *)startingReportDate;
+{
+  if ([self isDaily]) {
+    return [calendar twoWeeksAgoForDate:_today];
+  } else if ([self isWeekly]) {
+    return [calendar thirteenSundaysAgoForDate:_today];
+  } else {
+    return [calendar fiveNewYearsDaysAgoForDate:_today];
   }
 }
 

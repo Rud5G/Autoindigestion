@@ -31,6 +31,7 @@ extern NSString *const kReportTypeSales;
 @property (readonly) NSString *reportDir;
 @property (readonly) NSString *reportSubtype;
 @property (readonly) NSString *reportType;
+@property (readonly) NSDate *today;
 @property (readonly, weak) Vendor *vendor;
 
 - (NSArray *)autoingestionJobs;
@@ -50,5 +51,7 @@ extern NSString *const kReportTypeSales;
 - (BOOL)isYearly;
 
 - (void)prepare;
+
+- (NSDate *)startingReportDate;
 
 @end
