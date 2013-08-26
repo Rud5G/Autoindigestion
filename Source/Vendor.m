@@ -136,6 +136,15 @@
                                                                  dateType:kDateTypeWeekly
                                                          andReportSubtype:kReportSubtypeSummary];
     [_reportCategories addObject:weeklySales];
+
+    ReportCategory *yearlySales = [[ReportCategory alloc] initWithMonitor:_monitor
+                                                                 defaults:defaults
+                                                            autoingestion:autoingestion
+                                                                   vendor:self
+                                                               reportType:kReportTypeSales
+                                                                 dateType:KDateTypeYearly
+                                                         andReportSubtype:kReportSubtypeSummary];
+    [_reportCategories addObject:yearlySales];
   }
 
   if ( ! [_reportCategories count]) {
