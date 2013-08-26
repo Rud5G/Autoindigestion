@@ -46,7 +46,7 @@ static NSLocale *locale;
                                                                                      andDateType:_dateType];
   NSArray *existingReportDates = [reportFilenamePattern reportDateStringsFromFilenames:filenames];
   if ([existingReportDates count]) {
-    NSDate *latestExistingReportDate = [calendar dateFromReportDate:[existingReportDates lastObject]];
+    NSDate *latestExistingReportDate = [calendar dateFromReportDateString:[existingReportDates lastObject]];
     if ([latestExistingReportDate isLaterThanDate:startingReportDate]) {
       if ([self isDaily]) {
         startingReportDate = [calendar nextDayForDate:latestExistingReportDate];

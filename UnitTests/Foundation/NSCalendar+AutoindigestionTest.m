@@ -23,11 +23,19 @@
 }
 
 
-- (void)testDateFromReportDate;
+- (void)testDateFromReportDateStringForDailyString;
 {
-  NSDate *date = [_calendar dateFromReportDate:@"20120522"];
+  NSDate *date = [_calendar dateFromReportDateString:@"20120522"];
   
   STAssertEqualObjects([self date:@"5/22/2012 00:00:00"], date, nil);
+}
+
+
+- (void)testDateFromReportDateStringForYearlyString;
+{
+  NSDate *date = [_calendar dateFromReportDateString:@"2012"];
+
+  STAssertEqualObjects([self date:@"1/1/2012 00:00:00"], date, nil);
 }
 
 

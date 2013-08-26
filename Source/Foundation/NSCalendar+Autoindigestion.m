@@ -4,11 +4,18 @@
 @implementation NSCalendar (Autoindigestion)
 
 
-- (NSDate *)dateFromReportDate:(NSString *)reportDate;
+- (NSDate *)dateFromReportDateString:(NSString *)reportDateString;
 {
-  NSString *yearString = [reportDate substringWithRange:NSMakeRange(0, 4)];
-  NSString *monthString = [reportDate substringWithRange:NSMakeRange(4, 2)];
-  NSString *dayString = [reportDate substringWithRange:NSMakeRange(6, 2)];
+  NSParameterAssert([reportDateString length] >= 4);
+
+  NSUInteger length = [reportDateString length];
+  NSString *yearString = [reportDateString substringWithRange:NSMakeRange(0, 4)];
+  NSString *monthString = length >= 6
+                        ? [reportDateString substringWithRange:NSMakeRange(4, 2)]
+                        : @"01";
+  NSString *dayString = length >= 8
+                      ? [reportDateString substringWithRange:NSMakeRange(6, 2)]
+                      : @"01";
 
   NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
   [dateComponents setYear:[yearString integerValue]];

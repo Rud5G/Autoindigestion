@@ -3,7 +3,7 @@
 
 @interface NSCalendar (Autoindigestion)
 
-- (NSDate *)dateFromReportDate:(NSString *)reportDate;
+- (NSDate *)dateFromReportDateString:(NSString *)reportDateString;
 
 - (NSDate *)fiveNewYearsDaysAgoForDate:(NSDate *)date;
 
