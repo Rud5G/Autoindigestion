@@ -39,9 +39,8 @@ NSString *const kReportTypeSales = @"Sales";
                                                                                       reportType:_reportType
                                                                                    reportSubType:_reportSubtype
                                                                                      andDateType:_dateType];
-  NSString *mostRecentExistingReportDateString = [reportFilenamePattern mostRecentReportDateStringFromFilenames:filenames];
-  if (mostRecentExistingReportDateString) {
-    NSDate *mostRecentExistingReportDate = [[NSCalendar posixCalendar] dateFromReportDateString:mostRecentExistingReportDateString];
+  NSDate *mostRecentExistingReportDate = [reportFilenamePattern mostRecentReportDateFromFilenames:filenames];
+  if (mostRecentExistingReportDate) {
     if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {
       startingReportDate = [self nextReportDateAfterReportDate:mostRecentExistingReportDate];
     }

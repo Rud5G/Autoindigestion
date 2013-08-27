@@ -1,5 +1,7 @@
 #import "ReportFilenamePattern.h"
+
 #import "NSArray+Autoindigestion.h"
+#import "NSCalendar+Autoindigestion.h"
 
 
 NSString *const kRegularExpressionError = @"Regular Expression Error";
@@ -44,10 +46,15 @@ NSString *const kRegularExpressionError = @"Regular Expression Error";
 }
 
 
-- (NSString *)mostRecentReportDateStringFromFilenames:(NSArray *)filenames;
+- (NSDate *)mostRecentReportDateFromFilenames:(NSArray *)filenames;
 {
   NSArray *reportDateStrings = [self reportDateStringsFromFilenames:filenames];
-  return [reportDateStrings count] ? [reportDateStrings lastObject] : nil;
+  if ([reportDateStrings count]) {
+    NSString *mostRecentReportDateString = [reportDateStrings lastObject];
+    return [[NSCalendar posixCalendar] dateFromReportDateString:mostRecentReportDateString];
+  } else {
+    return nil;
+  }
 }
 
 

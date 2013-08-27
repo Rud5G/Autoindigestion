@@ -15,7 +15,7 @@
          reportSubType:(NSString *)reportSubType
            andDateType:(NSString *)dateType;
 
-- (NSString *)mostRecentReportDateStringFromFilenames:(NSArray *)filenames;
+- (NSDate *)mostRecentReportDateFromFilenames:(NSArray *)filenames;
 
 - (NSArray *)reportDateStringsFromFilenames:(NSArray *)filenames;
 
