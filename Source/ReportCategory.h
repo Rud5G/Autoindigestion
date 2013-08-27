@@ -36,13 +36,13 @@ extern NSString *const kReportTypeSales;
 
 - (NSArray *)autoingestionJobs;
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-             defaults:(Defaults *)theDefaults
-        autoingestion:(Autoingestion *)theAutoingestion
-               vendor:(Vendor *)theVendor
-           reportType:(NSString *)theReportType
-             dateType:(NSString *)theDateType
-     andReportSubtype:(NSString *)theReportSubtype;
+- (id)initWithMonitor:(id<Monitor>)monitor
+             defaults:(Defaults *)defaults
+        autoingestion:(Autoingestion *)autoingestion
+               vendor:(Vendor *)vendor
+           reportType:(NSString *)reportType
+        reportSubtype:(NSString *)reportSubtype
+          andDateType:(NSString *)dateType;
 
 - (BOOL)isDaily;
 

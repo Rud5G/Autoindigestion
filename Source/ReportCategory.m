@@ -74,25 +74,25 @@ static NSLocale *locale;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-             defaults:(Defaults *)theDefaults
-        autoingestion:(Autoingestion *)theAutoingestion
-               vendor:(Vendor *)theVendor
-           reportType:(NSString *)theReportType
-             dateType:(NSString *)theDateType
-     andReportSubtype:(NSString *)theReportSubtype;
+- (id)initWithMonitor:(id<Monitor>)monitor
+             defaults:(Defaults *)defaults
+        autoingestion:(Autoingestion *)autoingestion
+               vendor:(Vendor *)vendor
+           reportType:(NSString *)reportType
+        reportSubtype:(NSString *)reportSubtype
+          andDateType:(NSString *)dateType;
 {
   self = [super init];
   if ( ! self) return nil;
 
-  _autoingestion = theAutoingestion;
-  _dateType = theDateType;
-  _defaults = theDefaults;
-  _monitor = theMonitor;
-  _reportSubtype = theReportSubtype;
-  _reportType = theReportType;
+  _autoingestion = autoingestion;
+  _dateType = dateType;
+  _defaults = defaults;
+  _monitor = monitor;
+  _reportSubtype = reportSubtype;
+  _reportType = reportType;
   _today = [calendar zeroOutTimeForDate:[NSDate date]];
-  _vendor = theVendor;
+  _vendor = vendor;
 
   _fileMode = [_defaults fileMode];
   _group = [_vendor group];

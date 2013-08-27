@@ -93,8 +93,8 @@
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
-                                                                 dateType:kDateTypeWeekly
-                                                         andReportSubtype:kReportSubtypeOptIn];
+                                                            reportSubtype:kReportSubtypeOptIn
+                                                              andDateType:kDateTypeWeekly];
     [_reportCategories addObject:weeklyOptIn];
   }
 
@@ -104,8 +104,8 @@
                                                               autoingestion:autoingestion
                                                                      vendor:self
                                                                  reportType:kReportTypePreOrder
-                                                                   dateType:kDateTypeDaily
-                                                           andReportSubtype:kReportSubtypeSummary];
+                                                              reportSubtype:kReportSubtypeSummary
+                                                                andDateType:kDateTypeDaily];
     [_reportCategories addObject:dailyPreOrder];
 
     ReportCategory *weeklyPreOrder = [[ReportCategory alloc] initWithMonitor:_monitor
@@ -113,8 +113,8 @@
                                                                autoingestion:autoingestion
                                                                       vendor:self
                                                                   reportType:kReportTypePreOrder
-                                                                    dateType:kDateTypeWeekly
-                                                            andReportSubtype:kReportSubtypeSummary];
+                                                               reportSubtype:kReportSubtypeSummary
+                                                                 andDateType:kDateTypeWeekly];
     [_reportCategories addObject:weeklyPreOrder];
   }
 
@@ -124,8 +124,8 @@
                                                            autoingestion:autoingestion
                                                                   vendor:self
                                                               reportType:kReportTypeSales
-                                                                dateType:kDateTypeDaily
-                                                        andReportSubtype:kReportSubtypeSummary];
+                                                           reportSubtype:kReportSubtypeSummary
+                                                             andDateType:kDateTypeDaily];
     [_reportCategories addObject:dailySales];
 
     ReportCategory *weeklySales = [[ReportCategory alloc] initWithMonitor:_monitor
@@ -133,8 +133,8 @@
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
-                                                                 dateType:kDateTypeWeekly
-                                                         andReportSubtype:kReportSubtypeSummary];
+                                                            reportSubtype:kReportSubtypeSummary
+                                                              andDateType:kDateTypeWeekly];
     [_reportCategories addObject:weeklySales];
 
     ReportCategory *yearlySales = [[ReportCategory alloc] initWithMonitor:_monitor
@@ -142,8 +142,8 @@
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
-                                                                 dateType:KDateTypeYearly
-                                                         andReportSubtype:kReportSubtypeSummary];
+                                                            reportSubtype:kReportSubtypeSummary
+                                                              andDateType:KDateTypeYearly];
     [_reportCategories addObject:yearlySales];
   }
 
