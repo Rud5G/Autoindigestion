@@ -5,7 +5,6 @@
 #import "Defaults.h"
 #import "Group.h"
 #import "Monitor.h"
-#import "NSArray+Autoindigestion.h"
 #import "NSCalendar+Autoindigestion.h"
 #import "NSDate+Autoindigestion.h"
 #import "ReportFilenamePattern.h"
@@ -20,9 +19,6 @@ NSString *const kReportSubtypeOptIn = @"Opt-In";
 NSString *const kReportSubtypeSummary = @"Summary";
 NSString *const kReportTypePreOrder = @"Pre-Order";
 NSString *const kReportTypeSales = @"Sales";
-
-static NSCalendar *calendar;
-static NSLocale *locale;
 
 
 @implementation ReportCategory
@@ -45,7 +41,7 @@ static NSLocale *locale;
                                                                                      andDateType:_dateType];
   NSString *mostRecentExistingReportDateString = [reportFilenamePattern mostRecentReportDateStringFromFilenames:filenames];
   if (mostRecentExistingReportDateString) {
-    NSDate *mostRecentExistingReportDate = [calendar dateFromReportDateString:mostRecentExistingReportDateString];
+    NSDate *mostRecentExistingReportDate = [[NSCalendar posixCalendar] dateFromReportDateString:mostRecentExistingReportDateString];
     if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {
       startingReportDate = [self nextReportDateAfterReportDate:mostRecentExistingReportDate];
     }
@@ -62,15 +58,6 @@ static NSLocale *locale;
   }
 
   return autoingestionJobs;
-}
-
-
-+ (void)initialize;
-{
-  if ([ReportCategory class] == self) {
-    locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    calendar = [locale objectForKey:NSLocaleCalendar];
-  }
 }
 
 
@@ -91,7 +78,7 @@ static NSLocale *locale;
   _monitor = monitor;
   _reportSubtype = reportSubtype;
   _reportType = reportType;
-  _today = [calendar zeroOutTimeForDate:[NSDate date]];
+  _today = [[NSCalendar posixCalendar] zeroOutTimeForDate:[NSDate date]];
   _vendor = vendor;
 
   _fileMode = [_defaults fileMode];
@@ -132,11 +119,11 @@ static NSLocale *locale;
 - (NSDate *)nextReportDateAfterReportDate:(NSDate *)reportDate;
 {
   if ([self isDaily]) {
-    return [calendar nextDayForDate:reportDate];
+    return [[NSCalendar posixCalendar] nextDayForDate:reportDate];
   } else if ([self isWeekly]) {
-    return [calendar nextWeekForDate:reportDate];
+    return [[NSCalendar posixCalendar] nextWeekForDate:reportDate];
   } else {
-    return [calendar nextYearForDate:reportDate];
+    return [[NSCalendar posixCalendar] nextYearForDate:reportDate];
   }
 }
 
@@ -164,11 +151,11 @@ static NSLocale *locale;
 - (NSDate *)startingReportDate;
 {
   if ([self isDaily]) {
-    return [calendar twoWeeksAgoForDate:_today];
+    return [[NSCalendar posixCalendar] twoWeeksAgoForDate:_today];
   } else if ([self isWeekly]) {
-    return [calendar thirteenSundaysAgoForDate:_today];
+    return [[NSCalendar posixCalendar] thirteenSundaysAgoForDate:_today];
   } else {
-    return [calendar fiveNewYearsDaysAgoForDate:_today];
+    return [[NSCalendar posixCalendar] fiveNewYearsDaysAgoForDate:_today];
   }
 }
 

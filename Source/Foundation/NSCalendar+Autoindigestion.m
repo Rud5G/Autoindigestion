@@ -1,6 +1,10 @@
 #import "NSCalendar+Autoindigestion.h"
 
 
+static NSCalendar *posixCalendar;
+static dispatch_once_t posixCalendarOnce;
+
+
 @implementation NSCalendar (Autoindigestion)
 
 
@@ -64,6 +68,17 @@
   return [self dateByAddingComponents:nextYear
                                toDate:date
                               options:0];
+}
+
+
++ (NSCalendar *)posixCalendar;
+{
+  dispatch_once(&posixCalendarOnce, ^{
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    posixCalendar = [locale objectForKey:NSLocaleCalendar];
+  });
+
+  return posixCalendar;
 }
 
 

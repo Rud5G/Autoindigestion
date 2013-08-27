@@ -13,6 +13,8 @@
 
 - (NSDate *)nextYearForDate:(NSDate *)date;
 
++ (NSCalendar *)posixCalendar;
+
 - (NSDate *)previousDayForDate:(NSDate *)date;
 
 - (NSDate *)previousNewYearsDayForDate:(NSDate *)date;
