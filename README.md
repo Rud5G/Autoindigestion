@@ -87,7 +87,8 @@ and `sudo chown root:admin "<vendor file>"` on each vendor file you create.
 
 To run Autoindigestion automatically each day at a specific time, create a 
 launchd item at `"/Library/LaunchDaemons/Autoindigestion.plist"`.  Here is a 
-sample launchd item that runs at 0830 and again at 1030 each morning:
+sample launchd item that runs at 8:30 AM in the morning and again at 1030 PM in 
+the evening:
     
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
@@ -112,7 +113,7 @@ sample launchd item that runs at 0830 and again at 1030 each morning:
             </dict>
             <dict>
                 <key>Hour</key>
-                <integer>10</integer>
+                <integer>22</integer>
                 <key>Minute</key>
                 <integer>30</integer>
             </dict>
