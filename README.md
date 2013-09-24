@@ -16,7 +16,7 @@ LICENSE file for details.
 
 System Requirements
 -------------------
-Autoindigestion is developed on Mac OS X 10.8 Mountain Lion using Xcode 4.6.
+Autoindigestion is developed on Mac OS X 10.8 Mountain Lion using Xcode 5.0.
 It is a modern Objective-C command line tool.  The current distribution is 
 source only, so a Mac running Mountain Lion with Xcode installed is required.
 Autoindigestion also depends on Apple's Auto-Ingest tool, a Java class 
@@ -87,7 +87,7 @@ and `sudo chown root:admin "<vendor file>"` on each vendor file you create.
 
 To run Autoindigestion automatically each day at a specific time, create a 
 launchd item at `"/Library/LaunchDaemons/Autoindigestion.plist"`.  Here is a 
-sample launchd item that runs at 0800 each morning:
+sample launchd item that runs at 0830 and again at 1030 each morning:
     
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
@@ -103,11 +103,20 @@ sample launchd item that runs at 0800 each morning:
         </array>
         
         <key>StartCalendarInterval</key>
-        <dict>
-            <key>Hour</key>
-            <integer>8</integer>
-        </dict>
-        
+        <array>
+            <dict>
+                <key>Hour</key>
+                <integer>8</integer>
+                <key>Minute</key>
+                <integer>30</integer>
+            </dict>
+            <dict>
+                <key>Hour</key>
+                <integer>10</integer>
+                <key>Minute</key>
+                <integer>30</integer>
+            </dict>
+        </array>
         <key>StandardErrorPath</key>
         <string>/Library/Logs/Autoindigestion.log</string>
         
