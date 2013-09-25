@@ -18,6 +18,9 @@ static NSString *const kAutoingestionResponseDailyReportDateOutOfRange =
 static NSString *const kAutoingestionResponseWeeklyReportDateOutOfRange =
     @"Weekly reports are available only for past 13 weeks, "
     @"please enter a weekend date within past 13 weeks.";
+static NSString *const kAutoingestionResponseMonthlyReportDateOutOfRange =
+    @"Monthly reports are available only for past 12 months, "
+    @"please enter a month within past 12 months.";
 static NSString *const kAutoingestionResponseYearlyReportDateOutOfRange =
     @"Please enter a valid year.";
 static NSString *const kAutoingestionResponseUnknownHostException =
@@ -121,6 +124,8 @@ static enum AutoingestionResponseCode responseCodeFromResponseText(NSString *res
     return AutoingestionResponseCodeDailyReportDateOutOfRange;
   } else if ([responseText containsString:kAutoingestionResponseWeeklyReportDateOutOfRange]) {
     return AutoingestionResponseCodeWeeklyReportDateOutOfRange;
+  } else if ([responseText containsString:kAutoingestionResponseMonthlyReportDateOutOfRange]) {
+    return AutoingestionResponseCodeMonthlyReportDateOutOfRange;
   } else if ([responseText containsString:kAutoingestionResponseYearlyReportDateOutOfRange]) {
     return AutoingestionResponseCodeYearlyReportDateOutOfRange;
   } else {

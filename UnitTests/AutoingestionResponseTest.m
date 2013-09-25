@@ -301,6 +301,27 @@
 }
 
 
+- (void)testMonthlyReportDataOutOfRangeResponse;
+{
+  char const bytes[] =
+      "Monthly reports are available only for past 12 months, please enter a month within past 12 months.\n";
+  NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
+  AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
+  
+  STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
+  STAssertEquals(AutoingestionResponseCodeMonthlyReportDateOutOfRange, [response code], nil);
+  NSString *expectedText = [NSString stringWithCString:bytes
+                                              encoding:NSUTF8StringEncoding];
+  STAssertEqualObjects(expectedText, [response text], nil);
+  
+  NSString *expectedSummary =
+      @"Monthly reports are available only for past 12 months, please enter a month within past 12 months.";
+  STAssertEqualObjects(expectedSummary, [response summary], nil);
+}
+
+
 - (void)testYearlyReportDataOutOfRangeResponse;
 {
   char const bytes[] = "Please enter a valid year.\n";

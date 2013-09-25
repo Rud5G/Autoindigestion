@@ -9,6 +9,7 @@ enum AutoingestionResponseCode {
   AutoingestionResponseCodeTryAgainLater,
   AutoingestionResponseCodeDailyReportDateOutOfRange,
   AutoingestionResponseCodeWeeklyReportDateOutOfRange,
+  AutoingestionResponseCodeMonthlyReportDateOutOfRange,
   AutoingestionResponseCodeYearlyReportDateOutOfRange,
   AutoingestionResponseCodeUnknownHostException,
   AutoingestionResponseCodeSocketException,
