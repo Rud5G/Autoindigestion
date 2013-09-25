@@ -301,4 +301,23 @@
 }
 
 
+- (void)testYearlyReportDataOutOfRangeResponse;
+{
+  char const bytes[] = "Please enter a valid year.\n";
+  NSData *output = [NSData dataWithBytes:bytes length:sizeof bytes - 1];
+  AutoingestionResponse *response = [[AutoingestionResponse alloc] initWithOutput:output];
+  
+  STAssertFalse([response isSuccess], nil);
+  STAssertFalse([response isNetworkUnavailable], nil);
+  STAssertFalse([response isTryAgainLater], nil);
+  STAssertEquals(AutoingestionResponseCodeYearlyReportDateOutOfRange, [response code], nil);
+  NSString *expectedText = [NSString stringWithCString:bytes
+                                              encoding:NSUTF8StringEncoding];
+  STAssertEqualObjects(expectedText, [response text], nil);
+  
+  NSString *expectedSummary = @"Please enter a valid year.";
+  STAssertEqualObjects(expectedSummary, [response summary], nil);
+}
+
+
 @end
