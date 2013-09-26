@@ -14,6 +14,7 @@
 @interface Vendor : NSObject
 
 @property (readonly) NSString *credentialsFilePath;
+@property (readonly) NSDate *date;
 @property (readonly) BOOL disabled;
 @property (readonly) NSNumber *fileMode;
 @property (readonly) Group *group;

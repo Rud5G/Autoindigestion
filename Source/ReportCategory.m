@@ -52,23 +52,25 @@ NSString *const kReportTypeSales = @"Sales";
                vendor:(Vendor *)vendor
            reportType:(NSString *)reportType
         reportSubtype:(NSString *)reportSubtype
-          andDateType:(NSString *)dateType;
+             dateType:(NSString *)dateType
+              andDate:(NSDate *)date;
 {
   self = [super init];
   if ( ! self) return nil;
 
   _autoingestion = autoingestion;
+  _date = date;
   _dateType = dateType;
   _defaults = defaults;
   _monitor = monitor;
   _reportSubtype = reportSubtype;
   _reportType = reportType;
-  _today = [[NSCalendar posixCalendar] zeroOutTimeForDate:[NSDate date]];
   _vendor = vendor;
 
   _fileMode = [_defaults fileMode];
   _group = [_vendor group];
   _owner = [_vendor owner];
+  _today = [[NSCalendar posixCalendar] zeroOutTimeForDate:_date];
 
   if (   [kReportTypeSales isEqualToString:_reportType]
       && [kReportSubtypeOptIn isEqualToString:_reportSubtype])

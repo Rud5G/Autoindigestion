@@ -44,6 +44,7 @@
   self = [super init];
   if ( ! self) return nil;
 
+  _date = [NSDate date];
   _monitor = theMonitor;
   _reportCategories = [NSMutableArray array];
 
@@ -94,7 +95,8 @@
                                                                    vendor:self
                                                                reportType:kReportTypeSales
                                                             reportSubtype:kReportSubtypeOptIn
-                                                              andDateType:kDateTypeWeekly];
+                                                                 dateType:kDateTypeWeekly
+                                                                  andDate:_date];
     [_reportCategories addObject:weeklyOptIn];
   }
 
@@ -105,7 +107,8 @@
                                                                      vendor:self
                                                                  reportType:kReportTypePreOrder
                                                               reportSubtype:kReportSubtypeSummary
-                                                                andDateType:kDateTypeDaily];
+                                                                   dateType:kDateTypeDaily
+                                                                    andDate:_date];
     [_reportCategories addObject:dailyPreOrder];
 
     ReportCategory *weeklyPreOrder = [[ReportCategory alloc] initWithMonitor:_monitor
@@ -114,7 +117,8 @@
                                                                       vendor:self
                                                                   reportType:kReportTypePreOrder
                                                                reportSubtype:kReportSubtypeSummary
-                                                                 andDateType:kDateTypeWeekly];
+                                                                    dateType:kDateTypeWeekly
+                                                                     andDate:_date];
     [_reportCategories addObject:weeklyPreOrder];
   }
 
@@ -125,7 +129,8 @@
                                                                   vendor:self
                                                               reportType:kReportTypeSales
                                                            reportSubtype:kReportSubtypeSummary
-                                                             andDateType:kDateTypeDaily];
+                                                                dateType:kDateTypeDaily
+                                                                 andDate:_date];
     [_reportCategories addObject:dailySales];
 
     ReportCategory *weeklySales = [[ReportCategory alloc] initWithMonitor:_monitor
@@ -134,7 +139,8 @@
                                                                    vendor:self
                                                                reportType:kReportTypeSales
                                                             reportSubtype:kReportSubtypeSummary
-                                                              andDateType:kDateTypeWeekly];
+                                                                 dateType:kDateTypeWeekly
+                                                                  andDate:_date];
     [_reportCategories addObject:weeklySales];
 
     ReportCategory *yearlySales = [[ReportCategory alloc] initWithMonitor:_monitor
@@ -143,7 +149,8 @@
                                                                    vendor:self
                                                                reportType:kReportTypeSales
                                                             reportSubtype:kReportSubtypeSummary
-                                                              andDateType:KDateTypeYearly];
+                                                                 dateType:KDateTypeYearly
+                                                                  andDate:_date];
     [_reportCategories addObject:yearlySales];
   }
 

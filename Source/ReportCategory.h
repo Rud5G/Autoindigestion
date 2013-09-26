@@ -22,6 +22,7 @@ extern NSString *const kReportTypeSales;
 @interface ReportCategory : NSObject
 
 @property (readonly) Autoingestion *autoingestion;
+@property (readonly) NSDate *date;
 @property (readonly) NSString *dateType;
 @property (readonly) Defaults *defaults;
 @property (readonly) NSNumber *fileMode;
@@ -42,7 +43,8 @@ extern NSString *const kReportTypeSales;
                vendor:(Vendor *)vendor
            reportType:(NSString *)reportType
         reportSubtype:(NSString *)reportSubtype
-          andDateType:(NSString *)dateType;
+             dateType:(NSString *)dateType
+              andDate:(NSDate *)date;
 
 - (BOOL)isDaily;
 
