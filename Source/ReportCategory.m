@@ -33,27 +33,13 @@ NSString *const kReportTypeSales = @"Sales";
     [_monitor warningWithError:error];
     return [NSArray array];
   }
-
-  NSDate *startingReportDate = [self startingReportDate];
-  ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
-                                                                                      reportType:_reportType
-                                                                                   reportSubType:_reportSubtype
-                                                                                     andDateType:_dateType];
-  NSDate *mostRecentExistingReportDate = [reportFilenamePattern mostRecentReportDateFromFilenames:filenames];
-  if (mostRecentExistingReportDate) {
-    if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {
-      startingReportDate = [self nextReportDateAfterReportDate:mostRecentExistingReportDate];
-    }
-  }
-
+  
   NSMutableArray *autoingestionJobs = [NSMutableArray array];
-  NSDate *reportDate = startingReportDate;
-  while ([reportDate isLessRecentThanDate:_today]) {
+  for (NSDate *missingReportDate in [self missingReportDates:filenames]) {
     AutoingestionJob *autoingestionJob = [[AutoingestionJob alloc] initWithMonitor:_monitor
                                                                     reportCategory:self
-                                                                     andReportDate:reportDate];
+                                                                     andReportDate:missingReportDate];
     [autoingestionJobs addObject:autoingestionJob];
-    reportDate = [self nextReportDateAfterReportDate:reportDate];
   }
 
   return autoingestionJobs;
@@ -109,9 +95,44 @@ NSString *const kReportTypeSales = @"Sales";
 }
 
 
+- (BOOL)isValidReportDate:(NSDate *)date;
+{
+  NSDate *invalidReportDate = _today;
+  if ([KDateTypeYearly isEqualToString:_dateType]) {
+    invalidReportDate = [[NSCalendar posixCalendar] previousNewYearsDayForDate:_today];
+  }
+  return [date isLessRecentThanDate:invalidReportDate];
+}
+
+
 - (BOOL)isYearly;
 {
   return [KDateTypeYearly isEqualToString:_dateType];
+}
+
+
+- (NSArray *)missingReportDates:(NSArray *)filenames;
+{
+  NSDate *startingReportDate = [self startingReportDate];
+  ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
+                                                                                      reportType:_reportType
+                                                                                   reportSubType:_reportSubtype
+                                                                                     andDateType:_dateType];
+  NSDate *mostRecentExistingReportDate = [reportFilenamePattern mostRecentReportDateFromFilenames:filenames];
+  if (mostRecentExistingReportDate) {
+    if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {
+      startingReportDate = [self nextReportDateAfterReportDate:mostRecentExistingReportDate];
+    }
+  }
+  
+  NSMutableArray *missingReportDates = [NSMutableArray array];
+  NSDate *missingReportDate = startingReportDate;
+  while ([self isValidReportDate:missingReportDate]) {
+    [missingReportDates addObject:missingReportDate];
+    missingReportDate = [self nextReportDateAfterReportDate:missingReportDate];
+  }
+  
+  return missingReportDates;
 }
 
 

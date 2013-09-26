@@ -46,9 +46,13 @@ extern NSString *const kReportTypeSales;
 
 - (BOOL)isDaily;
 
+- (BOOL)isValidReportDate:(NSDate *)date;
+
 - (BOOL)isWeekly;
 
 - (BOOL)isYearly;
+
+- (NSArray *)missingReportDates:(NSArray *)filenames;
 
 - (NSDate *)nextReportDateAfterReportDate:(NSDate *)reportDate;
 
