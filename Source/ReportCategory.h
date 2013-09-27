@@ -11,9 +11,6 @@
 @protocol Monitor;
 
 
-extern NSString *const kDateTypeDaily;
-extern NSString *const kDateTypeWeekly;
-extern NSString *const KDateTypeYearly;
 extern NSString *const kReportSubtypeOptIn;
 extern NSString *const kReportSubtypeSummary;
 extern NSString *const kReportTypePreOrder;

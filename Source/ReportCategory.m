@@ -13,9 +13,6 @@
 #import "Vendor.h"
 
 
-NSString *const kDateTypeDaily = @"Daily";
-NSString *const kDateTypeWeekly = @"Weekly";
-NSString *const KDateTypeYearly = @"Yearly";
 NSString *const kReportSubtypeOptIn = @"Opt-In";
 NSString *const kReportSubtypeSummary = @"Summary";
 NSString *const kReportTypePreOrder = @"Pre-Order";
@@ -102,7 +99,7 @@ NSString *const kReportTypeSales = @"Sales";
 - (BOOL)isValidReportDate:(NSDate *)date;
 {
   NSDate *invalidReportDate = _today;
-  if ([KDateTypeYearly isEqualToString:_dateType]) {
+  if ([self isYearly]) {
     invalidReportDate = [[NSCalendar posixCalendar] previousNewYearsDayForDate:_today];
   }
   return [date isLessRecentThanDate:invalidReportDate];
@@ -120,8 +117,8 @@ NSString *const kReportTypeSales = @"Sales";
   NSDate *startingReportDate = [self startingReportDate];
   ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
                                                                                       reportType:_reportType
-                                                                                   reportSubType:_reportSubtype
-                                                                                     andDateType:_dateType];
+                                                                                  reportDateType:_reportDateType
+                                                                                andReportSubType:_reportSubtype];
   NSDate *mostRecentExistingReportDate = [reportFilenamePattern mostRecentReportDateFromFilenames:filenames];
   if (mostRecentExistingReportDate) {
     if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {

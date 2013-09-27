@@ -2,6 +2,7 @@
 
 #import "NSArray+Autoindigestion.h"
 #import "NSCalendar+Autoindigestion.h"
+#import "ReportDateType.h"
 
 
 NSString *const kRegularExpressionError = @"Regular Expression Error";
@@ -12,25 +13,25 @@ NSString *const kRegularExpressionError = @"Regular Expression Error";
 
 - (id)initWithVendorID:(NSString *)vendorID
             reportType:(NSString *)reportType
-         reportSubType:(NSString *)reportSubType
-           andDateType:(NSString *)dateType;
+        reportDateType:(ReportDateType *)reportDateType
+      andReportSubType:(NSString *)reportSubType;
 {
   self = [super init];
   if ( ! self) return nil;
   
   _vendorID = [vendorID copy];
   _reportType = [reportType copy];
+  _reportDateType = reportDateType;
   _reportSubType = [reportSubType copy];
-  _dateType = [dateType copy];
-  
+
   int dateStringLength = 8;
-  if ([KDateTypeYearly isEqualToString:_dateType]) {
+  if ([ReportDateType yearly] == _reportDateType) {
     dateStringLength = 4;
   }
   
-  NSString *patternFormat = @"%C_%C_%@_(\\d{%i})\\.txt\\.gz";
+  NSString *patternFormat = @"%C_%@_%@_(\\d{%i})\\.txt\\.gz";
   _pattern = [NSString stringWithFormat:patternFormat,
-              [_reportSubType characterAtIndex:0], [_dateType characterAtIndex:0],
+              [_reportSubType characterAtIndex:0], [_reportDateType codeLetter],
               _vendorID, dateStringLength];
   
   NSError *error = nil;

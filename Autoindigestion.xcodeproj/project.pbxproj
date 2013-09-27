@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0F470D7C7813B89CFA38C60 /* ReportDateType.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */; };
+		B0F477AEC7C8B3CFA7338A70 /* ReportDateType.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */; };
 		D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */ = {isa = PBXBuildFile; fileRef = D407937415A800AA0018FBBA /* Autoindigestion.1 */; };
 		D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */ = {isa = PBXBuildFile; fileRef = D407937515A800AA0018FBBA /* Autoindigestion.5 */; };
 		D425F5FD165DEFB00035DF8D /* GroupTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D425F5FC165DEFB00035DF8D /* GroupTest.m */; };
@@ -43,6 +45,8 @@
 		D4A7719C15A380E400CEC757 /* Vendor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718915A380E400CEC757 /* Vendor.m */; };
 		D4A7719D15A380E400CEC757 /* VendorFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7718B15A380E400CEC757 /* VendorFile.m */; };
 		D4BDA39B17F3D06700D8FF29 /* ReportCategoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */; };
+		D4BDA3A317F5221000D8FF29 /* NSDate+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717215A380E400CEC757 /* NSDate+Autoindigestion.m */; };
+		D4BDA3A517F5227E00D8FF29 /* ReportDateTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */; };
 		D4EDA1D315DB1D950084B460 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51515894E48000F0173 /* SenTestingKit.framework */; };
 		D4EDA1D415DB1D950084B460 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51715894E48000F0173 /* Cocoa.framework */; };
 		D4EDA1DD15DB1D950084B460 /* AutoingestionResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */; };
@@ -78,6 +82,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B0F4757BF320B8C268DC8480 /* ReportDateType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDateType.h; sourceTree = "<group>"; };
+		B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateType.m; sourceTree = "<group>"; };
 		D407936915A7F9350018FBBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D407936A15A7F9350018FBBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		D407937415A800AA0018FBBA /* Autoindigestion.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = Autoindigestion.1; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 		D4A7718A15A380E400CEC757 /* VendorFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorFile.h; sourceTree = "<group>"; };
 		D4A7718B15A380E400CEC757 /* VendorFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorFile.m; sourceTree = "<group>"; };
 		D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCategoryTest.m; sourceTree = "<group>"; };
+		D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateTypeTest.m; sourceTree = "<group>"; };
 		D4EDA1D215DB1D950084B460 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponseTest.m; sourceTree = "<group>"; };
@@ -247,6 +254,8 @@
 				D4A7717E15A380E400CEC757 /* Options.m */,
 				D4A7717F15A380E400CEC757 /* ReportCategory.h */,
 				D4A7718015A380E400CEC757 /* ReportCategory.m */,
+				B0F4757BF320B8C268DC8480 /* ReportDateType.h */,
+				B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */,
 				D498BF5717C3BF6A007B2B2C /* ReportFilenamePattern.h */,
 				D498BF5817C3BF6A007B2B2C /* ReportFilenamePattern.m */,
 				D4A7718215A380E400CEC757 /* StandardMonitor.h */,
@@ -304,6 +313,7 @@
 				D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */,
 				D425F5FC165DEFB00035DF8D /* GroupTest.m */,
 				D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */,
+				D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */,
 				D498BF5C17C3BF88007B2B2C /* ReportFilenamePatternTest.m */,
 				D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */,
 				D4EDA1DE15DB1D950084B460 /* UnitTests-Prefix.pch */,
@@ -432,6 +442,7 @@
 				D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */,
 				D498BF5217C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */,
 				D498BF5917C3BF6A007B2B2C /* ReportFilenamePattern.m in Sources */,
+				B0F477AEC7C8B3CFA7338A70 /* ReportDateType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +458,9 @@
 				D425F600165DF17A0035DF8D /* User.m in Sources */,
 				D425F60316601D850035DF8D /* UserTest.m in Sources */,
 				D499B7D217BDC11200665486 /* NSCalendar+AutoindigestionTest.m in Sources */,
+				D4BDA3A517F5227E00D8FF29 /* ReportDateTypeTest.m in Sources */,
 				D499B7D317BFEC5000665486 /* NSCalendar+Autoindigestion.m in Sources */,
+				D4BDA3A317F5221000D8FF29 /* NSDate+Autoindigestion.m in Sources */,
 				D4BDA39B17F3D06700D8FF29 /* ReportCategoryTest.m in Sources */,
 				D498BF5317C26D6F007B2B2C /* NSArray+Autoindigestion.m in Sources */,
 				D498BF5617C26DDE007B2B2C /* NSArray+AutoindigestionTest.m in Sources */,
@@ -455,6 +468,7 @@
 				D498BF5D17C3BF88007B2B2C /* ReportFilenamePatternTest.m in Sources */,
 				D498BF5E17C3C3D0007B2B2C /* ReportCategory.m in Sources */,
 				D498BF5F17C3C3DF007B2B2C /* AutoingestionJob.m in Sources */,
+				B0F470D7C7813B89CFA38C60 /* ReportDateType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

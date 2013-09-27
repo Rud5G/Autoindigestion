@@ -38,6 +38,8 @@ static ReportDateType *yearly;
   if ( ! self) return nil;
   
   _name = [name copy];
+
+  _codeLetter = [[_name substringToIndex:1] copy];
   
   return self;
 }

@@ -1,4 +1,6 @@
 #import <SenTestingKit/SenTestingKit.h>
+#import "ReportCategory.h"
+#import "ReportDateType.h"
 #import "ReportFilenamePattern.h"
 
 
@@ -18,16 +20,16 @@
 {
   dailyReportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:@"81234567"
                                                                     reportType:kReportTypeSales
-                                                                 reportSubType:kReportSubtypeSummary
-                                                                   andDateType:kDateTypeDaily];
+                                                                reportDateType:[ReportDateType daily]
+                                                              andReportSubType:kReportSubtypeSummary];
   weeklyReportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:@"81234567"
                                                                      reportType:kReportTypeSales
-                                                                  reportSubType:kReportSubtypeSummary
-                                                                    andDateType:kDateTypeWeekly];
+                                                                 reportDateType:[ReportDateType weekly]
+                                                               andReportSubType:kReportSubtypeSummary];
   yearlyReportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:@"81234567"
                                                                      reportType:kReportTypeSales
-                                                                  reportSubType:kReportSubtypeSummary
-                                                                    andDateType:KDateTypeYearly];
+                                                                 reportDateType:[ReportDateType yearly]
+                                                               andReportSubType:kReportSubtypeSummary];
 }
 
 
