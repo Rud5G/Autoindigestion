@@ -84,68 +84,36 @@ NSString *const kReportTypeSales = @"Sales";
 }
 
 
-- (BOOL)isDaily;
-{
-  return [ReportDateType daily] == _reportDateType;
-}
-
-
-- (BOOL)isWeekly;
-{
-  return [ReportDateType weekly] == _reportDateType;
-}
-
-
 - (BOOL)isValidReportDate:(NSDate *)date;
 {
   NSDate *invalidReportDate = _today;
-  if ([self isYearly]) {
+  if ([ReportDateType yearly] == _reportDateType) {
     invalidReportDate = [[NSCalendar POSIXCalendar] previousNewYearsDayForDate:_today];
   }
   return [date isLessRecentThanDate:invalidReportDate];
 }
 
 
-- (BOOL)isYearly;
-{
-  return [ReportDateType yearly] == _reportDateType;
-}
-
-
 - (NSArray *)missingReportDates:(NSArray *)filenames;
 {
-  NSDate *startingReportDate = [_reportDateType oldestReportDateBeforeDate:_today];
+  NSDate *firstDate = [_reportDateType oldestReportDateBeforeDate:_today];
   ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
                                                                                       reportType:_reportType
                                                                                   reportDateType:_reportDateType
                                                                                 andReportSubType:_reportSubtype];
-  NSDate *mostRecentExistingReportDate = [reportFilenamePattern mostRecentReportDateFromFilenames:filenames];
-  if (mostRecentExistingReportDate) {
-    if ([mostRecentExistingReportDate isMoreRecentThanDate:startingReportDate]) {
-      startingReportDate = [self nextReportDateAfterReportDate:mostRecentExistingReportDate];
-    }
+  NSDate *mostRecentDate = [reportFilenamePattern mostRecentReportDateFromFilenames:filenames];
+  if ([mostRecentDate isMoreRecentThanDate:firstDate]) {
+    firstDate = ([_reportDateType nextReportDateAfterDate:mostRecentDate]);
   }
   
   NSMutableArray *missingReportDates = [NSMutableArray array];
-  NSDate *missingReportDate = startingReportDate;
+  NSDate *missingReportDate = firstDate;
   while ([self isValidReportDate:missingReportDate]) {
     [missingReportDates addObject:missingReportDate];
-    missingReportDate = [self nextReportDateAfterReportDate:missingReportDate];
+    missingReportDate = ([_reportDateType nextReportDateAfterDate:missingReportDate]);
   }
   
   return missingReportDates;
-}
-
-
-- (NSDate *)nextReportDateAfterReportDate:(NSDate *)reportDate;
-{
-  if ([self isDaily]) {
-    return [[NSCalendar POSIXCalendar] nextDayForDate:reportDate];
-  } else if ([self isWeekly]) {
-    return [[NSCalendar POSIXCalendar] nextWeekForDate:reportDate];
-  } else {
-    return [[NSCalendar POSIXCalendar] nextYearForDate:reportDate];
-  }
 }
 
 
