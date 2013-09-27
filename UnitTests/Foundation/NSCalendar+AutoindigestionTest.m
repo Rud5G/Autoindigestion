@@ -51,7 +51,7 @@
 {
   NSDate *nextDay = [_calendar nextDayForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  STAssertEqualObjects([self date:@"5/23/2012 08:30:12"], nextDay, nil);
+  STAssertEqualObjects([self date:@"5/23/2012 00:00:0"], nextDay, nil);
 }
 
 
@@ -59,7 +59,7 @@
 {
   NSDate *nextWeek = [_calendar nextWeekForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  STAssertEqualObjects([self date:@"5/29/2012 08:30:12"], nextWeek, nil);
+  STAssertEqualObjects([self date:@"5/29/2012 00:00:00"], nextWeek, nil);
 }
 
 
@@ -67,7 +67,7 @@
 {
   NSDate *nextYear = [_calendar nextYearForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  STAssertEqualObjects([self date:@"5/22/2013 08:30:12"], nextYear, nil);
+  STAssertEqualObjects([self date:@"5/22/2013 00:00:00"], nextYear, nil);
 }
 
 
@@ -75,7 +75,7 @@
 {
   NSDate *previousDay = [_calendar previousDayForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  STAssertEqualObjects([self date:@"5/21/2012 08:30:12"], previousDay, nil);
+  STAssertEqualObjects([self date:@"5/21/2012 00:00:00"], previousDay, nil);
 }
 
 
@@ -107,7 +107,7 @@
 {
   NSDate *twoWeeksAgo = [_calendar twoWeeksAgoForDate:[self date:@"5/22/2012 08:30:12"]];
   
-  STAssertEqualObjects([self date:@"5/8/2012 08:30:12"], twoWeeksAgo, nil);
+  STAssertEqualObjects([self date:@"5/8/2012 00:00:00"], twoWeeksAgo, nil);
 }
 
 

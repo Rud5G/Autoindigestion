@@ -13,7 +13,7 @@
 
 - (NSDate *)nextYearForDate:(NSDate *)date;
 
-+ (NSCalendar *)posixCalendar;
++ (NSCalendar *)POSIXCalendar;
 
 - (NSDate *)previousDayForDate:(NSDate *)date;
 
@@ -24,6 +24,8 @@
 - (NSDate *)thirteenSundaysAgoForDate:(NSDate *)date;
 
 - (NSDate *)twoWeeksAgoForDate:(NSDate *)date;
+
+- (NSDateComponents *)yearMonthDayForDate:(NSDate *)date;
 
 - (NSDate *)zeroOutTimeForDate:(NSDate *)date;
 

@@ -46,7 +46,7 @@ static dispatch_once_t posixCalendarOnce;
   NSDateComponents *tomorrow = [[NSDateComponents alloc] init];
   [tomorrow setDay:1];
   return [self dateByAddingComponents:tomorrow
-                               toDate:date
+                               toDate:[self zeroOutTimeForDate:date]
                               options:0];
 }
 
@@ -56,7 +56,7 @@ static dispatch_once_t posixCalendarOnce;
   NSDateComponents *nextWeek = [[NSDateComponents alloc] init];
   [nextWeek setWeek:1];
   return [self dateByAddingComponents:nextWeek
-                               toDate:date
+                               toDate:[self zeroOutTimeForDate:date]
                               options:0];
 }
 
@@ -66,12 +66,12 @@ static dispatch_once_t posixCalendarOnce;
   NSDateComponents *nextYear = [[NSDateComponents alloc] init];
   [nextYear setYear:1];
   return [self dateByAddingComponents:nextYear
-                               toDate:date
+                               toDate:[self zeroOutTimeForDate:date]
                               options:0];
 }
 
 
-+ (NSCalendar *)posixCalendar;
++ (NSCalendar *)POSIXCalendar;
 {
   dispatch_once(&posixCalendarOnce, ^{
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
@@ -87,19 +87,14 @@ static dispatch_once_t posixCalendarOnce;
   NSDateComponents *yesterday = [[NSDateComponents alloc] init];
   [yesterday setDay:-1];
   return [self dateByAddingComponents:yesterday
-                               toDate:date
+                               toDate:[self zeroOutTimeForDate:date]
                               options:0];
 }
 
 
 - (NSDate *)previousNewYearsDayForDate:(NSDate *)date;
 {
-  NSCalendarUnit yearMonthDayUnits = NSYearCalendarUnit
-                                   | NSMonthCalendarUnit
-                                   | NSDayCalendarUnit;
-  NSDateComponents *dateComponents = [self components:yearMonthDayUnits
-                                             fromDate:date];
-  
+  NSDateComponents *dateComponents = [self yearMonthDayForDate:date];
   [dateComponents setMonth:1];
   [dateComponents setDay:1];
   return [self dateFromComponents:dateComponents];
@@ -108,12 +103,7 @@ static dispatch_once_t posixCalendarOnce;
 
 - (NSDate *)previousSundayForDate:(NSDate *)date;
 {
-  NSCalendarUnit yearMonthDayUnits = NSYearCalendarUnit
-                                   | NSMonthCalendarUnit
-                                   | NSDayCalendarUnit;
-  NSDateComponents *dateComponents = [self components:yearMonthDayUnits
-                                             fromDate:date];
-
+  NSDateComponents *dateComponents = [self yearMonthDayForDate:date];
   NSRange range = [self rangeOfUnit:NSDayCalendarUnit
                              inUnit:NSWeekCalendarUnit
                             forDate:date];
@@ -137,23 +127,24 @@ static dispatch_once_t posixCalendarOnce;
 
 - (NSDate *)twoWeeksAgoForDate:(NSDate *)date;
 {
-  NSDateComponents *twoWeeksAgo = [[NSDateComponents alloc] init];
-  [twoWeeksAgo setDay:-14];
-  return [self dateByAddingComponents:twoWeeksAgo
-                               toDate:date
-                              options:0];
+  NSDateComponents *dateComponents = [self yearMonthDayForDate:date];
+  [dateComponents setDay:[dateComponents day] - 14];
+  return [self dateFromComponents:dateComponents];
+}
+
+
+- (NSDateComponents *)yearMonthDayForDate:(NSDate *)date;
+{
+  NSCalendarUnit yearMonthDayUnits = NSYearCalendarUnit
+                                   | NSMonthCalendarUnit
+                                   | NSDayCalendarUnit;
+  return [self components:yearMonthDayUnits fromDate:date];
 }
 
 
 - (NSDate *)zeroOutTimeForDate:(NSDate *)date;
 {
-  NSCalendarUnit yearMonthDayUnits = NSYearCalendarUnit
-                                   | NSMonthCalendarUnit
-                                   | NSDayCalendarUnit;
-  NSDateComponents *dateComponents = [self components:yearMonthDayUnits
-                                             fromDate:date];
-
-  return [self dateFromComponents:dateComponents];
+  return [self dateFromComponents:[self yearMonthDayForDate:date]];
 }
 
 

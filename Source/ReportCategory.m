@@ -69,7 +69,7 @@ NSString *const kReportTypeSales = @"Sales";
   _fileMode = [_defaults fileMode];
   _group = [_vendor group];
   _owner = [_vendor owner];
-  _today = [[NSCalendar posixCalendar] zeroOutTimeForDate:_date];
+  _today = [[NSCalendar POSIXCalendar] zeroOutTimeForDate:_date];
 
   if (   [kReportTypeSales isEqualToString:_reportType]
       && [kReportSubtypeOptIn isEqualToString:_reportSubtype])
@@ -100,7 +100,7 @@ NSString *const kReportTypeSales = @"Sales";
 {
   NSDate *invalidReportDate = _today;
   if ([self isYearly]) {
-    invalidReportDate = [[NSCalendar posixCalendar] previousNewYearsDayForDate:_today];
+    invalidReportDate = [[NSCalendar POSIXCalendar] previousNewYearsDayForDate:_today];
   }
   return [date isLessRecentThanDate:invalidReportDate];
 }
@@ -114,7 +114,7 @@ NSString *const kReportTypeSales = @"Sales";
 
 - (NSArray *)missingReportDates:(NSArray *)filenames;
 {
-  NSDate *startingReportDate = [self startingReportDate];
+  NSDate *startingReportDate = [_reportDateType oldestReportDateBeforeDate:_today];
   ReportFilenamePattern *reportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:[_vendor vendorID]
                                                                                       reportType:_reportType
                                                                                   reportDateType:_reportDateType
@@ -140,11 +140,11 @@ NSString *const kReportTypeSales = @"Sales";
 - (NSDate *)nextReportDateAfterReportDate:(NSDate *)reportDate;
 {
   if ([self isDaily]) {
-    return [[NSCalendar posixCalendar] nextDayForDate:reportDate];
+    return [[NSCalendar POSIXCalendar] nextDayForDate:reportDate];
   } else if ([self isWeekly]) {
-    return [[NSCalendar posixCalendar] nextWeekForDate:reportDate];
+    return [[NSCalendar POSIXCalendar] nextWeekForDate:reportDate];
   } else {
-    return [[NSCalendar posixCalendar] nextYearForDate:reportDate];
+    return [[NSCalendar POSIXCalendar] nextYearForDate:reportDate];
   }
 }
 
@@ -165,18 +165,6 @@ NSString *const kReportTypeSales = @"Sales";
     if ( ! created) {
       [_monitor exitOnFailureWithError:error];
     }
-  }
-}
-
-
-- (NSDate *)startingReportDate;
-{
-  if ([self isDaily]) {
-    return [[NSCalendar posixCalendar] twoWeeksAgoForDate:_today];
-  } else if ([self isWeekly]) {
-    return [[NSCalendar posixCalendar] thirteenSundaysAgoForDate:_today];
-  } else {
-    return [[NSCalendar posixCalendar] fiveNewYearsDaysAgoForDate:_today];
   }
 }
 

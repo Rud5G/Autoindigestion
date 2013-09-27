@@ -52,7 +52,7 @@ NSString *const kRegularExpressionError = @"Regular Expression Error";
   NSArray *reportDateStrings = [self reportDateStringsFromFilenames:filenames];
   if ([reportDateStrings count]) {
     NSString *mostRecentReportDateString = [reportDateStrings lastObject];
-    return [[NSCalendar posixCalendar] dateFromReportDateString:mostRecentReportDateString];
+    return [[NSCalendar POSIXCalendar] dateFromReportDateString:mostRecentReportDateString];
   } else {
     return nil;
   }

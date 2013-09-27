@@ -8,6 +8,8 @@
 
 + (instancetype)daily;
 
+- (NSDate *)oldestReportDateBeforeDate:(NSDate *)date;
+
 + (instancetype)weekly;
 
 + (instancetype)yearly;
