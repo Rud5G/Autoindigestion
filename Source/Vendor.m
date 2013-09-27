@@ -7,6 +7,7 @@
 #import "Monitor.h"
 #import "NSObject+Autoindigestion.h"
 #import "ReportCategory.h"
+#import "ReportDateType.h"
 #import "User.h"
 #import "VendorFile.h"
 
@@ -94,8 +95,8 @@
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
+                                                           reportDateType:[ReportDateType weekly]
                                                             reportSubtype:kReportSubtypeOptIn
-                                                                 dateType:kDateTypeWeekly
                                                                   andDate:_date];
     [_reportCategories addObject:weeklyOptIn];
   }
@@ -106,8 +107,8 @@
                                                               autoingestion:autoingestion
                                                                      vendor:self
                                                                  reportType:kReportTypePreOrder
+                                                             reportDateType:[ReportDateType daily]
                                                               reportSubtype:kReportSubtypeSummary
-                                                                   dateType:kDateTypeDaily
                                                                     andDate:_date];
     [_reportCategories addObject:dailyPreOrder];
 
@@ -116,8 +117,8 @@
                                                                autoingestion:autoingestion
                                                                       vendor:self
                                                                   reportType:kReportTypePreOrder
+                                                              reportDateType:[ReportDateType weekly]
                                                                reportSubtype:kReportSubtypeSummary
-                                                                    dateType:kDateTypeWeekly
                                                                      andDate:_date];
     [_reportCategories addObject:weeklyPreOrder];
   }
@@ -128,8 +129,8 @@
                                                            autoingestion:autoingestion
                                                                   vendor:self
                                                               reportType:kReportTypeSales
+                                                          reportDateType:[ReportDateType daily]
                                                            reportSubtype:kReportSubtypeSummary
-                                                                dateType:kDateTypeDaily
                                                                  andDate:_date];
     [_reportCategories addObject:dailySales];
 
@@ -138,8 +139,8 @@
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
+                                                           reportDateType:[ReportDateType weekly]
                                                             reportSubtype:kReportSubtypeSummary
-                                                                 dateType:kDateTypeWeekly
                                                                   andDate:_date];
     [_reportCategories addObject:weeklySales];
 
@@ -148,8 +149,8 @@
                                                             autoingestion:autoingestion
                                                                    vendor:self
                                                                reportType:kReportTypeSales
+                                                           reportDateType:[ReportDateType yearly]
                                                             reportSubtype:kReportSubtypeSummary
-                                                                 dateType:KDateTypeYearly
                                                                   andDate:_date];
     [_reportCategories addObject:yearlySales];
   }

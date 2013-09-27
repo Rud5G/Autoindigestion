@@ -7,6 +7,7 @@
 #import "Monitor.h"
 #import "NSCalendar+Autoindigestion.h"
 #import "NSDate+Autoindigestion.h"
+#import "ReportDateType.h"
 #import "ReportFilenamePattern.h"
 #import "User.h"
 #import "Vendor.h"
@@ -51,8 +52,8 @@ NSString *const kReportTypeSales = @"Sales";
         autoingestion:(Autoingestion *)autoingestion
                vendor:(Vendor *)vendor
            reportType:(NSString *)reportType
+       reportDateType:(ReportDateType *)reportDateType
         reportSubtype:(NSString *)reportSubtype
-             dateType:(NSString *)dateType
               andDate:(NSDate *)date;
 {
   self = [super init];
@@ -60,9 +61,10 @@ NSString *const kReportTypeSales = @"Sales";
 
   _autoingestion = autoingestion;
   _date = date;
-  _dateType = dateType;
+  _dateType = [reportDateType name];
   _defaults = defaults;
   _monitor = monitor;
+  _reportDateType = reportDateType;
   _reportSubtype = reportSubtype;
   _reportType = reportType;
   _vendor = vendor;
@@ -87,13 +89,13 @@ NSString *const kReportTypeSales = @"Sales";
 
 - (BOOL)isDaily;
 {
-  return [kDateTypeDaily isEqualToString:_dateType];
+  return [ReportDateType daily] == _reportDateType;
 }
 
 
 - (BOOL)isWeekly;
 {
-  return [kDateTypeWeekly isEqualToString:_dateType];
+  return [ReportDateType weekly] == _reportDateType;
 }
 
 
@@ -109,7 +111,7 @@ NSString *const kReportTypeSales = @"Sales";
 
 - (BOOL)isYearly;
 {
-  return [KDateTypeYearly isEqualToString:_dateType];
+  return [ReportDateType yearly] == _reportDateType;
 }
 
 

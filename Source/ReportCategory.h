@@ -4,6 +4,7 @@
 @class Autoingestion;
 @class Defaults;
 @class Group;
+@class ReportDateType;
 @class User;
 @class Vendor;
 
@@ -29,6 +30,7 @@ extern NSString *const kReportTypeSales;
 @property (readonly) Group *group;
 @property (readonly, weak) id<Monitor> monitor;
 @property (readonly) User *owner;
+@property (readonly) ReportDateType *reportDateType;
 @property (readonly) NSString *reportDir;
 @property (readonly) NSString *reportSubtype;
 @property (readonly) NSString *reportType;
@@ -42,8 +44,8 @@ extern NSString *const kReportTypeSales;
         autoingestion:(Autoingestion *)autoingestion
                vendor:(Vendor *)vendor
            reportType:(NSString *)reportType
+       reportDateType:(ReportDateType *)reportDateType
         reportSubtype:(NSString *)reportSubtype
-             dateType:(NSString *)dateType
               andDate:(NSDate *)date;
 
 - (BOOL)isDaily;

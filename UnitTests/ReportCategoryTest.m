@@ -1,5 +1,6 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "ReportCategory.h"
+#import "ReportDateType.h"
 
 
 @interface ReportCategoryTest : SenTestCase
@@ -23,24 +24,24 @@
                                                    autoingestion:nil
                                                           vendor:nil
                                                       reportType:kReportTypeSales
+                                                  reportDateType:[ReportDateType daily]
                                                    reportSubtype:kReportSubtypeSummary
-                                                        dateType:kDateTypeDaily
                                                          andDate:_date];
   _weeklyReportCategory = [[ReportCategory alloc] initWithMonitor:nil
                                                          defaults:nil
                                                     autoingestion:nil
                                                            vendor:nil
                                                        reportType:kReportTypeSales
+                                                   reportDateType:[ReportDateType weekly]
                                                     reportSubtype:kReportSubtypeSummary
-                                                         dateType:kDateTypeWeekly
                                                           andDate:_date];
   _yearlyReportCategory = [[ReportCategory alloc] initWithMonitor:nil
                                                          defaults:nil
                                                     autoingestion:nil
                                                            vendor:nil
                                                        reportType:kReportTypeSales
+                                                   reportDateType:[ReportDateType yearly]
                                                     reportSubtype:kReportSubtypeSummary
-                                                         dateType:KDateTypeYearly
                                                           andDate:_date];
 }
 
