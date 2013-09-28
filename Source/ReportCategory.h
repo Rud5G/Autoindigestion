@@ -21,7 +21,6 @@ extern NSString *const kReportTypeSales;
 
 @property (readonly) Autoingestion *autoingestion;
 @property (readonly) NSDate *date;
-@property (readonly) NSString *dateType;
 @property (readonly) Defaults *defaults;
 @property (readonly) NSNumber *fileMode;
 @property (readonly) Group *group;

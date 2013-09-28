@@ -4,6 +4,7 @@
 #import "AutoingestionResponse.h"
 #import "Monitor.h"
 #import "ReportCategory.h"
+#import "ReportDateType.h"
 #import "Vendor.h"
 
 
@@ -40,7 +41,7 @@
   NSString *reportDateString = [dateFormatter stringFromDate:_reportDate];
   _description = [NSString stringWithFormat:@"%@ %@ %@ Report for %@",
                                             reportDateString,
-                                            [_reportCategory dateType],
+                                            [[_reportCategory reportDateType] name],
                                             [_reportCategory reportType],
                                             [vendor vendorName]];
   
@@ -70,7 +71,7 @@
       credentialsFilePath,
       [vendor vendorID],
       [_reportCategory reportType],
-      [_reportCategory dateType],
+      [[_reportCategory reportDateType] name],
       [_reportCategory reportSubtype],
       argumentDateString,
   ];

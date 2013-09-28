@@ -58,7 +58,6 @@ NSString *const kReportTypeSales = @"Sales";
 
   _autoingestion = autoingestion;
   _date = date;
-  _dateType = [reportDateType name];
   _defaults = defaults;
   _monitor = monitor;
   _reportDateType = reportDateType;
@@ -77,7 +76,7 @@ NSString *const kReportTypeSales = @"Sales";
     _reportDir = [[_vendor reportDir] stringByAppendingPathComponent:_reportSubtype];
   } else {
     NSString *reportTypeDir = [[_vendor reportDir] stringByAppendingPathComponent:_reportType];
-    _reportDir = [reportTypeDir stringByAppendingPathComponent:_dateType];
+    _reportDir = [reportTypeDir stringByAppendingPathComponent:[_reportDateType name]];
   }
 
   return self;
