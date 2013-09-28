@@ -202,8 +202,6 @@
 		D4A7718915A380E400CEC757 /* Vendor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vendor.m; sourceTree = "<group>"; };
 		D4A7718A15A380E400CEC757 /* VendorFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorFile.h; sourceTree = "<group>"; };
 		D4A7718B15A380E400CEC757 /* VendorFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorFile.m; sourceTree = "<group>"; };
-		D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCategoryTest.m; sourceTree = "<group>"; };
-		D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateTypeTest.m; sourceTree = "<group>"; };
 		D4B2473F1752F3D20027339C /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
 		D4B247401752F3D20027339C /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
 		D4B247411752F4860027339C /* download_autoingest_tool */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = download_autoingest_tool; sourceTree = "<group>"; };
@@ -212,6 +210,8 @@
 		D4B2474D175302740027339C /* welcome.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
 		D4B24757175302F10027339C /* InstallerSplashScreen01a.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = InstallerSplashScreen01a.psd; sourceTree = "<group>"; };
 		D4B2475B1755C19F0027339C /* conclusion.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = conclusion.html; sourceTree = "<group>"; };
+		D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCategoryTest.m; sourceTree = "<group>"; };
+		D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateTypeTest.m; sourceTree = "<group>"; };
 		D4EDA1D215DB1D950084B460 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponseTest.m; sourceTree = "<group>"; };
