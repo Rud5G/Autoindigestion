@@ -19,46 +19,46 @@ System Requirements
 Autoindigestion is developed on Mac OS X 10.8 Mountain Lion using Xcode 5.0.
 It is a modern Objective-C command line tool.  The current distribution is 
 source only, so a Mac running Mountain Lion with Xcode installed is required.
+The Xcode project now includes a target for building a standard Mac installer
+package.  (A pre-built, signed installer package is planned for the future.)
+
 Autoindigestion also depends on Apple's Auto-Ingest tool, a Java class 
 available from Apple at 
-[http://www.apple.com/itunesnews/docs/Autoingestion.class.zip][1].  Java is 
-needed to run the Auto-Ingest tool, but is no longer installed on Mac OS X by
-default.  You can download the latest Java installer from Apple at
-[http://support.apple.com/downloads/#Java][2].
+[http://www.apple.com/itunesnews/docs/Autoingestion.class.zip][1].  The 
+installer package will automatically download the latest version of the 
+Auto-Ingest tool from Apple.  Java is needed to run the Auto-Ingest tool, but 
+is no longer installed on Mac OS X by default.  You can download the latest 
+Java installer from Apple at [http://support.apple.com/downloads/#Java][2].
 
 Installation
 ------------
 After downloading the source, open Autoindigestion.xcodeproj in Xcode then
-build the project by choosing _Product | Archive_ from the menu.  When building
-is complete, the _Organizer - Archives_ window will open.  Click on the 
-_Distribute..._ button, choose the _Save Build Products_ option from the
-dialog and click _Next_.  Save the build products when prompted.  Xcode will
-suggest a build products directory name like `"Autoindigestion 7-6-12 2.35 PM"` 
-located in the Autoindigestion project directory by default.
+build the installer package by selecting the Installer scheme in the
+_Product | Scheme_ menu, then choosing _Product | Build_ or _Product | Run_.
+If you run the Installer scheme from Xcode, the Autoindigestion installer will
+launch automatically after it is built.  To locate the built installer package,
+right click on the `Autoindigestion.pkg` entry in the Xcode project and select
+_Show in Finder_.
 
-Create the `"Autoindigestion"` directory under `"/Library"`.
+Manual Installation and Removal
+-------------------------------
+The Autoindigestion installer creates the following directories and files:
 
-Unzip the Auto-Ingest tool file `"Autoingestion.class.zip"` and copy 
-`"Autoingestion.class"` to `"/Library/Autoindigestion"`.
+  - `"/Library/Autoindigestion/Autoindigestion"`
+  - `"/Library/Autoindigestion/Autoingestion.class"`
+  - `"/Library/Autoindigestion/Vendors/ExampleVendor.plist"`
+  - `"/Library/LaunchDaemons/Autoindigestion.plist"`
+  - `"/usr/local/share/man/man1/Autoindigestion.1"`
+  - `"/usr/local/share/man/man5/Autoindigestion.5"`
 
-The Autoindigestion executable is located in the build products directory at
-`"<build products>/usr/local/bin/Autoindigestion"`.  Copy it to
-`"Library/Autoindigestion"`.
-
-Optionally copy the man pages to your local man directories.  Copy 
-`"Documentation/Autoindigestion.1"` to 
-`"/usr/local/share/man/man1/Autoindigestion.1"` and 
-`"Documentation/Autoindigestion.5"` to
-`"/usr/local/share/man/man5/Autoindigestion.5"`.  You will need to create the
-`"/usr/local/share/man/man1"` and `"/usr/local/share/man/man5"` directories if 
-they don't exist.  Once in place, run the commands `man Autoindigestion` and 
-`man 5 Autoindigestion` to read the respective man pages.
+In addition, the installer creates a temporary directory named
+`"/tmp/com.ablepear.autoindigestion.installer/"` and will remove it when 
+installation is completed under normal circumstances.
 
 Configuration
 -------------
-Create the `"Vendors"` directory under `"/Library/Autoindigestion"`.  Create
-at least one vendor file.  A vendor filename must end in `".plist"`.  Here is a
-sample vendor file:
+Create at least one vendor file in `"/Library/Autoindigestion/Vendors"`.  A
+vendor filename must end in `".plist"`.  Here is a sample vendor file:
     
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
@@ -78,17 +78,19 @@ sample vendor file:
         <string>itsasecret</string>
     </dict>
     </plist>
-The vendor ID is available in iTunes Connect on the "Sales and Trends" page or
-can be found in an existing sales report.  For security, do **not** use the 
-username and password of your iTunes Connect Admin user in the vendor file!
-Create a separate iTunes Connect user limited to the Sales role for use with 
-Autoindigestion.  For additional security, run `chmod 600 "<vendor file>"` 
-and `sudo chown root:admin "<vendor file>"` on each vendor file you create.
+The installer will create a similar one at
+`"/Library/Autoindigestion/Vendors/ExampleVendor.plist"`.  The vendor ID is
+available in iTunes Connect on the "Sales and Trends" page or can be found in
+an existing sales report.  For security, do **not** use the  username and
+password of your iTunes Connect Admin user in the vendor file!  Create a
+separate iTunes Connect user limited to the Sales role for use with
+Autoindigestion.  For additional security, run `chmod 600 "<vendor file>"` and
+`sudo chown root:admin "<vendor file>"` on each vendor file you create.
 
-To run Autoindigestion automatically each day at a specific time, create a 
-launchd item at `"/Library/LaunchDaemons/Autoindigestion.plist"`.  Here is a 
-sample launchd item that runs at 8:30 AM in the morning and again at 1030 PM in 
-the evening:
+The installer creates and loads a launchd item at
+`"/Library/LaunchDaemons/Autoindigestion.plist"` that will run Autoindigestion
+automatically each day.  Here is a sample launchd item that runs at 8:30 AM in
+the morning and again at 1030 PM in the evening:
     
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
@@ -129,8 +131,11 @@ You may want to adjust the run time based on your time zone.  iTunes Connect
 reports are usually available around 0700 Cupertino time (UTC -0800 or -0700
 in summer) but are occasionally delayed a few hours.
 
-After creating the launchd item, tell launchd to load it by running 
-`sudo launchctl load "/Library/LaunchDaemons/Autoindigestion.plist"`.
+After creating or modifying the launchd item, tell launchd to load it by
+running `sudo launchctl load "/Library/LaunchDaemons/Autoindigestion.plist"`.
+
+To disable Autoindigestion, run
+`sudo launchctl unload "/Library/LaunchDaemons/Autoindigestion.plist"`.
 
 Downloaded reports for each vendor will be placed in
 `"/Users/Shared/iTunes Connect/<VendorName>"` respectively, where `<VendorName>`
