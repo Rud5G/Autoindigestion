@@ -62,11 +62,11 @@ static NSString *responseSummaryFromResponseText(NSString *responseText);
                                 encoding:NSUTF8StringEncoding];
 
   _code = responseCodeFromResponseText(_text);
-  _summary = responseSummaryFromResponseText(_text);
+  _summary = [responseSummaryFromResponseText(_text) copy];
   _success = (AutoingestionResponseCodeSuccess == _code);
 
   if (_success) {
-    _filename = filenameFromResponseText(_text);
+    _filename = [filenameFromResponseText(_text) copy];
   }
 
   if (   AutoingestionResponseCodeUnknownHostException == _code

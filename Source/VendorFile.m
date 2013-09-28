@@ -27,13 +27,13 @@
 
   _disabled = configuration[kDisabledKey];
   _optInReportsEnabled = configuration[kOptInReportsEnabledKey];
-  _password = configuration[kPasswordKey];
+  _password = [configuration[kPasswordKey] copy];
   _preOrderReportsEnabled = configuration[kPreOrderReportsEnabledKey];
-  _reportDir = configuration[kReportDirKey];
+  _reportDir = [configuration[kReportDirKey] copy];
   _salesReportsDisabled = configuration[kSalesReportsDisabledKey];
-  _username = configuration[kUsernameKey];
-  _vendorID = configuration[kVendorIDKey];
-  _vendorName = configuration[kVendorNameKey];
+  _username = [configuration[kUsernameKey] copy];
+  _vendorID = [configuration[kVendorIDKey] copy];
+  _vendorName = [configuration[kVendorNameKey] copy];
 
   NSString *format = @"Configuration file \"%@\" is missing required key %@";
   if ( ! _password) [monitor warningWithFormat:format, _path, kPasswordKey];

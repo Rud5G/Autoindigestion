@@ -3,7 +3,7 @@
 
 @protocol Monitor <NSObject>
 
-@property (readonly) NSString *command;
+@property (readonly, copy) NSString *command;
 
 - (void)exitOnFailureWithError:(NSError *)error;
 

@@ -54,8 +54,8 @@
     return self;
   }
   
-  _credentialsFilePath = [[[vendorFile path] stringByDeletingPathExtension]
-                              stringByAppendingPathExtension:@"properties"];
+  _credentialsFilePath = [[[[vendorFile path] stringByDeletingPathExtension]
+                              stringByAppendingPathExtension:@"properties"] copy];
   
   _group = [NSObject firstValueForKey:kGroupKey
                           fromObjects:vendorFile, configurationFile, defaults, nil];
@@ -63,10 +63,10 @@
                           fromObjects:vendorFile, configurationFile, defaults, nil];
   _fileMode = [defaults fileMode];
 
-  _password = [vendorFile password];
-  _username = [vendorFile username];
-  _vendorID = [vendorFile vendorID];
-  _vendorName = [vendorFile vendorName];
+  _password = [[vendorFile password] copy];
+  _username = [[vendorFile username] copy];
+  _vendorID = [[vendorFile vendorID] copy];
+  _vendorName = [[vendorFile vendorName] copy];
 
   NSNumber *disabledNumber = [NSObject firstValueForKey:kDisabledKey
                                             fromObjects:vendorFile, defaults, nil];
@@ -84,9 +84,9 @@
                                                         fromObjects:vendorFile, defaults, nil];
   _salesReportsDisabled = [salesReportsDisabledNumber boolValue];
 
-  _reportDir = [vendorFile reportDir];
+  _reportDir = [[vendorFile reportDir] copy];
   if ( ! _reportDir) {
-    _reportDir = [[defaults reportRoot] stringByAppendingPathComponent:_vendorName];
+    _reportDir = [[[defaults reportRoot] stringByAppendingPathComponent:_vendorName] copy];
   }
 
   if (_optInReportsEnabled) {

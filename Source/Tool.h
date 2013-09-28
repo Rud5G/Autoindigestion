@@ -18,8 +18,8 @@
 @property (readonly) Group *group;
 @property (readonly, weak) id<Monitor> monitor;
 @property (readonly) User *owner;
-@property (readonly) NSString *reportRoot;
-@property (readonly) NSMutableArray *vendors;
+@property (readonly, copy) NSString *reportRoot;
+@property (readonly, copy) NSMutableArray *vendors;
 
 - (void)cleanUp;
 

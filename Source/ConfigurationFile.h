@@ -11,10 +11,10 @@
 
 @interface ConfigurationFile : NSObject
 
-@property (readonly) NSString *autoingestionClass;
+@property (readonly, copy) NSString *autoingestionClass;
 @property (readonly) Group *group;
 @property (readonly) User *owner;
-@property (readonly) NSString *vendorsDir;
+@property (readonly, copy) NSString *vendorsDir;
 
 - (id)initWithMonitor:(id <Monitor>)monitor
              defaults:(Defaults *)defaults

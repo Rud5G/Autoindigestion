@@ -46,7 +46,7 @@
                           fromObjects:configurationFile, defaults, nil];
   _owner = [NSObject firstValueForKey:kOwnerKey
                           fromObjects:configurationFile, defaults, nil];
-  _reportRoot = [defaults reportRoot];
+  _reportRoot = [[defaults reportRoot] copy];
 
   NSString *vendorsDir = [NSObject firstValueForKey:kVendorsDirKey
                                         fromObjects:options, configurationFile, defaults, nil];

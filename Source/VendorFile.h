@@ -12,14 +12,14 @@
 @property (readonly) Group *group;
 @property (readonly) User *owner;
 @property (readonly) NSNumber *optInReportsEnabled;
-@property (readonly) NSString *password;
-@property (readonly) NSString *path;
+@property (readonly, copy) NSString *password;
+@property (readonly, copy) NSString *path;
 @property (readonly) NSNumber *preOrderReportsEnabled;
-@property (readonly) NSString *reportDir;
+@property (readonly, copy) NSString *reportDir;
 @property (readonly) NSNumber *salesReportsDisabled;
-@property (readonly) NSString *username;
-@property (readonly) NSString *vendorID;
-@property (readonly) NSString *vendorName;
+@property (readonly, copy) NSString *username;
+@property (readonly, copy) NSString *vendorID;
+@property (readonly, copy) NSString *vendorName;
 
 - (id)initWithMonitor:(id <Monitor>)monitor
               andPath:(NSString *)vendorFile;

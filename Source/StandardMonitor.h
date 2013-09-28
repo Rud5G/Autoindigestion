@@ -4,7 +4,7 @@
 
 @interface StandardMonitor : NSObject <Monitor>
 
-@property (readonly) NSString *command;
+@property (readonly, copy) NSString *command;
 @property (readonly) NSDateFormatter *dateFormatter;
 
 - (id)initWithArgumentList:(char *[])argv;

@@ -61,8 +61,8 @@ NSString *const kReportTypeSales = @"Sales";
   _defaults = defaults;
   _monitor = monitor;
   _reportDateType = reportDateType;
-  _reportSubtype = reportSubtype;
-  _reportType = reportType;
+  _reportSubtype = [reportSubtype copy];
+  _reportType = [reportType copy];
   _vendor = vendor;
 
   _fileMode = [_defaults fileMode];
@@ -73,10 +73,10 @@ NSString *const kReportTypeSales = @"Sales";
   if (   [kReportTypeSales isEqualToString:_reportType]
       && [kReportSubtypeOptIn isEqualToString:_reportSubtype])
   {
-    _reportDir = [[_vendor reportDir] stringByAppendingPathComponent:_reportSubtype];
+    _reportDir = [[[_vendor reportDir] stringByAppendingPathComponent:_reportSubtype] copy];
   } else {
     NSString *reportTypeDir = [[_vendor reportDir] stringByAppendingPathComponent:_reportType];
-    _reportDir = [reportTypeDir stringByAppendingPathComponent:[_reportDateType name]];
+    _reportDir = [[reportTypeDir stringByAppendingPathComponent:[_reportDateType name]] copy];
   }
 
   return self;

@@ -26,12 +26,12 @@
     return nil;
   }
 
-  _className = [autoingestionClass lastPathComponent];
+  _className = [[autoingestionClass lastPathComponent] copy];
   if ([@"class" isEqualToString:[_className pathExtension]]) {
-    _className = [_className stringByDeletingPathExtension];
+    _className = [[_className stringByDeletingPathExtension] copy];
   }
 
-  _classPath = [autoingestionClass stringByDeletingLastPathComponent];
+  _classPath = [[autoingestionClass stringByDeletingLastPathComponent] copy];
 
   return self;
 }

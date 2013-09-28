@@ -9,8 +9,8 @@
 
 @interface Autoingestion : NSObject
 
-@property (readonly) NSString *className;
-@property (readonly) NSString *classPath;
+@property (readonly, copy) NSString *className;
+@property (readonly, copy) NSString *classPath;
 
 - (id)initWithMonitor:(id <Monitor>)monitor
              defaults:(Defaults *)defaults

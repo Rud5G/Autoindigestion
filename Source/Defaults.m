@@ -62,15 +62,15 @@ NSString *const kVendorNameKey = @"VendorName";
   NSString *userDir = userDirs[0];
   NSString *sharedDir = [userDir stringByAppendingPathComponent:@"Shared"];
 
-  _autoingestionClass = [appDir stringByAppendingPathComponent:@"Autoingestion.class"];
-  _configurationFile = [appDir stringByAppendingPathComponent:@"Configuration.plist"];
+  _autoingestionClass = [[appDir stringByAppendingPathComponent:@"Autoingestion.class"] copy];
+  _configurationFile = [[appDir stringByAppendingPathComponent:@"Configuration.plist"] copy];
   _disabled = @NO;
   _fileMode = @0775;
   _optInReportsEnabled = @NO;
   _preOrderReportsEnabled = @NO;
-  _reportRoot = [sharedDir stringByAppendingPathComponent:@"iTunes Connect"];
+  _reportRoot = [[sharedDir stringByAppendingPathComponent:@"iTunes Connect"] copy];
   _salesReportsDisabled = @NO;
-  _vendorsDir = [appDir stringByAppendingPathComponent:@"Vendors"];
+  _vendorsDir = [[appDir stringByAppendingPathComponent:@"Vendors"] copy];
 
   NSError *error;
   _group = [Group effectiveGroupWithError:&error];

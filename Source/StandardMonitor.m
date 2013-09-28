@@ -77,7 +77,7 @@ static NSString *stringWithFormatAndArguments(NSString *format, va_list argument
 
   NSString *commandPath = [NSString stringWithCString:argv[0]
                                              encoding:NSUTF8StringEncoding];
-  _command = [commandPath lastPathComponent];
+  _command = [[commandPath lastPathComponent] copy];
 
   _dateFormatter = [[NSDateFormatter alloc] init];
   [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];

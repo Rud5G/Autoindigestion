@@ -6,12 +6,12 @@
 
 @interface ReportFilenamePattern : NSObject
 
-@property (readonly) NSString *pattern;
+@property (readonly, copy) NSString *pattern;
 @property (readonly) NSRegularExpression *regularExpression;
 @property (readonly) ReportDateType *reportDateType;
-@property (readonly) NSString *reportSubType;
-@property (readonly) NSString *reportType;
-@property (readonly) NSString *vendorID;
+@property (readonly, copy) NSString *reportSubType;
+@property (readonly, copy) NSString *reportType;
+@property (readonly, copy) NSString *vendorID;
 
 - (id)initWithVendorID:(NSString *)vendorID
             reportType:(NSString *)reportType

@@ -13,7 +13,7 @@
 
 @interface Vendor : NSObject
 
-@property (readonly) NSString *credentialsFilePath;
+@property (readonly, copy) NSString *credentialsFilePath;
 @property (readonly) NSDate *date;
 @property (readonly) BOOL disabled;
 @property (readonly) NSNumber *fileMode;
@@ -21,14 +21,14 @@
 @property (weak, readonly) id<Monitor> monitor;
 @property (readonly) BOOL optInReportsEnabled;
 @property (readonly) User *owner;
-@property (readonly) NSString *password;
+@property (readonly, copy) NSString *password;
 @property (readonly) BOOL preOrderReportsEnabled;
-@property (readonly) NSString *reportDir;
-@property (readonly) NSMutableArray *reportCategories;
+@property (readonly, copy) NSString *reportDir;
+@property (readonly, copy) NSMutableArray *reportCategories;
 @property (readonly) BOOL salesReportsDisabled;
-@property (readonly) NSString *username;
-@property (readonly) NSString *vendorID;
-@property (readonly) NSString *vendorName;
+@property (readonly, copy) NSString *username;
+@property (readonly, copy) NSString *vendorID;
+@property (readonly, copy) NSString *vendorName;
 
 - (NSArray *)autoingestionJobs;
 

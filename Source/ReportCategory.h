@@ -27,9 +27,9 @@ extern NSString *const kReportTypeSales;
 @property (readonly, weak) id<Monitor> monitor;
 @property (readonly) User *owner;
 @property (readonly) ReportDateType *reportDateType;
-@property (readonly) NSString *reportDir;
-@property (readonly) NSString *reportSubtype;
-@property (readonly) NSString *reportType;
+@property (readonly, copy) NSString *reportDir;
+@property (readonly, copy) NSString *reportSubtype;
+@property (readonly, copy) NSString *reportType;
 @property (readonly) NSDate *today;
 @property (readonly, weak) Vendor *vendor;
 

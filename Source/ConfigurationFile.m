@@ -31,8 +31,8 @@
     return nil;
   }
 
-  _autoingestionClass = configuration[kAutoingestionClassKey];
-  _vendorsDir = configuration[kVendorsDirKey];
+  _autoingestionClass = [configuration[kAutoingestionClassKey] copy];
+  _vendorsDir = [configuration[kVendorsDirKey] copy];
 
   NSString *groupName = configuration[kGroupKey];
   if (groupName) {

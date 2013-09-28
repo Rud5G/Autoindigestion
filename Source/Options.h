@@ -7,11 +7,11 @@
 
 @interface Options : NSObject
 
-@property (readonly) NSString *autoingestionClass;
-@property (readonly) NSString *configurationFile;
+@property (readonly, copy) NSString *autoingestionClass;
+@property (readonly, copy) NSString *configurationFile;
 @property (readonly) Defaults *defaults;
 @property (readonly, weak) id<Monitor> monitor;
-@property (readonly) NSString *vendorsDir;
+@property (readonly, copy) NSString *vendorsDir;
 
 - (id)initWithMonitor:(id <Monitor>)theMonitor
              defaults:(Defaults *)theDefaults
