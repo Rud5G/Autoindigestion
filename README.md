@@ -32,11 +32,11 @@ Java installer from Apple at [http://support.apple.com/downloads/#Java][2].
 
 Installation
 ------------
-After downloading the source, open Autoindigestion.xcodeproj in Xcode then
-build the installer package by selecting the Installer scheme in the
+After downloading the source, open `Autoindigestion.xcodeproj` in Xcode then
+build the installer package by selecting the _Installer_ scheme in the
 _Product | Scheme_ menu, then choosing _Product | Build_ or _Product | Run_.
-If you run the Installer scheme from Xcode, the Autoindigestion installer will
-launch automatically after it is built.  To locate the built installer package,
+If you run the _Installer_ scheme from Xcode, the Autoindigestion installer will
+launch automatically after it is built.  To locate the installer package file,
 right click on the `Autoindigestion.pkg` entry in the Xcode project and select
 _Show in Finder_.
 
