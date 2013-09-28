@@ -10,17 +10,17 @@
 @implementation Autoingestion
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)monitor
-             defaults:(Defaults *)defaults
-              options:(Options *)options
- andConfigurationFile:(ConfigurationFile *)configurationFile;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                       defaults:(Defaults *)defaults
+                        options:(Options *)options
+           andConfigurationFile:(ConfigurationFile *)configurationFile;
 {
   self = [super init];
   if ( ! self) return nil;

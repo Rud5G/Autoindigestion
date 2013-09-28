@@ -34,11 +34,11 @@
 
 - (void)cleanUp;
 
-- (id)initWithMonitor:(id<Monitor>)theMonitor
-             defaults:(Defaults *)defaults
-    configurationFile:(ConfigurationFile *)configurationFile
-        autoingestion:(Autoingestion *)autoingestion
-        andVendorFile:(VendorFile *)vendorFile;
+- (instancetype)initWithMonitor:(id<Monitor>)theMonitor
+                       defaults:(Defaults *)defaults
+              configurationFile:(ConfigurationFile *)configurationFile
+                  autoingestion:(Autoingestion *)autoingestion
+                  andVendorFile:(VendorFile *)vendorFile;
 
 - (void)prepare;
 

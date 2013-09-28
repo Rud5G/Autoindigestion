@@ -12,9 +12,9 @@
 @property (readonly, copy) NSString *className;
 @property (readonly, copy) NSString *classPath;
 
-- (id)initWithMonitor:(id <Monitor>)monitor
-             defaults:(Defaults *)defaults
-              options:(Options *)options
- andConfigurationFile:(ConfigurationFile *)configurationFile;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                       defaults:(Defaults *)defaults
+                        options:(Options *)options
+           andConfigurationFile:(ConfigurationFile *)configurationFile;
 
 @end

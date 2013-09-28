@@ -53,14 +53,14 @@ static NSString *responseSummaryFromResponseText(NSString *responseText);
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithOutput:(NSData *)output;
+- (instancetype)initWithOutput:(NSData *)output;
 {
   self = [super init];
   if ( ! self) return nil;

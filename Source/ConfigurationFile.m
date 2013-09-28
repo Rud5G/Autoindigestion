@@ -11,16 +11,16 @@
 @implementation ConfigurationFile
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)monitor
-             defaults:(Defaults *)defaults
-           andOptions:(Options *)options;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                       defaults:(Defaults *)defaults
+                     andOptions:(Options *)options;
 {
   self = [super init];
   if ( ! self) return nil;

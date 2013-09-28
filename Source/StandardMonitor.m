@@ -63,14 +63,14 @@ static NSString *stringWithFormatAndArguments(NSString *format, va_list argument
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithArgumentList:(char *[])argv;
+- (instancetype)initWithArgumentList:(char *[])argv;
 {
   self = [super init];
   if (!self) return nil;

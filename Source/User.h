@@ -16,7 +16,7 @@
 //
 // error
 //   If not nil, points to an error object on return when an error occurred.
-+ (User *)effectiveUserWithError:(NSError **)error;
++ (instancetype)effectiveUserWithError:(NSError **)error;
 
 - (NSString *)fullName;
 
@@ -31,8 +31,8 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the user does not exist.
-- (id)initWithID:(NSNumber *)ID
-           error:(NSError **)error;
+- (instancetype)initWithID:(NSNumber *)ID
+                     error:(NSError **)error;
 
 // Initialize a newly allocated user with a username.
 // Returns nil if an error occurs looking up user information or the user
@@ -41,10 +41,10 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the user does not exist.
-- (id)initWithName:(NSString *)name
-             error:(NSError **)error;
+- (instancetype)initWithName:(NSString *)name
+                       error:(NSError **)error;
 
-- (id)initWithPasswd:(struct passwd *)thePasswd;
+- (instancetype)initWithPasswd:(struct passwd *)thePasswd;
 
 // Initialize a newly allocated user with a user ID.
 // Returns nil if an error occurs looking up user information or the user
@@ -53,8 +53,8 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the user does not exist.
-- (id)initWithUID:(uid_t)UID
-            error:(NSError **)error;
+- (instancetype)initWithUID:(uid_t)UID
+                      error:(NSError **)error;
 
 // Initialize a newly allocated user with a username.
 // Returns nil if an error occurs looking up user information or the user
@@ -63,8 +63,8 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the user does not exist.
-- (id)initWithUsername:(char const *)username
-                 error:(NSError **)error;
+- (instancetype)initWithUsername:(char const *)username
+                           error:(NSError **)error;
 
 // Get the login user for the current process.
 // Returns nil if an error occurs looking up user information or the login
@@ -73,7 +73,7 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the login user cannot be found.
-+ (User *)loginUserWithError:(NSError **)error;
++ (instancetype)loginUserWithError:(NSError **)error;
 
 - (NSString *)name;
 
@@ -95,7 +95,7 @@
 //
 // error
 //   If not nil, points to an error object on return when an error occurred.
-+ (User *)realUserWithError:(NSError **)error;
++ (instancetype)realUserWithError:(NSError **)error;
 
 - (NSString *)shell;
 

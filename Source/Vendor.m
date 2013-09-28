@@ -36,18 +36,18 @@
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id<Monitor>)theMonitor
-             defaults:(Defaults *)defaults
-    configurationFile:(ConfigurationFile *)configurationFile
-        autoingestion:(Autoingestion *)autoingestion
-        andVendorFile:(VendorFile *)vendorFile;
+- (instancetype)initWithMonitor:(id<Monitor>)theMonitor
+                       defaults:(Defaults *)defaults
+              configurationFile:(ConfigurationFile *)configurationFile
+                  autoingestion:(Autoingestion *)autoingestion
+                  andVendorFile:(VendorFile *)vendorFile;
 {
   self = [super init];
   if ( ! self) return nil;

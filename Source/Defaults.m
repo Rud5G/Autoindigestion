@@ -26,14 +26,14 @@ NSString *const kVendorNameKey = @"VendorName";
 @implementation Defaults
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id<Monitor>)monitor;
+- (instancetype)initWithMonitor:(id<Monitor>)monitor;
 {
   self = [super init];
   if ( ! self) return nil;

@@ -21,8 +21,8 @@
 @property (readonly, copy) NSString *vendorID;
 @property (readonly, copy) NSString *vendorName;
 
-- (id)initWithMonitor:(id <Monitor>)monitor
-              andPath:(NSString *)vendorFile;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                        andPath:(NSString *)vendorFile;
 
 - (BOOL)isValid;
 

@@ -39,6 +39,6 @@ extern NSString *const kVendorNameKey;
 @property (readonly) NSNumber *salesReportsDisabled;
 @property (readonly, copy) NSString *vendorsDir;
 
-- (id)initWithMonitor:(id<Monitor>)monitor;
+- (instancetype)initWithMonitor:(id<Monitor>)monitor;
 
 @end

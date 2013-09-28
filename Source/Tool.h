@@ -23,10 +23,10 @@
 
 - (void)cleanUp;
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-             defaults:(Defaults *)defaults
-    configurationFile:(ConfigurationFile *)configurationFile
-           andOptions:(Options *)options;
+- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
+                       defaults:(Defaults *)defaults
+              configurationFile:(ConfigurationFile *)configurationFile
+                     andOptions:(Options *)options;
 
 - (void)prepare;
 

@@ -26,17 +26,17 @@
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-             defaults:(Defaults *)defaults
-    configurationFile:(ConfigurationFile *)configurationFile
-           andOptions:(Options *)options;
+- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
+                       defaults:(Defaults *)defaults
+              configurationFile:(ConfigurationFile *)configurationFile
+                     andOptions:(Options *)options;
 {
   self = [super init];
   if ( ! self) return nil;

@@ -16,8 +16,8 @@
 @property (readonly) User *owner;
 @property (readonly, copy) NSString *vendorsDir;
 
-- (id)initWithMonitor:(id <Monitor>)monitor
-             defaults:(Defaults *)defaults
-           andOptions:(Options *)options;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                       defaults:(Defaults *)defaults
+                     andOptions:(Options *)options;
 
 @end

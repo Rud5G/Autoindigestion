@@ -8,17 +8,17 @@
 @implementation Options
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-             defaults:(Defaults *)theDefaults
-        argumentCount:(int)argc
-      andArgumentList:(char *[])argv;
+- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
+                       defaults:(Defaults *)theDefaults
+                  argumentCount:(int)argc
+                andArgumentList:(char *[])argv;
 {
   self = [super init];
   if ( ! self) return nil;

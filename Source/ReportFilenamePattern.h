@@ -13,10 +13,10 @@
 @property (readonly, copy) NSString *reportType;
 @property (readonly, copy) NSString *vendorID;
 
-- (id)initWithVendorID:(NSString *)vendorID
-            reportType:(NSString *)reportType
-        reportDateType:(ReportDateType *)reportDateType
-      andReportSubType:(NSString *)reportSubType;
+- (instancetype)initWithVendorID:(NSString *)vendorID
+                      reportType:(NSString *)reportType
+                  reportDateType:(ReportDateType *)reportDateType
+                andReportSubType:(NSString *)reportSubType;
 
 - (NSDate *)mostRecentReportDateFromFilenames:(NSArray *)filenames;
 

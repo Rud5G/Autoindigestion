@@ -7,7 +7,7 @@
 @property (readonly, copy) NSString *command;
 @property (readonly) NSDateFormatter *dateFormatter;
 
-- (id)initWithArgumentList:(char *[])argv;
+- (instancetype)initWithArgumentList:(char *[])argv;
 
 - (void)writeMessage:(NSString *)message
               toFile:(FILE *)file;

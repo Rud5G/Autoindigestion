@@ -34,7 +34,7 @@ static void freePasswdMemory(struct passwd *passwd);
 }
 
 
-+ (User *)effectiveUserWithError:(NSError **)error;
++ (instancetype)effectiveUserWithError:(NSError **)error;
 {
   return [[self alloc] initWithUID:geteuid() error:error];
 }
@@ -63,30 +63,30 @@ static void freePasswdMemory(struct passwd *passwd);
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithID:(NSNumber *)ID
-           error:(NSError **)error;
+- (instancetype)initWithID:(NSNumber *)ID
+                     error:(NSError **)error;
 {
   uid_t UID = [ID unsignedIntValue];
   return [self initWithUID:UID error:error];
 }
 
 
-- (id)initWithName:(NSString *)name
-             error:(NSError **)error;
+- (instancetype)initWithName:(NSString *)name
+                       error:(NSError **)error;
 {
   char const *username = [name UTF8String];
   return [self initWithUsername:username error:error];
 }
 
 
-- (id)initWithPasswd:(struct passwd *)thePasswd;
+- (instancetype)initWithPasswd:(struct passwd *)thePasswd;
 {
   self = [super init];
   if ( ! self) return nil;
@@ -147,8 +147,8 @@ static void freePasswdMemory(struct passwd *passwd);
 }
 
 
-- (id)initWithUID:(uid_t)UID
-            error:(NSError **)error;
+- (instancetype)initWithUID:(uid_t)UID
+                      error:(NSError **)error;
 {
   errno = 0;
   struct passwd *thePasswd = getpwuid(UID);
@@ -161,8 +161,8 @@ static void freePasswdMemory(struct passwd *passwd);
 }
 
 
-- (id)initWithUsername:(char const *)username
-                 error:(NSError **)error;
+- (instancetype)initWithUsername:(char const *)username
+                           error:(NSError **)error;
 {
   errno = 0;
   struct passwd *thePasswd = getpwnam(username);
@@ -175,7 +175,7 @@ static void freePasswdMemory(struct passwd *passwd);
 }
 
 
-+ (User *)loginUserWithError:(NSError **)error;
++ (instancetype)loginUserWithError:(NSError **)error;
 {
   errno = 0;
   char const *loginName = getlogin();
@@ -223,7 +223,7 @@ static void freePasswdMemory(struct passwd *passwd);
 }
 
 
-+ (User *)realUserWithError:(NSError **)error;
++ (instancetype)realUserWithError:(NSError **)error;
 {
   return [[self alloc] initWithUID:getuid() error:error];
 }

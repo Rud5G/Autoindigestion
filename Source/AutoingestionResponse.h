@@ -30,6 +30,6 @@ enum AutoingestionResponseCode {
 @property (readonly, copy) NSString *text;
 @property (readonly, getter=isTryAgainLater) BOOL tryAgainLater;
 
-- (id)initWithOutput:(NSData *)output;
+- (instancetype)initWithOutput:(NSData *)output;
 
 @end

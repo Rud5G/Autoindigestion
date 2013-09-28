@@ -13,10 +13,10 @@
 @property (readonly, weak) id<Monitor> monitor;
 @property (readonly, copy) NSString *vendorsDir;
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-             defaults:(Defaults *)theDefaults
-        argumentCount:(int)argc
-      andArgumentList:(char *[])argv;
+- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
+                       defaults:(Defaults *)theDefaults
+                  argumentCount:(int)argc
+                andArgumentList:(char *[])argv;
 
 - (void)printUsageAndExit;
 

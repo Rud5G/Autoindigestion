@@ -24,7 +24,7 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-+ (Group *)effectiveGroupWithError:(NSError **)error;
++ (instancetype)effectiveGroupWithError:(NSError **)error;
 {
   return [[self alloc] initWithGID:getegid() error:error];
 }
@@ -42,15 +42,15 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithGID:(gid_t)GID
-            error:(NSError **)error;
+- (instancetype)initWithGID:(gid_t)GID
+                      error:(NSError **)error;
 {
   errno = 0;
   struct group *theGroup = getgrgid(GID);
@@ -63,7 +63,7 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-- (id)initWithGroup:(struct group *)theGroup;
+- (instancetype)initWithGroup:(struct group *)theGroup;
 {
   self = [super init];
   if ( ! self) return nil;
@@ -95,8 +95,8 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-- (id)initWithGroupName:(char const *)groupName
-                  error:(NSError **)error;
+- (instancetype)initWithGroupName:(char const *)groupName
+                            error:(NSError **)error;
 {
   errno = 0;
   struct group *theGroup = getgrnam(groupName);
@@ -109,16 +109,16 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-- (id)initWithID:(NSNumber *)ID
-           error:(NSError **)error;
+- (instancetype)initWithID:(NSNumber *)ID
+                     error:(NSError **)error;
 {
   gid_t GID = [ID unsignedIntValue];
   return [self initWithGID:GID error:error];
 }
 
 
-- (id)initWithName:(NSString *)name
-             error:(NSError **)error;
+- (instancetype)initWithName:(NSString *)name
+                       error:(NSError **)error;
 {
   char const *groupName = [name UTF8String];
   return [self initWithGroupName:groupName error:error];
@@ -168,7 +168,7 @@ static void freeNullTerminatedArrayOfStrings(char **arrayOfStrings);
 }
 
 
-+ (Group *)realGroupWithError:(NSError **)error;
++ (instancetype)realGroupWithError:(NSError **)error;
 {
   return [[self alloc] initWithGID:getgid() error:error];
 }

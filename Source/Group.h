@@ -11,7 +11,7 @@
 //
 // error
 //   If not nil, points to an error object on return when an error occurred.
-+ (Group *)effectiveGroupWithError:(NSError **)error;
++ (instancetype)effectiveGroupWithError:(NSError **)error;
 
 - (gid_t)GID;
 
@@ -24,10 +24,10 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the group does not exist.
-- (id)initWithGID:(gid_t)GID
-            error:(NSError **)error;
+- (instancetype)initWithGID:(gid_t)GID
+                      error:(NSError **)error;
 
-- (id)initWithGroup:(struct group *)theGroup;
+- (instancetype)initWithGroup:(struct group *)theGroup;
 
 // Initialize a newly allocated group with a group name.
 // Returns nil if an error occurs looking up group information or the group
@@ -36,8 +36,8 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the group does not exist.
-- (id)initWithGroupName:(char const *)groupName
-                  error:(NSError **)error;
+- (instancetype)initWithGroupName:(char const *)groupName
+                            error:(NSError **)error;
 
 // Initialize a newly allocated group with a group ID.
 // Returns nil if an error occurs looking up group information or the group
@@ -46,8 +46,8 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the group does not exist.
-- (id)initWithID:(NSNumber *)ID
-           error:(NSError **)error;
+- (instancetype)initWithID:(NSNumber *)ID
+                     error:(NSError **)error;
 
 // Initialize a newly allocated group with a group name.
 // Returns nil if an error occurs looking up group information or the group
@@ -56,8 +56,8 @@
 // error
 //   If not nil, points to an error object on return when an error occurred,
 //   or points to nil on return when the group does not exist.
-- (id)initWithName:(NSString *)name
-             error:(NSError **)error;
+- (instancetype)initWithName:(NSString *)name
+                       error:(NSError **)error;
 
 // Return an array of user names that belong to this group.
 - (NSArray *)memberNames;
@@ -79,6 +79,6 @@
 //
 // error
 //   If not nil, points to an error object on return when an error occurred.
-+ (Group *)realGroupWithError:(NSError **)error;
++ (instancetype)realGroupWithError:(NSError **)error;
 
 @end

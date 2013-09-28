@@ -9,15 +9,15 @@
 @implementation VendorFile
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)monitor
-              andPath:(NSString *)vendorFile;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                        andPath:(NSString *)vendorFile;
 {
   self = [super init];
   if ( ! self) return nil;

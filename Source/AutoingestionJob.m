@@ -20,16 +20,16 @@
 }
 
 
-- (id)init;
+- (instancetype)init;
 {
   [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
   return nil;
 }
 
 
-- (id)initWithMonitor:(id <Monitor>)theMonitor
-       reportCategory:(ReportCategory *)theReportCategory
-        andReportDate:(NSDate *)theReportDate;
+- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
+                 reportCategory:(ReportCategory *)theReportCategory
+                  andReportDate:(NSDate *)theReportDate;
 {
   self = [super init];
   if ( ! self) return nil;
