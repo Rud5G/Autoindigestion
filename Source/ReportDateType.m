@@ -63,6 +63,13 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 }
 
 
+- (id)init;
+{
+  [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
+  return nil;
+}
+
+
 - (instancetype) initWithName:(NSString *)name
       nextReportDateAfterDate:(NSDate *(^)(NSDate *))nextReportDateAfterDate
 andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;

@@ -26,6 +26,13 @@
 }
 
 
+- (id)init;
+{
+  [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
+  return nil;
+}
+
+
 - (id)initWithMonitor:(id <Monitor>)theMonitor
              defaults:(Defaults *)defaults
     configurationFile:(ConfigurationFile *)configurationFile

@@ -11,6 +11,13 @@ NSString *const kRegularExpressionError = @"Regular Expression Error";
 @implementation ReportFilenamePattern
 
 
+- (id)init;
+{
+  [NSException raise:@"Not Implemented" format:@"%s", __FUNCTION__];
+  return nil;
+}
+
+
 - (id)initWithVendorID:(NSString *)vendorID
             reportType:(NSString *)reportType
         reportDateType:(ReportDateType *)reportDateType
