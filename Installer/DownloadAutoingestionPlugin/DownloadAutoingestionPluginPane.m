@@ -1,5 +1,6 @@
 #import "DownloadAutoingestionPluginPane.h"
 
+#import <syslog.h>
 #import "AutoingestionTool.h"
 
 
@@ -12,27 +13,94 @@
 
 - (void)autoingestionToolDidFinishDownloading:(AutoingestionTool *)autoingestionTool;
 {
-  [self setStateDownloadComplete];
+  switch (_state) {
+    case DownloadAutoingestionStateDownloadInProgress:
+      [self beginStateDownloadComplete];
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
+  }
 }
 
 
 - (void)autoingestionTool:(AutoingestionTool *)autoingestionTool
-  downloadFailedWithError:(NSError *)error;
+downloadFailedWithMessage:(NSString *)message;
 {
-  [self setStatedownloadFailed:error];
+  switch (_state) {
+    case DownloadAutoingestionStateDownloadInProgress:
+      [self beginStateDownloadFailedWithMessage:message];
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
+  }
 }
 
 
 - (void)autoingestionTool:(AutoingestionTool *)autoingestionTool
         didUpdateProgress:(double)progress;
 {
-  [_progressIndicator setDoubleValue:progress];
+  switch (_state) {
+    case DownloadAutoingestionStateDownloadInProgress:
+      [_progressIndicator setDoubleValue:progress];
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
+  }
+}
+
+
+- (void)beginStateDownloadInProgress;
+{
+  _state = DownloadAutoingestionStateDownloadInProgress;
+  [_autoingestionTool performSelector:@selector(download)
+                           withObject:nil
+                           afterDelay:1.0];
 }
 
 
 - (void)didEnterPane:(InstallerSectionDirection)dir;
 {
-  if ( ! [_autoingestionTool isDownloaded]) [_autoingestionTool download];
+  switch (_state) {
+    case DownloadAutoingestionStateNotDownloaded:
+      [self beginStateDownloadInProgress];
+      break;
+    case DownloadAutoingestionStateDownloadedPreviously:
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
+  }
+}
+
+
+- (IBAction)errorSkipClicked:(id)sender;
+{
+  switch (_state) {
+    case DownloadAutoingestionStateDownloadFailed:
+      _state = DownloadAutoingestionStateNotDownloaded;
+      [self gotoNextPane];
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
+  }
+}
+
+
+- (IBAction)errorTryAgainClicked:(id)sender;
+{
+  switch (_state) {
+    case DownloadAutoingestionStateDownloadFailed:
+      [self beginStateNotDownloaded];
+      [self beginStateDownloadInProgress];
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
+  }
 }
 
 
@@ -44,42 +112,112 @@
   _autoingestionTool = [[AutoingestionTool alloc] init];
   [_autoingestionTool setDelegate:self];
   
+  _state = DownloadAutoingestionStateNotDownloaded;
+  
   return self;
 }
 
 
-- (void)setStateDownloadComplete;
+- (void)beginStateDownloadComplete;
 {
+  _state = DownloadAutoingestionStateDownloadComplete;
+  [_errorMessage setHidden:YES];
+  [_errorSkipButton setHidden:YES];
+  [_errorTryAgainButton setHidden:YES];
+  [_javaClassIconView setAlphaValue:0.0f];
   [_javaClassIconView setHidden:NO];
+  [_progressIndicator setDoubleValue:1.0];
   [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
-  [_progressIndicator setHidden:YES];
-  [self setNextEnabled:YES];
+  [self setNextEnabled:NO];
+  
+  [self performSelector:@selector(showJavaClassIcon)
+             withObject:nil
+             afterDelay:1.0];
 }
 
 
-- (void)setStatedownloadFailed:(NSError *)error;
+- (void)beginStateDownloadFailedWithMessage:(NSString *)message;
 {
-  [_statusLabel setStringValue:LocalizedString(@"Error downloading auto-ingest tool.")];
-  // TODO: display error info, retry and skip buttons
-}
-
-
-- (void)setStateDownloadedPreviously;
-{
-  [_javaClassIconView setHidden:NO];
-  [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
-  [_progressIndicator setHidden:YES];
-  [self setNextEnabled:YES];
-}
-
-
-- (void)setStateNotDownloaded;
-{
+  _state = DownloadAutoingestionStateDownloadFailed;
+  [_errorMessage setHidden:NO];
+  [_errorMessage setStringValue:message];
+  [_errorSkipButton setHidden:NO];
+  [_errorTryAgainButton setHidden:NO];
   [_javaClassIconView setHidden:YES];
-  [_statusLabel setStringValue:LocalizedString(@"Downloading auto-ingest tool.")];
+  [_progressIndicator setHidden:YES];
+  [_statusLabel setStringValue:LocalizedString(@"Error downloading auto-ingest tool.")];
+  [self setNextEnabled:YES];
+}
+
+
+- (void)beginStateDownloadedPreviously;
+{
+  _state = DownloadAutoingestionStateDownloadedPreviously;
+  [_errorMessage setHidden:YES];
+  [_errorSkipButton setHidden:YES];
+  [_errorTryAgainButton setHidden:YES];
+  [_javaClassIconView setAlphaValue:1.0];
+  [_javaClassIconView setHidden:NO];
+  [_progressIndicator setHidden:YES];
+  [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
+  [self setNextEnabled:YES];
+}
+
+
+- (void)beginStateNotDownloaded;
+{
+  _state = DownloadAutoingestionStateNotDownloaded;
+  [_errorMessage setHidden:YES];
+  [_errorSkipButton setHidden:YES];
+  [_errorTryAgainButton setHidden:YES];
+  [_javaClassIconView setAlphaValue:0.0];
+  [_javaClassIconView setHidden:YES];
+  [_progressIndicator setAlphaValue:1.0];
   [_progressIndicator setDoubleValue:0.0];
   [_progressIndicator setHidden:NO];
+  [_statusLabel setStringValue:LocalizedString(@"Downloading auto-ingest tool.")];
   [self setNextEnabled:NO];
+}
+
+
+- (void)loadResources;
+{
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSImage *javaClassIcon = [bundle imageForResource:@"JavaClass"];
+  [_javaClassIconView setImage:javaClassIcon];
+}
+
+
+- (BOOL)shouldExitPane:(InstallerSectionDirection)dir;
+{
+  switch (_state) {
+    case DownloadAutoingestionStateNotDownloaded: return YES;
+    case DownloadAutoingestionStateDownloadInProgress: return NO;
+    case DownloadAutoingestionStateDownloadComplete: return NO;
+    case DownloadAutoingestionStateDownloadedPreviously: return YES;
+    case DownloadAutoingestionStateDownloadFailed: return YES;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      return YES;
+  }
+}
+
+
+- (void)showJavaClassIcon;
+{
+  [NSAnimationContext beginGrouping];
+  [[NSAnimationContext currentContext] setDuration:1.0];
+  
+  [[_javaClassIconView animator] setAlphaValue:1.0f];
+  [[_progressIndicator animator] setAlphaValue:0.0f];
+  
+  [[NSAnimationContext currentContext] setCompletionHandler:^{
+    [[_progressIndicator animator] setHidden:YES];
+    [self performSelector:@selector(beginStateDownloadedPreviously)
+               withObject:nil
+               afterDelay:0.1];
+  }];
+  [NSAnimationContext endGrouping];
 }
 
 
@@ -91,14 +229,16 @@
 
 - (void)willEnterPane:(InstallerSectionDirection)dir;
 {
-  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-  NSImage *javaClassIcon = [bundle imageForResource:@"JavaClass"];
-  [_javaClassIconView setImage:javaClassIcon];
-  
-  if ([_autoingestionTool isDownloaded]) {
-    [self setStateDownloadedPreviously];
-  } else {
-    [self setStateNotDownloaded];
+  switch (_state) {
+    case DownloadAutoingestionStateNotDownloaded:
+      [self loadResources];
+      [self beginStateNotDownloaded];
+      break;
+    case DownloadAutoingestionStateDownloadedPreviously:
+      break;
+    default:
+      syslog(LOG_ERR, "Unexpected state %i for %s", _state, __FUNCTION__);
+      break;
   }
 }
 

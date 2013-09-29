@@ -9,7 +9,7 @@
 - (void)autoingestionToolDidFinishDownloading:(AutoingestionTool *)autoingestionTool;
 
 - (void)autoingestionTool:(AutoingestionTool *)autoingestionTool
-  downloadFailedWithError:(NSError *)error;
+downloadFailedWithMessage:(NSString *)message;
 
 - (void)autoingestionTool:(AutoingestionTool *)autoingestionTool
         didUpdateProgress:(double)progress;

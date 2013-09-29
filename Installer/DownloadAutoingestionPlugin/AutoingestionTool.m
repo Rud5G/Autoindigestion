@@ -17,38 +17,44 @@ static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/doc
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error;
 {
-  syslog(LOG_ERR, "ERROR: failed to download %s: (%li) %s",
-         [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);
-  [_delegate autoingestionTool:self downloadFailedWithError:error];
+  NSString *message = [NSString stringWithFormat:@"Failed to download %@: (%li) %@",
+                       kAutoingestionURL, [error code], [error localizedDescription]];
+  [_delegate autoingestionTool:self downloadFailedWithMessage:message];
 }
 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 {
   syslog(LOG_INFO, "Downloaded %s", [kAutoingestionURL UTF8String]);
-  [_delegate autoingestionToolDidFinishDownloading:self];
   
   ZipDocument *zipDocument = [[ZipDocument alloc] init];
 
   NSError *error;
   BOOL didRead = [zipDocument readFromData:_zipData error:&error];
   if ( ! didRead) {
-    syslog(LOG_ERR, "Unable to decompress %s: (%li) %s",
-           [kAutoingestionURL UTF8String], [error code], [[error localizedDescription] UTF8String]);
+    NSString *message = [NSString stringWithFormat:@"Unable to decompress %@: (%li) %@",
+                         kAutoingestionURL, [error code], [error localizedDescription]];
+    syslog(LOG_ERR, "%s", [message UTF8String]);
+    [_delegate autoingestionTool:self downloadFailedWithMessage:message];
     return;
   }
   
   ZipEntry *zipEntry = [zipDocument entryWithName:kAutoingestionFilename];
   if ( ! zipEntry) {
-    syslog(LOG_ERR, "No entry named \"%s\" found in %s",
-           [kAutoingestionFilename UTF8String], [kAutoingestionURL UTF8String]);
+    NSString *message = [NSString stringWithFormat:@"No entry named \"%@\" found in %@",
+                         kAutoingestionFilename, kAutoingestionURL];
+    syslog(LOG_ERR, "%s", [message UTF8String]);
+    [_delegate autoingestionTool:self downloadFailedWithMessage:message];
     return;
   }
   
   syslog(LOG_INFO, "Extracting %s", [kAutoingestionFilename UTF8String]);
   NSData *autoingestionClass = [zipDocument unzipEntry:zipEntry];
   if ( ! autoingestionClass) {
-    syslog(LOG_ERR, "Unable to unzip %s", [kAutoingestionFilename UTF8String]);
+    NSString *message = [NSString stringWithFormat:@"Unable to unzip %@",
+                         kAutoingestionFilename];
+    syslog(LOG_ERR, "%s", [message UTF8String]);
+    [_delegate autoingestionTool:self downloadFailedWithMessage:message];
     return;
   }
 
@@ -57,8 +63,10 @@ static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/doc
     BOOL removed = [[NSFileManager defaultManager] removeItemAtPath:kAutoingestionTempPath
                                                               error:&error];
     if ( ! removed) {
-      syslog(LOG_ERR, "Unable to remove directory %s: (%li) %s",
-             [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
+      NSString *message = [NSString stringWithFormat:@"Unable to remove directory %@: (%li) %@",
+                           kAutoingestionTempPath, [error code], [error localizedDescription]];
+      syslog(LOG_ERR, "%s", [message UTF8String]);
+      [_delegate autoingestionTool:self downloadFailedWithMessage:message];
       return;
     }
   }
@@ -68,8 +76,10 @@ static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/doc
                                                             attributes:nil
                                                                  error:&error];
   if ( ! created) {
-    syslog(LOG_ERR, "Unable to create directory %s: (%li) %s",
-           [kAutoingestionTempPath UTF8String], [error code], [[error localizedDescription] UTF8String]);
+    NSString *message = [NSString stringWithFormat:@"Unable to create directory %@: (%li) %@",
+                         kAutoingestionTempPath, [error code], [error localizedDescription]];
+    syslog(LOG_ERR, "%s", [message UTF8String]);
+    [_delegate autoingestionTool:self downloadFailedWithMessage:message];
     return;
   }
 
@@ -78,12 +88,15 @@ static NSString *const kAutoingestionURL = @"http://www.apple.com/itunesnews/doc
                                           options:NSAtomicWrite
                                             error:&error];
   if ( ! didWrite) {
-    syslog(LOG_ERR, "Unable to write %s: (%li) %s",
-        [path UTF8String], [error code], [[error localizedDescription] UTF8String]);
+    NSString *message = [NSString stringWithFormat:@"Unable to write %@: (%li) %@",
+                         path, [error code], [error localizedDescription]];
+    syslog(LOG_ERR, "%s", [message UTF8String]);
+    [_delegate autoingestionTool:self downloadFailedWithMessage:message];
     return;
   }
   
   _downloaded = YES;
+  [_delegate autoingestionToolDidFinishDownloading:self];
 }
 
 
