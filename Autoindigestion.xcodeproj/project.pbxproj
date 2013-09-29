@@ -59,6 +59,7 @@
 		D4BDA39B17F3D06700D8FF29 /* ReportCategoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */; };
 		D4BDA3A317F5221000D8FF29 /* NSDate+Autoindigestion.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A7717215A380E400CEC757 /* NSDate+Autoindigestion.m */; };
 		D4BDA3A517F5227E00D8FF29 /* ReportDateTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */; };
+		D4DA053B17F797490071FB74 /* JavaClass.icns in Resources */ = {isa = PBXBuildFile; fileRef = D4DA053917F793AB0071FB74 /* JavaClass.icns */; };
 		D4EDA1D315DB1D950084B460 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D464C51515894E48000F0173 /* SenTestingKit.framework */; };
 		D4EDA1DD15DB1D950084B460 /* AutoingestionResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */; };
 		D4EDA1E515DB1FD00084B460 /* AutoingestionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EDA1E415DB1FD00084B460 /* AutoingestionResponse.m */; };
@@ -212,6 +213,7 @@
 		D4B2475B1755C19F0027339C /* conclusion.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = conclusion.html; sourceTree = "<group>"; };
 		D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportCategoryTest.m; sourceTree = "<group>"; };
 		D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateTypeTest.m; sourceTree = "<group>"; };
+		D4DA053A17F793AB0071FB74 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = en; path = en.lproj/JavaClass.icns; sourceTree = "<group>"; };
 		D4EDA1D215DB1D950084B460 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		D4EDA1DC15DB1D950084B460 /* AutoingestionResponseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoingestionResponseTest.m; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				D44F2C5A1749BBB80005DD9E /* AutoingestionTool.h */,
 				D44F2C5B1749BBB80005DD9E /* AutoingestionTool.m */,
 				D44F2C5D1749BE220005DD9E /* AutoingestionToolDelegate.h */,
+				D4DA053917F793AB0071FB74 /* JavaClass.icns */,
 				D44F2C4217499D4A0005DD9E /* DownloadAutoingestionPluginPane.h */,
 				D44F2C4317499D4A0005DD9E /* DownloadAutoingestionPluginPane.m */,
 				D44F2C4417499D4A0005DD9E /* DownloadAutoingestionPlugin.xib */,
@@ -577,6 +580,7 @@
 				D44F2C4D17499D4A0005DD9E /* DownloadAutoingestionPlugin.xib in Resources */,
 				D44F2C4E17499D4A0005DD9E /* InfoPlist.strings in Resources */,
 				D44F2C4F17499D4A0005DD9E /* Localizable.strings in Resources */,
+				D4DA053B17F797490071FB74 /* JavaClass.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +722,14 @@
 				D44F2C4917499D4A0005DD9E /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D4DA053917F793AB0071FB74 /* JavaClass.icns */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4DA053A17F793AB0071FB74 /* en */,
+			);
+			name = JavaClass.icns;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

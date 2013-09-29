@@ -50,8 +50,9 @@
 
 - (void)setStateDownloadComplete;
 {
+  [_javaClassIconView setHidden:NO];
   [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
-  [_progressIndicator setDoubleValue:1.0];
+  [_progressIndicator setHidden:YES];
   [self setNextEnabled:YES];
 }
 
@@ -65,6 +66,7 @@
 
 - (void)setStateDownloadedPreviously;
 {
+  [_javaClassIconView setHidden:NO];
   [_statusLabel setStringValue:LocalizedString(@"Auto-ingest tool downloaded.")];
   [_progressIndicator setHidden:YES];
   [self setNextEnabled:YES];
@@ -73,6 +75,7 @@
 
 - (void)setStateNotDownloaded;
 {
+  [_javaClassIconView setHidden:YES];
   [_statusLabel setStringValue:LocalizedString(@"Downloading auto-ingest tool.")];
   [_progressIndicator setDoubleValue:0.0];
   [_progressIndicator setHidden:NO];
@@ -88,6 +91,10 @@
 
 - (void)willEnterPane:(InstallerSectionDirection)dir;
 {
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSImage *javaClassIcon = [bundle imageForResource:@"JavaClass"];
+  [_javaClassIconView setImage:javaClassIcon];
+  
   if ([_autoingestionTool isDownloaded]) {
     [self setStateDownloadedPreviously];
   } else {

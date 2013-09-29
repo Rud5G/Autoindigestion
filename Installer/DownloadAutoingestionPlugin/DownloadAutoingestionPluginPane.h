@@ -5,6 +5,7 @@
 @interface DownloadAutoingestionPluginPane : InstallerPane <AutoingestionToolDelegate>
 
 @property (readonly) AutoingestionTool *autoingestionTool;
+@property (strong) IBOutlet NSImageView *javaClassIconView;
 @property (strong) IBOutlet NSProgressIndicator *progressIndicator;
 @property (strong) IBOutlet NSTextField *statusLabel;
 

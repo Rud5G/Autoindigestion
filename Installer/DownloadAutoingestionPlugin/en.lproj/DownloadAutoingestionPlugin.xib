@@ -14,6 +14,7 @@
         <customObject id="5" userLabel="DownloadAutoingestionPluginPane" customClass="DownloadAutoingestionPluginPane">
             <connections>
                 <outlet property="contentView" destination="8" id="9"/>
+                <outlet property="javaClassIconView" destination="Fo3-V4-lZ3" id="oQG-nE-ENg"/>
                 <outlet property="parentSection" destination="-2" id="7"/>
                 <outlet property="progressIndicator" destination="14" id="15"/>
                 <outlet property="statusLabel" destination="11" id="13"/>
@@ -33,14 +34,19 @@
                     </textFieldCell>
                 </textField>
                 <progressIndicator hidden="YES" maxValue="1" style="bar" id="14">
-                    <rect key="frame" x="32" y="255" width="366" height="20"/>
+                    <rect key="frame" x="32" y="192" width="366" height="20"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </progressIndicator>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Fo3-V4-lZ3">
+                    <rect key="frame" x="137" y="130" width="144" height="144"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="JavaClass" id="pm8-Dw-Cgm"/>
+                </imageView>
                 <textField verticalHuggingPriority="750" id="28">
-                    <rect key="frame" x="29" y="231" width="372" height="17"/>
+                    <rect key="frame" x="29" y="105" width="372" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="apple.com/itunesnews/docs/Autoingestion.class.zip" id="29">
-                        <font key="font" metaFont="system"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="http://apple.com/itunesnews/docs/Autoingestion.class.zip" id="29">
+                        <font key="font" size="11" name="LucidaGrande"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -49,7 +55,7 @@
                     <rect key="frame" x="29" y="20" width="372" height="77"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="27">
-                        <font key="font" metaFont="system"/>
+                        <font key="font" size="13" name="LucidaGrande"/>
                         <string key="title">The auto-ingest tool is provided by and supported by Apple. You must not alter or disseminate the auto-ingest tool for any reason. Apple reserves the right to revoke access for usage or distribution beyond its intended use.</string>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -59,4 +65,7 @@
         </customView>
         <customObject id="-3" userLabel="Application"/>
     </objects>
+    <resources>
+        <image name="JavaClass" width="128" height="128"/>
+    </resources>
 </document>
