@@ -12,6 +12,7 @@
 {
   ReportFilenamePattern *dailyReportFilenamePattern;
   ReportFilenamePattern *weeklyReportFilenamePattern;
+  ReportFilenamePattern *monthlyReportFilenamePattern;
   ReportFilenamePattern *yearlyReportFilenamePattern;
 }
 
@@ -26,6 +27,10 @@
                                                                      reportType:kReportTypeSales
                                                                  reportDateType:[ReportDateType weekly]
                                                                andReportSubType:kReportSubtypeSummary];
+  monthlyReportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:@"81234567"
+                                                                      reportType:kReportTypeSales
+                                                                  reportDateType:[ReportDateType monthly]
+                                                                andReportSubType:kReportSubtypeSummary];
   yearlyReportFilenamePattern = [[ReportFilenamePattern alloc] initWithVendorID:@"81234567"
                                                                      reportType:kReportTypeSales
                                                                  reportDateType:[ReportDateType yearly]
@@ -135,7 +140,7 @@
 }
 
 
-#pragma mark --- Monthly ----------
+#pragma mark --- Weekly ----------
 
 
 - (void)testPatternForWeeklySalesSummary;
@@ -210,6 +215,84 @@
   NSArray *reportFilenames = [weeklyReportFilenamePattern reportDateStringsFromFilenames:filenames];
   
   STAssertEqualObjects(@[@"20120520"], reportFilenames, nil);
+}
+
+
+#pragma mark --- Monthly ----------
+
+
+- (void)testPatternForMonthlySalesSummary;
+{
+  STAssertEqualObjects(@"S_M_81234567_(\\d{6})\\.txt\\.gz", [monthlyReportFilenamePattern pattern], nil);
+}
+
+
+- (void)testMonthlyReportFilenamesFromFilenamesForArrayWithOne;
+{
+  NSArray *filenames = @[@".",
+                         @"..",
+                         @"README",
+                         @"S_M_81234567_201205.txt.gz",
+                         ];
+  
+  
+  NSArray *reportFilenames = [monthlyReportFilenamePattern reportFilenamesFromFilenames:filenames];
+  
+  STAssertEqualObjects(@[@"S_M_81234567_201205.txt.gz"], reportFilenames, nil);
+}
+
+
+- (void)testMonthlyReportFilenamesFromFilenamesForArrayWithSeveral;
+{
+  NSArray *filenames = @[
+                         @"S_M_81234567_201102.txt.gz",
+                         @"S_M_81234567_201205.txt.gz",
+                         @"S_M_81234567_201011.txt.gz",
+                         ];
+  
+  
+  NSArray *reportFilenames = [monthlyReportFilenamePattern reportFilenamesFromFilenames:filenames];
+  
+  NSArray *expected = @[
+                        @"S_M_81234567_201011.txt.gz",
+                        @"S_M_81234567_201102.txt.gz",
+                        @"S_M_81234567_201205.txt.gz",
+                        ];
+  STAssertEqualObjects(expected, reportFilenames, nil);
+}
+
+
+- (void)testMonthlyReportFilenamesFromFilenamesForArrayWithWrongTypes;
+{
+  NSArray *filenames = @[
+      @".",
+      @"..",
+      @"README",
+      @"S_D_81234567_20120522.txt.gz",
+      @"S_W_81234567_20120520.txt.gz",
+      @"S_M_81234567_201205.txt.gz",
+  ];
+
+  NSArray *reportFilenames = [monthlyReportFilenamePattern reportFilenamesFromFilenames:filenames];
+
+  STAssertEqualObjects(@[@"S_M_81234567_201205.txt.gz"], reportFilenames, nil);
+}
+
+
+- (void)testMonthlyReportDateStringsFromFilenamesForArrayWithOne;
+{
+  NSArray *filenames = @[@".",
+      @"S_M_81234567_201105.txt.gz",
+      @"..",
+      @"README",
+      @"S_M_81234567_201211.txt.gz",
+  ];
+
+
+  NSArray *reportFilenames = [monthlyReportFilenamePattern reportDateStringsFromFilenames:filenames];
+
+  NSArray *expected = @[@"201105", @"201211"];
+  STAssertEqualObjects(expected, reportFilenames, nil);
 }
 
 

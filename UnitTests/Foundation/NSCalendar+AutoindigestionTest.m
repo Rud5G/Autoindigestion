@@ -63,6 +63,14 @@
 }
 
 
+- (void)testNextMonthForDate;
+{
+  NSDate *nextMonth = [_calendar nextMonthForDate:[self date:@"5/22/2012 08:30:12"]];
+
+  STAssertEqualObjects([self date:@"6/22/2012 00:00:00"], nextMonth, nil);
+}
+
+
 - (void)testNextYearForDate;
 {
   NSDate *nextYear = [_calendar nextYearForDate:[self date:@"5/22/2012 08:30:12"]];
@@ -100,6 +108,14 @@
   NSDate *thirteenSundaysAgo = [_calendar thirteenSundaysAgoForDate:[self date:@"5/22/2012 08:30:12"]];
   
   STAssertEqualObjects([self date:@"2/26/2012 00:00:00"], thirteenSundaysAgo, nil);
+}
+
+
+- (void)testTwelveMonthsAgoForDate;
+{
+  NSDate *twelveMonthsAgo = [_calendar twelveMonthsAgoForDate:[self date:@"5/22/2012 08:30:12"]];
+
+  STAssertEqualObjects([self date:@"5/22/2011 00:00:00"], twelveMonthsAgo, nil);
 }
 
 

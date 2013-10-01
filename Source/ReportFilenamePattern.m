@@ -31,15 +31,10 @@ NSString *const kRegularExpressionError = @"Regular Expression Error";
   _reportDateType = reportDateType;
   _reportSubType = [reportSubType copy];
 
-  int dateStringLength = 8;
-  if ([ReportDateType yearly] == _reportDateType) {
-    dateStringLength = 4;
-  }
-  
   NSString *patternFormat = @"%C_%@_%@_(\\d{%i})\\.txt\\.gz";
   _pattern = [NSString stringWithFormat:patternFormat,
               [_reportSubType characterAtIndex:0], [_reportDateType codeLetter],
-              _vendorID, dateStringLength];
+              _vendorID, [_reportDateType dateStringLength]];
   
   NSError *error = nil;
   _regularExpression = [NSRegularExpression regularExpressionWithPattern:_pattern

@@ -12,6 +12,7 @@
   NSDate *_date;
   ReportCategory *_dailyReportCategory;
   ReportCategory *_weeklyReportCategory;
+  ReportCategory *_monthlyReportCategory;
   ReportCategory *_yearlyReportCategory;
 }
 
@@ -35,6 +36,14 @@
                                                    reportDateType:[ReportDateType weekly]
                                                     reportSubtype:kReportSubtypeSummary
                                                           andDate:_date];
+  _monthlyReportCategory = [[ReportCategory alloc] initWithMonitor:nil
+                                                          defaults:nil
+                                                     autoingestion:nil
+                                                            vendor:nil
+                                                        reportType:kReportTypeSales
+                                                    reportDateType:[ReportDateType monthly]
+                                                     reportSubtype:kReportSubtypeSummary
+                                                           andDate:_date];
   _yearlyReportCategory = [[ReportCategory alloc] initWithMonitor:nil
                                                          defaults:nil
                                                     autoingestion:nil
@@ -65,6 +74,17 @@
   NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"2/26/2012 00:00:00"];
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
   NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"5/20/2012 00:00:00"];
+  STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
+}
+
+
+- (void)testMissingReportDatesForMonthlyReportsWithNoDownloadedReports;
+{
+  NSArray *missingReportDates = [_monthlyReportCategory missingReportDates:@[]];
+  STAssertEquals((NSUInteger) 12, [missingReportDates count], nil);
+  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"5/22/2011 00:00:00"];
+  STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
+  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"4/22/2012 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
 }
 

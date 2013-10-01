@@ -4,6 +4,7 @@
 
 
 static ReportDateType *daily;
+static ReportDateType *monthly;
 static ReportDateType *weekly;
 static ReportDateType *yearly;
 
@@ -11,6 +12,7 @@ static ReportDateType *yearly;
 @interface ReportDateType ()
 
 - (instancetype) initWithName:(NSString *)name
+             dateStringLength:(int)dateStringLength
       nextReportDateAfterDate:(NSDate *(^)(NSDate *))nextReportDateAfterDate
 andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 
@@ -34,6 +36,7 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 {
   if ([ReportDateType class] == self) {
     daily = [[ReportDateType alloc] initWithName:@"Daily"
+                                dateStringLength:8
                          nextReportDateAfterDate:^(NSDate *date) {
                                                    return [[NSCalendar POSIXCalendar] nextDayForDate:date];
                                                  }
@@ -43,6 +46,7 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
     ];
 
     weekly = [[ReportDateType alloc] initWithName:@"Weekly"
+                                 dateStringLength:8
                           nextReportDateAfterDate:^(NSDate *date) {
                                                     return [[NSCalendar POSIXCalendar] nextWeekForDate:date];
                                                   }
@@ -51,7 +55,18 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
                                                   }
     ];
 
+    monthly = [[ReportDateType alloc] initWithName:@"Monthly"
+                                  dateStringLength:6
+                           nextReportDateAfterDate:^(NSDate *date) {
+                                                     return [[NSCalendar POSIXCalendar] nextMonthForDate:date];
+                                                   }
+                     andOldestReportDateBeforeDate:^(NSDate *date) {
+                                                     return [[NSCalendar POSIXCalendar] twelveMonthsAgoForDate:date];
+                                                   }
+    ];
+
     yearly = [[ReportDateType alloc] initWithName:@"Yearly"
+                                 dateStringLength:4
                           nextReportDateAfterDate:^(NSDate *date) {
                                                     return [[NSCalendar POSIXCalendar] nextYearForDate:date];
                                                   }
@@ -71,12 +86,14 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 
 
 - (instancetype) initWithName:(NSString *)name
+                 dateStringLength:(int)dateStringLength
       nextReportDateAfterDate:(NSDate *(^)(NSDate *))nextReportDateAfterDate
 andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 {
   self = [super init];
   if ( ! self) return nil;
-  
+
+  _dateStringLength = dateStringLength;
   _name = [name copy];
   _nextReportDateAfterDate = nextReportDateAfterDate;
   _oldestReportDateBeforeDate = oldestReportDateBeforeDate;
@@ -84,6 +101,12 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
   _codeLetter = [[_name substringToIndex:1] copy];
   
   return self;
+}
+
+
++ (instancetype)monthly;
+{
+  return monthly;
 }
 
 

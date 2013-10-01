@@ -61,6 +61,16 @@ static dispatch_once_t posixCalendarOnce;
 }
 
 
+- (NSDate *)nextMonthForDate:(NSDate *)date;
+{
+  NSDateComponents *nextMonth = [[NSDateComponents alloc] init];
+  [nextMonth setMonth:1];
+  return [self dateByAddingComponents:nextMonth
+                               toDate:[self zeroOutTimeForDate:date]
+                              options:0];
+}
+
+
 - (NSDate *)nextYearForDate:(NSDate *)date;
 {
   NSDateComponents *nextYear = [[NSDateComponents alloc] init];
@@ -121,6 +131,16 @@ static dispatch_once_t posixCalendarOnce;
 
   return [self dateByAddingComponents:twelveWeeksAgo
                                toDate:lastSunday
+                              options:0];
+}
+
+
+- (NSDate *)twelveMonthsAgoForDate:(NSDate *)date;
+{
+  NSDateComponents *twelveMonthsAgo = [[NSDateComponents alloc] init];
+  [twelveMonthsAgo setMonth:-12];
+  return [self dateByAddingComponents:twelveMonthsAgo
+                               toDate:[self zeroOutTimeForDate:date]
                               options:0];
 }
 
