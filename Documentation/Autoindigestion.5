@@ -175,12 +175,19 @@ and vendor files.
 .Pp
 .Ss \fBAutoindigestion.plist\fR -- launchd item (recommended)
 .Pp
-This is a typical launchd configuration.
+You can add a launchd item to your system to run
+.Nm
+automatically at specified times. Launchd items for optional services like
+.Nm
+are normally kept in
+.Qq /Library/LaunchDaemons .
+.Pp
+Below is a typical launchd configuration.
 The
 .Nm
 executable is located in
 .Qq /Library/Autoindigestion/Autoindigestion
-and is run each morning at 8 AM.
+and is run each morning at 8:30 AM and each evening at 8:30 PM.
 Standard output and standard error are redirected to 
 .Qq /Library/Logs/Autoindigestion.log .
 .Pp
@@ -199,13 +206,21 @@ Standard output and standard error are redirected to
 	</array>
 	
 	<key>StartCalendarInterval</key>
-	<dict>
-		<key>Hour</key>
-		<integer>8</integer>
-		<key>Minute</key>
-		<integer>0</integer>
-	</dict>
-	
+	<array>
+		<dict>
+			<key>Hour</key>
+			<integer>8</integer>
+			<key>Minute</key>
+			<integer>30</integer>
+		</dict>
+		<dict>
+			<key>Hour</key>
+			<integer>20</integer>
+			<key>Minute</key>
+			<integer>30</integer>
+		</dict>
+	</array>
+
 	<key>StandardErrorPath</key>
 	<string>/Library/Logs/Autoindigestion.log</string>
 	
@@ -214,7 +229,17 @@ Standard output and standard error are redirected to
 </dict>
 </plist>
 .Ed
-
+.Pp
+After changing
+.Qq /Library/LaunchDaemons/Autoindigestion.plist
+you must tell
+.Xr launchctl 1
+to reload the item using the following commands:
+.Bd -literal -offset indent
+.Ic sudo launchctl unload /Library/LaunchDaemons/Autoindigestion.plist
+.br
+.Ic sudo launchctl load /Library/LaunchDaemons/Autoindigestion.plist
+.Ed
 .Sh SEE ALSO 
 .Xr Autoindigestion 1 ,
 .Xr launchd.plist 5 ,

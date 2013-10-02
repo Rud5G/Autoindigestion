@@ -16,7 +16,12 @@
     <h1>Autoindigestion</h1>
     <p>
       Autoindigestion is installed and will automatically run every morning at
-      08:00 hours.
+      8:30 AM and every evening at 8:30 PM.
+      iTunes Connect reports are usually available by 8:00 AM Cupertino time
+      (UTC -0800 or -0700 in summer) but are occasionally delayed a few hours.
+      To change this schedule, edit
+      <a href="file:///Library/LaunchDaemons/Autoindigestion.plist"><code>/Library/LaunchDaemons/Autoindigestion.plist</code></a>
+      then reload it using <code>launchctl</code>.
     </p>
     <p>
       <strong>Important!</strong> In order to download iTunes Connect reports,

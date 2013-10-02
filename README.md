@@ -90,7 +90,7 @@ Autoindigestion.  For additional security, run `chmod 600 "<vendor file>"` and
 The installer creates and loads a launchd item at
 `"/Library/LaunchDaemons/Autoindigestion.plist"` that will run Autoindigestion
 automatically each day.  Here is a sample launchd item that runs at 8:30 AM in
-the morning and again at 1030 PM in the evening:
+the morning and again at 8:30 PM in the evening:
     
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
@@ -115,7 +115,7 @@ the morning and again at 1030 PM in the evening:
             </dict>
             <dict>
                 <key>Hour</key>
-                <integer>22</integer>
+                <integer>20</integer>
                 <key>Minute</key>
                 <integer>30</integer>
             </dict>
@@ -128,7 +128,7 @@ the morning and again at 1030 PM in the evening:
     </dict>
     </plist>
 You may want to adjust the run time based on your time zone.  iTunes Connect
-reports are usually available around 0700 Cupertino time (UTC -0800 or -0700
+reports are usually available by 8:00 AM Cupertino time (UTC -0800 or -0700
 in summer) but are occasionally delayed a few hours.
 
 After creating or modifying the launchd item, tell launchd to load it by

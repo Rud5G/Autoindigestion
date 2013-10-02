@@ -138,10 +138,14 @@ EXAMPLES
 	   </plist>
 
    Autoindigestion.plist -- launchd item (recommended)
-     This is a typical launchd configuration.  The Autoindigestion executable
+     You can add a launchd item to your system to run Autoindigestion automat-
+     ically at specified times. Launchd items for optional services like
+     Autoindigestion are normally kept in "/Library/LaunchDaemons".
+
+     Below is a typical launchd configuration.	The Autoindigestion executable
      is located in "/Library/Autoindigestion/Autoindigestion" and is run each
-     morning at 8 AM.  Standard output and standard error are redirected to
-     "/Library/Logs/Autoindigestion.log".
+     morning at 8:30 AM and each evening at 8:30 PM.  Standard output and
+     standard error are redirected to "/Library/Logs/Autoindigestion.log".
 
 	   <?xml version="1.0" encoding="UTF-8"?>
 	   <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
@@ -157,12 +161,20 @@ EXAMPLES
 		   </array>
 
 		   <key>StartCalendarInterval</key>
-		   <dict>
-			   <key>Hour</key>
-			   <integer>8</integer>
-			   <key>Minute</key>
-			   <integer>0</integer>
-		   </dict>
+		   <array>
+			   <dict>
+				   <key>Hour</key>
+				   <integer>8</integer>
+				   <key>Minute</key>
+				   <integer>30</integer>
+			   </dict>
+			   <dict>
+				   <key>Hour</key>
+				   <integer>20</integer>
+				   <key>Minute</key>
+				   <integer>30</integer>
+			   </dict>
+		   </array>
 
 		   <key>StandardErrorPath</key>
 		   <string>/Library/Logs/Autoindigestion.log</string>
@@ -172,6 +184,11 @@ EXAMPLES
 	   </dict>
 	   </plist>
 
+     After changing "/Library/LaunchDaemons/Autoindigestion.plist" you must
+     tell launchctl(1) to reload the item using the following commands:
+
+	   sudo launchctl unload /Library/LaunchDaemons/Autoindigestion.plist
+	   sudo launchctl load /Library/LaunchDaemons/Autoindigestion.plist
 
 SEE ALSO
      Autoindigestion(1), launchd.plist(5), plist(5)
