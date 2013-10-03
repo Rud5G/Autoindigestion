@@ -151,6 +151,16 @@
                                                                   andDate:_date];
     [_reportCategories addObject:weeklySales];
 
+    ReportCategory *monthlySales = [[ReportCategory alloc] initWithMonitor:_monitor
+                                                                  defaults:defaults
+                                                             autoingestion:autoingestion
+                                                                    vendor:self
+                                                                reportType:kReportTypeSales
+                                                            reportDateType:[ReportDateType monthly]
+                                                             reportSubtype:kReportSubtypeSummary
+                                                                   andDate:_date];
+    [_reportCategories addObject:monthlySales];
+
     ReportCategory *yearlySales = [[ReportCategory alloc] initWithMonitor:_monitor
                                                                  defaults:defaults
                                                             autoingestion:autoingestion
