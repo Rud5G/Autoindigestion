@@ -87,6 +87,14 @@
 }
 
 
+- (void)testPreviousFirstOfTheMonthForDate;
+{
+  NSDate *previousFirstOfTheMonth = [_calendar previousFirstOfTheMonthForDate:[self date:@"5/22/2012 08:30:12"]];
+
+  STAssertEqualObjects([self date:@"5/1/2012 00:00:00"], previousFirstOfTheMonth, nil);
+}
+
+
 - (void)testPreviousNewYearsDayForDate;
 {
   NSDate *previousNewYearsDay = [_calendar previousNewYearsDayForDate:[self date:@"5/22/2012 08:30:12"]];
@@ -111,11 +119,11 @@
 }
 
 
-- (void)testTwelveMonthsAgoForDate;
+- (void)testTwelveFirstOfTheMonthsAgoForDate;
 {
-  NSDate *twelveMonthsAgo = [_calendar twelveMonthsAgoForDate:[self date:@"5/22/2012 08:30:12"]];
+  NSDate *twelveFirstOfTheMonthsAgo = [_calendar twelveFirstOfTheMonthsAgoForDate:[self date:@"5/22/2012 08:30:12"]];
 
-  STAssertEqualObjects([self date:@"5/22/2011 00:00:00"], twelveMonthsAgo, nil);
+  STAssertEqualObjects([self date:@"5/1/2011 00:00:00"], twelveFirstOfTheMonthsAgo, nil);
 }
 
 

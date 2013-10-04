@@ -14,9 +14,9 @@
 @property (readonly) NSDate *reportDate;
 @property (readonly) AutoingestionResponse *response;
 
-- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
-                 reportCategory:(ReportCategory *)theReportCategory
-                  andReportDate:(NSDate *)theReportDate;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                 reportCategory:(ReportCategory *)reportCategory
+                  andReportDate:(NSDate *)reportDate;
 
 - (void)run;
 

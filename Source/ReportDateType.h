@@ -9,6 +9,8 @@
 
 + (instancetype)daily;
 
+- (NSString *)formattedDateForDate:(NSDate *)date;
+
 + (instancetype)monthly;
 
 - (NSDate *)nextReportDateAfterDate:(NSDate *)date;

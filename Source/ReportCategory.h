@@ -50,4 +50,6 @@ extern NSString *const kReportTypeSales;
 
 - (void)prepare;
 
+- (NSString *)reportDescriptionWithDate:(NSDate *)date;
+
 @end

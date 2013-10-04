@@ -27,31 +27,23 @@
 }
 
 
-- (instancetype)initWithMonitor:(id <Monitor>)theMonitor
-                 reportCategory:(ReportCategory *)theReportCategory
-                  andReportDate:(NSDate *)theReportDate;
+- (instancetype)initWithMonitor:(id <Monitor>)monitor
+                 reportCategory:(ReportCategory *)reportCategory
+                  andReportDate:(NSDate *)reportDate;
 {
   self = [super init];
   if ( ! self) return nil;
   
-  _monitor = theMonitor;
-  _reportCategory = theReportCategory;
-  _reportDate = theReportDate;
+  _monitor = monitor;
+  _reportCategory = reportCategory;
+  _reportDate = reportDate;
   
   Vendor *vendor = [_reportCategory vendor];
 
-  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-  [dateFormatter setLocale:locale];
-
-  [dateFormatter setDateFormat:@"dd-MMM-yyyy"];
-  NSString *reportDateString = [dateFormatter stringFromDate:_reportDate];
-  _description = [NSString stringWithFormat:@"%@ %@ %@ Report for %@",
-                                            reportDateString,
-                                            [[_reportCategory reportDateType] name],
-                                            [_reportCategory reportType],
+  _description = [NSString stringWithFormat:@"%@ for %@",
+                                            [_reportCategory reportDescriptionWithDate:_reportDate],
                                             [vendor vendorName]];
-  
+
   NSArray *reportDirPathComponents = [[_reportCategory reportDir] pathComponents];
   NSUInteger dirCount = [reportDirPathComponents count];
   if ([@"/" isEqualToString:reportDirPathComponents[0]]) dirCount -= 1;
@@ -66,6 +58,9 @@
   NSString *credentialsFilePath = [NSString pathWithComponents:credentialsFilePathComponents];
   
   Autoingestion *autoingestion = [_reportCategory autoingestion];
+  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setLocale:locale];
   [dateFormatter setDateFormat:@"yyyyMMdd"];
   NSString *argumentDateString = [dateFormatter stringFromDate:_reportDate];
   

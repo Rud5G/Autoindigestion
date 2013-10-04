@@ -95,6 +95,8 @@ NSString *const kReportTypeSales = @"Sales";
   NSDate *invalidReportDate = _today;
   if ([ReportDateType yearly] == _reportDateType) {
     invalidReportDate = [[NSCalendar POSIXCalendar] previousNewYearsDayForDate:_today];
+  } else if ([ReportDateType monthly] == _reportDateType) {
+    invalidReportDate = [[NSCalendar POSIXCalendar] previousFirstOfTheMonthForDate:_today];
   }
   return [date isLessRecentThanDate:invalidReportDate];
 }
@@ -140,6 +142,14 @@ NSString *const kReportTypeSales = @"Sales";
       [_monitor exitOnFailureWithError:error];
     }
   }
+}
+
+
+- (NSString *)reportDescriptionWithDate:(NSDate *)date;
+{
+  return [NSString stringWithFormat:@"%@ %@ %@ %@ Report",
+                                    [_reportDateType formattedDateForDate:date],
+                                    [_reportDateType name], _reportType, _reportSubtype];
 }
 
 

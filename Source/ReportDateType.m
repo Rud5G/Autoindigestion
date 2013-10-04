@@ -12,6 +12,7 @@ static ReportDateType *yearly;
 @interface ReportDateType ()
 
 - (instancetype) initWithName:(NSString *)name
+                dateFormatter:(NSDateFormatter *)dateFormatter
              dateStringLength:(int)dateStringLength
       nextReportDateAfterDate:(NSDate *(^)(NSDate *))nextReportDateAfterDate
 andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
@@ -23,6 +24,7 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 {
   NSDate *(^_nextReportDateAfterDate)(NSDate *);
   NSDate *(^_oldestReportDateBeforeDate)(NSDate *);
+  NSDateFormatter *_dateFormatter;
 }
 
 
@@ -32,10 +34,22 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 }
 
 
+- (NSString *)formattedDateForDate:(NSDate *)date;
+{
+  return [_dateFormatter stringFromDate:date];
+}
+
+
 + (void)initialize;
 {
   if ([ReportDateType class] == self) {
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    NSDateFormatter *normalDateFormatter = [[NSDateFormatter alloc] init];
+    [normalDateFormatter setLocale:locale];
+    [normalDateFormatter setDateFormat:@"dd-MMM-yyyy"];
+
     daily = [[ReportDateType alloc] initWithName:@"Daily"
+                                   dateFormatter:normalDateFormatter
                                 dateStringLength:8
                          nextReportDateAfterDate:^(NSDate *date) {
                                                    return [[NSCalendar POSIXCalendar] nextDayForDate:date];
@@ -46,6 +60,7 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
     ];
 
     weekly = [[ReportDateType alloc] initWithName:@"Weekly"
+                                    dateFormatter:normalDateFormatter
                                  dateStringLength:8
                           nextReportDateAfterDate:^(NSDate *date) {
                                                     return [[NSCalendar POSIXCalendar] nextWeekForDate:date];
@@ -55,17 +70,27 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
                                                   }
     ];
 
+    NSDateFormatter *monthlyDateFormatter = [[NSDateFormatter alloc] init];
+    [monthlyDateFormatter setLocale:locale];
+    [monthlyDateFormatter setDateFormat:@"MMM-yyyy"];
+
     monthly = [[ReportDateType alloc] initWithName:@"Monthly"
+                                     dateFormatter:monthlyDateFormatter
                                   dateStringLength:6
                            nextReportDateAfterDate:^(NSDate *date) {
                                                      return [[NSCalendar POSIXCalendar] nextMonthForDate:date];
                                                    }
                      andOldestReportDateBeforeDate:^(NSDate *date) {
-                                                     return [[NSCalendar POSIXCalendar] twelveMonthsAgoForDate:date];
+                                                     return [[NSCalendar POSIXCalendar] twelveFirstOfTheMonthsAgoForDate:date];
                                                    }
     ];
 
+    NSDateFormatter *yearlyDateFormatter = [[NSDateFormatter alloc] init];
+    [yearlyDateFormatter setLocale:locale];
+    [yearlyDateFormatter setDateFormat:@"yyyy"];
+
     yearly = [[ReportDateType alloc] initWithName:@"Yearly"
+                                    dateFormatter:yearlyDateFormatter
                                  dateStringLength:4
                           nextReportDateAfterDate:^(NSDate *date) {
                                                     return [[NSCalendar POSIXCalendar] nextYearForDate:date];
@@ -86,6 +111,7 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
 
 
 - (instancetype) initWithName:(NSString *)name
+                 dateFormatter:(NSDateFormatter *)dateFormatter
                  dateStringLength:(int)dateStringLength
       nextReportDateAfterDate:(NSDate *(^)(NSDate *))nextReportDateAfterDate
 andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
@@ -93,6 +119,7 @@ andOldestReportDateBeforeDate:(NSDate *(^)(NSDate *))oldestReportDateBeforeDate;
   self = [super init];
   if ( ! self) return nil;
 
+  _dateFormatter = dateFormatter;
   _dateStringLength = dateStringLength;
   _name = [name copy];
   _nextReportDateAfterDate = nextReportDateAfterDate;

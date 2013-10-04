@@ -82,9 +82,9 @@
 {
   NSArray *missingReportDates = [_monthlyReportCategory missingReportDates:@[]];
   STAssertEquals((NSUInteger) 12, [missingReportDates count], nil);
-  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"5/22/2011 00:00:00"];
+  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"5/1/2011 00:00:00"];
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
-  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"4/22/2012 00:00:00"];
+  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"4/1/2012 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
 }
 
@@ -97,6 +97,30 @@
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
   NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"1/1/2011 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
+}
+
+
+- (void)testReportDescriptionWithDateForDailyReports;
+{
+  STAssertEqualObjects(@"22-May-2012 Daily Sales Summary Report", [_dailyReportCategory reportDescriptionWithDate:_date], nil);
+}
+
+
+- (void)testReportDescriptionWithDateForWeeklyReports;
+{
+  STAssertEqualObjects(@"22-May-2012 Weekly Sales Summary Report", [_weeklyReportCategory reportDescriptionWithDate:_date], nil);
+}
+
+
+- (void)testReportDescriptionWithDateForMonthlyReports;
+{
+  STAssertEqualObjects(@"May-2012 Monthly Sales Summary Report", [_monthlyReportCategory reportDescriptionWithDate:_date], nil);
+}
+
+
+- (void)testReportDescriptionWithDateForYearlyReports;
+{
+  STAssertEqualObjects(@"2012 Yearly Sales Summary Report", [_yearlyReportCategory reportDescriptionWithDate:_date], nil);
 }
 
 

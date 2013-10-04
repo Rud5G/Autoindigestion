@@ -19,13 +19,15 @@
 
 - (NSDate *)previousDayForDate:(NSDate *)date;
 
+- (NSDate *)previousFirstOfTheMonthForDate:(NSDate *)date;
+
 - (NSDate *)previousNewYearsDayForDate:(NSDate *)date;
 
 - (NSDate *)previousSundayForDate:(NSDate *)date;
 
 - (NSDate *)thirteenSundaysAgoForDate:(NSDate *)date;
 
-- (NSDate *)twelveMonthsAgoForDate:(NSDate *)date;
+- (NSDate *)twelveFirstOfTheMonthsAgoForDate:(NSDate *)date;
 
 - (NSDate *)twoWeeksAgoForDate:(NSDate *)date;
 
