@@ -44,21 +44,21 @@ Manual Installation and Removal
 -------------------------------
 The Autoindigestion installer creates the following directories and files:
 
-  - `"/Library/Autoindigestion/Autoindigestion"`
-  - `"/Library/Autoindigestion/Autoingestion.class"`
-  - `"/Library/Autoindigestion/Vendors/ExampleVendor.plist"`
-  - `"/Library/LaunchDaemons/Autoindigestion.plist"`
-  - `"/usr/local/share/man/man1/Autoindigestion.1"`
-  - `"/usr/local/share/man/man5/Autoindigestion.5"`
+  - `/Library/Autoindigestion/Autoindigestion`
+  - `/Library/Autoindigestion/Autoingestion.class`
+  - `/Library/Autoindigestion/Vendors/ExampleVendor.plist`
+  - `/Library/LaunchDaemons/Autoindigestion.plist`
+  - `/usr/local/share/man/man1/Autoindigestion.1`
+  - `/usr/local/share/man/man5/Autoindigestion.5`
 
 In addition, the installer creates a temporary directory named
-`"/tmp/com.ablepear.autoindigestion.installer/"` and will remove it when 
+`/tmp/com.ablepear.autoindigestion.installer/` and will remove it when
 installation is completed under normal circumstances.
 
 Configuration
 -------------
-Create at least one vendor file in `"/Library/Autoindigestion/Vendors"`.  A
-vendor filename must end in `".plist"`.  Here is a sample vendor file:
+Create at least one vendor file in `/Library/Autoindigestion/Vendors`.  A
+vendor filename must end in `.plist`.  Here is an example vendor file:
     
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
@@ -66,20 +66,25 @@ vendor filename must end in `".plist"`.  Here is a sample vendor file:
     <plist version="1.0">
     <dict>
         <key>VendorName</key>
-        <string>Example Inc</string>
+        <string><![CDATA[Example Inc]]></string>
         
         <key>VendorID</key>
         <string>81234567</string>
         
         <key>Username</key>
-        <string>someone@example.com</string>
+        <string><![CDATA[someone@example.com]]></string>
         
         <key>Password</key>
-        <string>itsasecret</string>
+        <string><![CDATA[itsasecret]]></string>
     </dict>
     </plist>
-The installer will create a similar one at
-`"/Library/Autoindigestion/Vendors/ExampleVendor.plist"`.  The vendor ID is
+Because this is an XML file, it's recommended that you surround the vendor
+name, username and password values with `<![CDATA[` and `]]>`; alternately you
+need to check these values for special XML characters `<`, `>` and `&` and
+replace them with `&lt;`, `&gt;` and `&amp;` respectively.
+
+The installer will create a similar example vendor file at
+`/Library/Autoindigestion/Vendors/ExampleVendor.plist`.  The vendor ID is
 available in iTunes Connect on the "Sales and Trends" page or can be found in
 an existing sales report.  For security, do **not** use the  username and
 password of your iTunes Connect Admin user in the vendor file!  Create a
@@ -88,7 +93,7 @@ Autoindigestion.  For additional security, run `chmod 600 "<vendor file>"` and
 `sudo chown root:admin "<vendor file>"` on each vendor file you create.
 
 The installer creates and loads a launchd item at
-`"/Library/LaunchDaemons/Autoindigestion.plist"` that will run Autoindigestion
+`/Library/LaunchDaemons/Autoindigestion.plist` that will run Autoindigestion
 automatically each day.  Here is a sample launchd item that runs at 8:30 AM in
 the morning and again at 8:30 PM in the evening:
     
@@ -120,6 +125,7 @@ the morning and again at 8:30 PM in the evening:
                 <integer>30</integer>
             </dict>
         </array>
+
         <key>StandardErrorPath</key>
         <string>/Library/Logs/Autoindigestion.log</string>
         
@@ -132,13 +138,13 @@ reports are usually available by 8:00 AM Cupertino time (UTC -0800 or -0700
 in summer) but are occasionally delayed a few hours.
 
 After creating or modifying the launchd item, tell launchd to load it by
-running `sudo launchctl load "/Library/LaunchDaemons/Autoindigestion.plist"`.
+running `sudo launchctl load /Library/LaunchDaemons/Autoindigestion.plist`.
 
 To disable Autoindigestion, run
-`sudo launchctl unload "/Library/LaunchDaemons/Autoindigestion.plist"`.
+`sudo launchctl unload /Library/LaunchDaemons/Autoindigestion.plist`.
 
 Downloaded reports for each vendor will be placed in
-`"/Users/Shared/iTunes Connect/<VendorName>"` respectively, where `<VendorName>`
+`/Users/Shared/iTunes Connect/<VendorName>` respectively, where `<VendorName>`
 is the value of the `VendorName` key from the vendor file.
 
 Reference

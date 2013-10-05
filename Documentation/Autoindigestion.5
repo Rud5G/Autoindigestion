@@ -140,19 +140,38 @@ A mimimal vendor file looks like this:
 <plist version="1.0">
 <dict>
 	<key>VendorName</key>
-	<string>Example Inc</string>
+	<string><![CDATA[Example Inc]]></string>
 	
 	<key>VendorID</key>
 	<string>81234567</string>
 	
 	<key>Username</key>
-	<string>someone@example.com</string>
+	<string><![CDATA[someone@example.com]]></string>
 	
 	<key>Password</key>
-	<string>itsasecret</string>
+	<string><![CDATA[itsasecret]]></string>
 </dict>
 </plist>
 .Ed
+.Pp
+Because this is an XML file, it's recommended that you surround the vendor
+name, username and password values with 
+.Sy <![CDATA[
+and
+.Sy ]]> ;
+alternately you
+need to check these values for special XML characters 
+.Sy < ,
+.Sy >
+and 
+.Sy & 
+and
+replace them with 
+.Sy &lt; , 
+.Sy &gt; 
+and 
+.Sy &amp; 
+respectively.
 .Pp
 .Ss \fBConfiguration.plist\fR -- configuration file (optional)
 .Pp
@@ -172,6 +191,9 @@ and vendor files.
 </dict>
 </plist>
 .Ed
+.Pp
+Like vendor files, the configuration file is XML so special
+characters need to be escaped in values.
 .Pp
 .Ss \fBAutoindigestion.plist\fR -- launchd item (recommended)
 .Pp

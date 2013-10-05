@@ -4,10 +4,12 @@
 <dict>
 	<key>Label</key>
 	<string>Autoindigestion</string>
+
 	<key>ProgramArguments</key>
 	<array>
 		<string>/Library/Autoindigestion/Autoindigestion</string>
 	</array>
+
 	<key>StartCalendarInterval</key>
 	<array>
 		<dict>
@@ -23,8 +25,10 @@
 			<integer>30</integer>
 		</dict>
 	</array>
+
 	<key>StandardErrorPath</key>
 	<string>/Library/Logs/Autoindigestion.log</string>
+
 	<key>StandardOutPath</key>
 	<string>/Library/Logs/Autoindigestion.log</string>
 </dict>

@@ -107,18 +107,23 @@ EXAMPLES
 	   <plist version="1.0">
 	   <dict>
 		   <key>VendorName</key>
-		   <string>Example Inc</string>
+		   <string><![CDATA[Example Inc]]></string>
 
 		   <key>VendorID</key>
 		   <string>81234567</string>
 
 		   <key>Username</key>
-		   <string>someone@example.com</string>
+		   <string><![CDATA[someone@example.com]]></string>
 
 		   <key>Password</key>
-		   <string>itsasecret</string>
+		   <string><![CDATA[itsasecret]]></string>
 	   </dict>
 	   </plist>
+
+     Because this is an XML file, it's recommended that you surround the ven-
+     dor name, username and password values with <![CDATA[ and ]]>; alter-
+     nately you need to check these values for special XML characters <, > and
+     & and replace them with &lt;, &gt; and &amp; respectively.
 
    Configuration.plist -- configuration file (optional)
      This configuration file overrides the default location for the Auto-
@@ -136,6 +141,9 @@ EXAMPLES
 		   <string>/Users/Shared/iTunes Connect/Vendors</string>
 	   </dict>
 	   </plist>
+
+     Like vendor files, the configuration file is XML so special characters
+     need to be escaped in values.
 
    Autoindigestion.plist -- launchd item (recommended)
      You can add a launchd item to your system to run Autoindigestion automat-
