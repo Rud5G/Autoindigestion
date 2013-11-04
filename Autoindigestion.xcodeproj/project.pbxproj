@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B0F470D7C7813B89CFA38C60 /* ReportDateType.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */; };
+		B0F4738DC70FFC24233F8B84 /* SenTestCase+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F473820DFBC7AB97089A44 /* SenTestCase+Date.m */; };
 		B0F477AEC7C8B3CFA7338A70 /* ReportDateType.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */; };
 		D407937615A800CB0018FBBA /* Autoindigestion.1 in Sources */ = {isa = PBXBuildFile; fileRef = D407937415A800AA0018FBBA /* Autoindigestion.1 */; };
 		D407937715A800CE0018FBBA /* Autoindigestion.5 in Sources */ = {isa = PBXBuildFile; fileRef = D407937515A800AA0018FBBA /* Autoindigestion.5 */; };
@@ -118,8 +119,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B0F473820DFBC7AB97089A44 /* SenTestCase+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SenTestCase+Date.m"; sourceTree = "<group>"; };
 		B0F4757BF320B8C268DC8480 /* ReportDateType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDateType.h; sourceTree = "<group>"; };
 		B0F47BFF5C1E2D53EA587272 /* ReportDateType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateType.m; sourceTree = "<group>"; };
+		B0F47D764330E2BAF7F7909C /* SenTestCase+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SenTestCase+Date.h"; sourceTree = "<group>"; };
 		D407936915A7F9350018FBBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D407936A15A7F9350018FBBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		D407937415A800AA0018FBBA /* Autoindigestion.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = Autoindigestion.1; sourceTree = "<group>"; };
@@ -460,6 +463,8 @@
 				D4BDA39A17F3D06700D8FF29 /* ReportCategoryTest.m */,
 				D4BDA3A417F5227E00D8FF29 /* ReportDateTypeTest.m */,
 				D498BF5C17C3BF88007B2B2C /* ReportFilenamePatternTest.m */,
+				B0F47D764330E2BAF7F7909C /* SenTestCase+Date.h */,
+				B0F473820DFBC7AB97089A44 /* SenTestCase+Date.m */,
 				D4EDA1D715DB1D950084B460 /* UnitTests-Info.plist */,
 				D4EDA1DE15DB1D950084B460 /* UnitTests-Prefix.pch */,
 				D425F60216601D850035DF8D /* UserTest.m */,
@@ -676,6 +681,7 @@
 				D498BF5E17C3C3D0007B2B2C /* ReportCategory.m in Sources */,
 				D498BF5F17C3C3DF007B2B2C /* AutoingestionJob.m in Sources */,
 				B0F470D7C7813B89CFA38C60 /* ReportDateType.m in Sources */,
+				B0F4738DC70FFC24233F8B84 /* SenTestCase+Date.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

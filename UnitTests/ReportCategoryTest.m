@@ -1,6 +1,18 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "ReportCategory.h"
 #import "ReportDateType.h"
+#import "SenTestCase+Date.h"
+#import "Vendor.h"
+
+
+@interface FakeVendor : NSObject
+
+@property (readonly) Group *group;
+@property (readonly) User *owner;
+@property (readonly, copy) NSString *reportDir;
+@property (readonly, copy) NSString *vendorID;
+
+@end
 
 
 @interface ReportCategoryTest : SenTestCase
@@ -19,7 +31,7 @@
 
 - (void)setUp;
 {
-  _date = [NSDate dateWithNaturalLanguageString:@"5/22/2012 08:30:12"];
+  _date = [self date:@"5/22/2012 08:30:12"];
   _dailyReportCategory = [[ReportCategory alloc] initWithMonitor:nil
                                                         defaults:nil
                                                    autoingestion:nil
@@ -60,9 +72,9 @@
   NSArray *missingReportDates = [_dailyReportCategory missingReportDates:@[]];
 
   STAssertEquals((NSUInteger) 14, [missingReportDates count], nil);
-  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"5/8/2012 00:00:00"];
+  NSDate *expectedFirstDate = [self date:@"5/8/2012 00:00:00"];
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
-  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"5/21/2012 00:00:00"];
+  NSDate *expectedLastDate = [self date:@"5/21/2012 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
 }
 
@@ -71,9 +83,9 @@
 {
   NSArray *missingReportDates = [_weeklyReportCategory missingReportDates:@[]];
   STAssertEquals((NSUInteger) 13, [missingReportDates count], nil);
-  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"2/26/2012 00:00:00"];
+  NSDate *expectedFirstDate = [self date:@"2/26/2012 00:00:00"];
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
-  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"5/20/2012 00:00:00"];
+  NSDate *expectedLastDate = [self date:@"5/20/2012 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
 }
 
@@ -82,9 +94,9 @@
 {
   NSArray *missingReportDates = [_monthlyReportCategory missingReportDates:@[]];
   STAssertEquals((NSUInteger) 12, [missingReportDates count], nil);
-  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"5/1/2011 00:00:00"];
+  NSDate *expectedFirstDate = [self date:@"5/1/2011 00:00:00"];
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
-  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"4/1/2012 00:00:00"];
+  NSDate *expectedLastDate = [self date:@"4/1/2012 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
 }
 
@@ -93,9 +105,9 @@
 {
   NSArray *missingReportDates = [_yearlyReportCategory missingReportDates:@[]];
   STAssertEquals((NSUInteger) 4, [missingReportDates count], nil);
-  NSDate *expectedFirstDate = [NSDate dateWithNaturalLanguageString:@"1/1/2008 00:00:00"];
+  NSDate *expectedFirstDate = [self date:@"1/1/2008 00:00:00"];
   STAssertEqualObjects(expectedFirstDate, [missingReportDates objectAtIndex:0], nil);
-  NSDate *expectedLastDate = [NSDate dateWithNaturalLanguageString:@"1/1/2011 00:00:00"];
+  NSDate *expectedLastDate = [self date:@"1/1/2011 00:00:00"];
   STAssertEqualObjects(expectedLastDate, [missingReportDates lastObject], nil);
 }
 
@@ -121,6 +133,24 @@
 - (void)testReportDescriptionWithDateForYearlyReports;
 {
   STAssertEqualObjects(@"2012 Yearly Sales Summary Report", [_yearlyReportCategory reportDescriptionWithDate:_date], nil);
+}
+
+
+@end
+
+
+@implementation FakeVendor
+
+
+- (instancetype)init;
+{
+  self = [super init];
+  if ( ! self) return nil;
+
+  _reportDir = [@"/reports" copy];
+  _vendorID = [@"81234567" copy];
+
+  return self;
 }
 
 

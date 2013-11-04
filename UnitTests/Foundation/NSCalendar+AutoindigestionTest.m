@@ -1,11 +1,9 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "NSCalendar+Autoindigestion.h"
+#import "SenTestCase+Date.h"
 
 
 @interface NSCalendar_AutoindigestionTest : SenTestCase
-
-- (NSDate *)date:(NSString *)expectedDateString;
-
 @end
 
 
@@ -140,13 +138,6 @@
   NSDate *todayWithZeroTime = [_calendar zeroOutTimeForDate:[self date:@"5/22/2012 08:30:12"]];
   
   STAssertEqualObjects([self date:@"5/22/2012 00:00:00"], todayWithZeroTime, nil);
-}
-
-
-- (NSDate *)date:(NSString *)expectedDateString;
-{
-  return [NSDate dateWithNaturalLanguageString:expectedDateString
-                                        locale:_locale];
 }
 
 
