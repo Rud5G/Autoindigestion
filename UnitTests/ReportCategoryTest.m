@@ -101,6 +101,26 @@
 }
 
 
+- (void)testMissingReportDatesForMonthlyReportsForFirstOfTheMonth;
+{
+  _date = [self date:@"5/1/2012 08:30:12"];
+  Vendor *vendor = (Vendor *) [FakeVendor new];
+  _monthlyReportCategory = [[ReportCategory alloc] initWithMonitor:nil
+                                                          defaults:nil
+                                                     autoingestion:nil
+                                                            vendor:vendor
+                                                        reportType:kReportTypeSales
+                                                    reportDateType:[ReportDateType monthly]
+                                                     reportSubtype:kReportSubtypeSummary
+                                                           andDate:_date];
+
+  NSArray *missingReportDates = [_monthlyReportCategory missingReportDates:@[@"S_M_81234567_201203.txt.gz"]];
+  STAssertEquals((NSUInteger) 1, [missingReportDates count], nil);
+  NSDate *expectedDate = [self date:@"4/1/2012 00:00:00"];
+  STAssertEqualObjects(expectedDate, [missingReportDates objectAtIndex:0], nil);
+}
+
+
 - (void)testMissingReportDatesForYearlyReportsWithNoDownloadedReports;
 {
   NSArray *missingReportDates = [_yearlyReportCategory missingReportDates:@[]];
